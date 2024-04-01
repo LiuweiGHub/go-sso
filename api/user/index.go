@@ -2,8 +2,6 @@ package user
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
 	"go-sso/models"
 	"go-sso/modules/app"
 	"go-sso/utils/common"
@@ -12,9 +10,13 @@ import (
 	"go-sso/utils/response"
 	"go-sso/utils/sms"
 	"go-sso/utils/verify"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 )
 
 type UserMobile struct {
@@ -40,7 +42,7 @@ var MobileTrans = map[string]string{"mobile": "手机号"}
 
 var UserMobileTrans = map[string]string{"Mobile": "手机号", "Passwd": "密码", "Code": "验证码"}
 
-//手机密码
+// 手机密码
 func Login(c *gin.Context) {
 	var userMobile UserMobilePasswd
 	if err := c.BindJSON(&userMobile); err != nil {
@@ -66,13 +68,21 @@ func Login(c *gin.Context) {
 	return
 }
 
-//注销登录
+func Index(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{"title": "首页"})
+}
+
+func Show(c *gin.Context) {
+	c.HTML(http.StatusOK, "show.html", gin.H{"title": "首页"})
+}
+
+// 注销登录
 func Logout(c *gin.Context) {
 	secure := app.IsHttps(c)
 	//access_token  refresh_token 加黑名单
 	accessToken, has := request.GetParam(c, app.ACCESS_TOKEN)
 	if has {
-		uid := strconv.FormatInt(c.MustGet("uid").(int64),10)
+		uid := strconv.FormatInt(c.MustGet("uid").(int64), 10)
 		app.AddBlack(uid, accessToken)
 	}
 	c.SetCookie(app.COOKIE_TOKEN, "", -1, "/", "", secure, true)
@@ -82,7 +92,7 @@ func Logout(c *gin.Context) {
 	return
 }
 
-//手机验证码登录
+// 手机验证码登录
 func LoginByMobileCode(c *gin.Context) {
 	var userMobile UserMobileCode
 	if err := c.BindJSON(&userMobile); err != nil {
@@ -131,7 +141,7 @@ func MobileIsExists(c *gin.Context) {
 	return
 }
 
-//发送短信验证码
+// 发送短信验证码
 func SendSms(c *gin.Context) {
 	var p Mobile
 	if err := c.BindJSON(&p); err != nil {
@@ -156,7 +166,7 @@ func SendSms(c *gin.Context) {
 
 }
 
-//手机号注册
+// 手机号注册
 func SignupByMobile(c *gin.Context) {
 	var userMobile UserMobile
 	if err := c.BindJSON(&userMobile); err != nil {
@@ -197,7 +207,7 @@ func SignupByMobile(c *gin.Context) {
 	return
 }
 
-//access token 续期
+// access token 续期
 func Renewal(c *gin.Context) {
 	accessToken, has := request.GetParam(c, app.ACCESS_TOKEN)
 	if !has {
@@ -257,13 +267,13 @@ func Renewal(c *gin.Context) {
 	response.ShowError(c, "success")
 	return
 }
-func Info(c *gin.Context)  {
-	uid:=c.MustGet("uid").(int64)
+func Info(c *gin.Context) {
+	uid := c.MustGet("uid").(int64)
 	fmt.Println(uid)
-	model:=models.Users{}
-	model.Id=uid
-	row,err:=model.GetRowById()
-	if err!=nil {
+	model := models.Users{}
+	model.Id = uid
+	row, err := model.GetRowById()
+	if err != nil {
 		fmt.Println(err)
 		response.ShowValidatorError(c, err)
 		return
@@ -271,8 +281,8 @@ func Info(c *gin.Context)  {
 	fmt.Println(row)
 	fmt.Println(row.Name)
 	//隐藏手机号中间数字
-	s :=row.Mobile
-	row.Mobile =string([]byte(s)[0:3])+"****"+string([]byte(s)[6:])
-	response.ShowData(c,row)
+	s := row.Mobile
+	row.Mobile = string([]byte(s)[0:3]) + "****" + string([]byte(s)[6:])
+	response.ShowData(c, row)
 	return
 }
