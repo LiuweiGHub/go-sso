@@ -60,16 +60,17 @@ function writeSource(cs, ms) {
         }
         runfen = 1;
         csmode = 1;
-        var zwdshxjz = url + 'Homepage.php?SYLX=FZPP&id=ZWNZ&usex=' + sex + '&gl_birthday=' + gl_birthday + '&runfen=' + runfen + '&csmode=' + csmode + '&bz=' + BZWZ;
-        createXmlHttp();
-        xmlHttp.onreadystatechange = zwdshxjzs;
-        xmlHttp.open('GET', zwdshxjz, false);
-        xmlHttp.send(null);
+        // 紫薇斗数辅助排盘
+        // var zwdshxjz = url + 'Homepage.php?SYLX=FZPP&id=ZWNZ&usex=' + sex + '&gl_birthday=' + gl_birthday + '&runfen=' + runfen + '&csmode=' + csmode + '&bz=' + BZWZ;
+        // createXmlHttp();
+        // xmlHttp.onreadystatechange = zwdshxjzs;
+        // xmlHttp.open('GET', zwdshxjz, false);
+        // xmlHttp.send(null);
 
-        function zwdshxjzs() {
-            obg = JSON.parse(xmlHttp.responseText);
-            document.getElementById('zwdshxjz').insertAdjacentHTML('afterend', "<div class='pp_box'><div style='padding-bottom:20px;'> <table width='100%' border='1' cellspacing='0' cellpadding='2' align='center' style='line-height:100%; font-size:8px;' id='obgppbox'> <tr> <td width='25%' height='20%' valign='top'>" + obg['pan'][6] + "</td> <td width='25%' valign='top'>" + obg['pan'][7] + "</td> <td width='25%' valign='top'>" + obg['pan'][8] + "</td> <td width='25%' valign='top'>" + obg['pan'][9] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][5] + "</td> <td colspan='2' rowspan='2' valign='top' style='line-height:100%'><br><div align='center'><font color='#993300' style='font-size:12px;'>紫薇斗数辅助排盘</font></div><br>姓名:" + system.name + "&emsp;性别:" + system.sexx + "&emsp;年龄:" + obg['sui'] + "岁<br>阳历:" + obg['glstr'] + "<br>农历:" + obg['nlstr'] + "<br>命四化<font color='red'>[" + obg['sihuaname'] + "]</font><br>命宫在<font color='#800080'>" + obg['minggong'] + "</font>&emsp;身宫在<font color='#800080'>" + obg['shengong'] + "</font><br>子斗在<font color=blue>" + obg['dou']['zd'] + "</font>&emsp;流斗在<font color=blue>" + obg['dou']['dj'] + "</font><br>盘类:天盘<font color='red'>" + obg['juname'] + "</font>&emsp;命主:<font color='#008000'>" + obg['mingzhu'] + "</font>&emsp;身主:<font color='#008000'>" + obg['shenzhu'] + "</font><br><b>命造:<font color=red>" + obg['ygz'] + '&emsp;&emsp;' + obg['mgz'] + '&emsp;&emsp;' + obg['dgz'] + '&emsp;&emsp;' + obg['hgz'] + "</font></b><br>纳音:" + DYNY[BZ.ng + BZ.nz] + '&emsp;' + DYNY[BZ.yg + BZ.yz] + '&emsp;' + DYNY[BZ.rg + BZ.rz] + '&emsp;' + DYNY[BZ.sg + BZ.sz] + "</td> <td height='20%' valign='top'>" + obg['pan'][10] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][4] + "</td> <td valign='top'>" + obg['pan'][11] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][3] + "</td> <td valign='top'>" + obg['pan'][2] + "</td> <td valign='top'>" + obg['pan'][1] + "</td> <td valign='top'>" + obg['pan'][0] + "</td> </tr></table></div></div>");
-        }
+        // function zwdshxjzs() {
+        //     obg = JSON.parse(xmlHttp.responseText);
+        //     document.getElementById('zwdshxjz').insertAdjacentHTML('afterend', "<div class='pp_box'><div style='padding-bottom:20px;'> <table width='100%' border='1' cellspacing='0' cellpadding='2' align='center' style='line-height:100%; font-size:8px;' id='obgppbox'> <tr> <td width='25%' height='20%' valign='top'>" + obg['pan'][6] + "</td> <td width='25%' valign='top'>" + obg['pan'][7] + "</td> <td width='25%' valign='top'>" + obg['pan'][8] + "</td> <td width='25%' valign='top'>" + obg['pan'][9] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][5] + "</td> <td colspan='2' rowspan='2' valign='top' style='line-height:100%'><br><div align='center'><font color='#993300' style='font-size:12px;'>紫薇斗数辅助排盘</font></div><br>姓名:" + system.name + "&emsp;性别:" + system.sexx + "&emsp;年龄:" + obg['sui'] + "岁<br>阳历:" + obg['glstr'] + "<br>农历:" + obg['nlstr'] + "<br>命四化<font color='red'>[" + obg['sihuaname'] + "]</font><br>命宫在<font color='#800080'>" + obg['minggong'] + "</font>&emsp;身宫在<font color='#800080'>" + obg['shengong'] + "</font><br>子斗在<font color=blue>" + obg['dou']['zd'] + "</font>&emsp;流斗在<font color=blue>" + obg['dou']['dj'] + "</font><br>盘类:天盘<font color='red'>" + obg['juname'] + "</font>&emsp;命主:<font color='#008000'>" + obg['mingzhu'] + "</font>&emsp;身主:<font color='#008000'>" + obg['shenzhu'] + "</font><br><b>命造:<font color=red>" + obg['ygz'] + '&emsp;&emsp;' + obg['mgz'] + '&emsp;&emsp;' + obg['dgz'] + '&emsp;&emsp;' + obg['hgz'] + "</font></b><br>纳音:" + DYNY[BZ.ng + BZ.nz] + '&emsp;' + DYNY[BZ.yg + BZ.yz] + '&emsp;' + DYNY[BZ.rg + BZ.rz] + '&emsp;' + DYNY[BZ.sg + BZ.sz] + "</td> <td height='20%' valign='top'>" + obg['pan'][10] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][4] + "</td> <td valign='top'>" + obg['pan'][11] + "</td> </tr> <tr> <td height='20%' valign='top'>" + obg['pan'][3] + "</td> <td valign='top'>" + obg['pan'][2] + "</td> <td valign='top'>" + obg['pan'][1] + "</td> <td valign='top'>" + obg['pan'][0] + "</td> </tr></table></div></div>");
+        // }
 
         var host = window.location.host;
         if (fanhui == 0) {
@@ -226,23 +227,23 @@ function writeSource(cs, ms) {
             '鬼谷子两头钳': FX.liangtoqian,
             '格物至言': FX.gewuzhiyan
         };
-        for (var key in proData) {
-            demoP = document.getElementById("FX1");
-            demoP.innerHTML = demoP.innerHTML + "<option value='" + key + "'>" + key + "</option>";
-        }
-        var oSelectPro = document.getElementById('FX1');
-        var oSelectCity = document.getElementById('FX2');
-        oSelectPro.onchange = function () {
-            var aRrayCity = proData[this.value];
-            oSelectCity.options.length = 0;
-            for (var i = 0; i < aRrayCity.length; i++) {
-                var oOption = document.createElement('option');
-                oOption.innerHTML = aRrayCity[i];
-                oOption.value = proDatac[aRrayCity[i]];
-                oSelectCity.appendChild(oOption)
-            }
-            show();
-        }
+        // for (var key in proData) {
+        //     demoP = document.getElementById("FX1");
+        //     demoP.innerHTML = demoP.innerHTML + "<option value='" + key + "'>" + key + "</option>";
+        // }
+        // var oSelectPro = document.getElementById('FX1');
+        // var oSelectCity = document.getElementById('FX2');
+        // oSelectPro.onchange = function () {
+        //     var aRrayCity = proData[this.value];
+        //     oSelectCity.options.length = 0;
+        //     for (var i = 0; i < aRrayCity.length; i++) {
+        //         var oOption = document.createElement('option');
+        //         oOption.innerHTML = aRrayCity[i];
+        //         oOption.value = proDatac[aRrayCity[i]];
+        //         oSelectCity.appendChild(oOption)
+        //     }
+        //     show();
+        // }
         document.getElementById("BZBH1").innerHTML = "金" + bazixinxi.zh[0][0] + '个，木' + bazixinxi.zh[0][1] + '个，水' + bazixinxi.zh[0][2] + '个，火' + bazixinxi.zh[0][3] + '个，土' + bazixinxi.zh[0][4] + "个";
         document.getElementById("BZBH2").innerHTML = "阴" + bazixinxi.zh[1][1] + '个，阳' + bazixinxi.zh[1][0] + '个，阴占比' + bazixinxi.zh[2][0] + "％，阳占比" + bazixinxi.zh[2][1] + "％";
         document.getElementById("BZBH3").innerHTML = "金" + bazixinxi.zh[3][0] + '个，木' + bazixinxi.zh[3][1] + '个，水' + bazixinxi.zh[3][2] + '个，火' + bazixinxi.zh[3][3] + '个，土' + bazixinxi.zh[3][4] + "个";
@@ -260,22 +261,24 @@ function writeSource(cs, ms) {
         document.getElementById("DaYunKWb").innerHTML = DYKW[[BZ.yg] + [BZ.yz]];
         document.getElementById("DaYunKWc").innerHTML = DYKW[[BZ.rg] + [BZ.rz]];
         document.getElementById("DaYunKWd").innerHTML = DYKW[[BZ.sg] + [BZ.sz]];
-        document.getElementById("DYWSnz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.nz] + "')>" + DYWS[BZ.nz] + "</a>";
-        document.getElementById("DYWSyz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.yz] + "')>" + DYWS[BZ.yz] + "</a>";
-        document.getElementById("DYWSrz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.rz] + "')>" + DYWS[BZ.rz] + "</a>";
-        document.getElementById("DYWSsz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.sz] + "')>" + DYWS[BZ.sz] + "</a>";
-        document.getElementById("DYZZnz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.ng] + [BZ.nz]] + "')>" + DYZZ[[BZ.ng] + [BZ.nz]] + "</a>";
-        document.getElementById("DYZZyz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.yg] + [BZ.yz]] + "')>" + DYZZ[[BZ.yg] + [BZ.yz]] + "</a>";
-        document.getElementById("DYZZrz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.rg] + [BZ.rz]] + "')>" + DYZZ[[BZ.rg] + [BZ.rz]] + "</a>";
-        document.getElementById("DYZZsz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.sg] + [BZ.sz]] + "')>" + DYZZ[[BZ.sg] + [BZ.sz]] + "</a>";
-        document.getElementById("DYNYnz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.ng] + [BZ.nz]] + "')>" + DYNY[[BZ.ng] + [BZ.nz]] + "</a>";
-        document.getElementById("DYNYyz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.yg] + [BZ.yz]] + "')>" + DYNY[[BZ.yg] + [BZ.yz]] + "</a>";
-        document.getElementById("DYNYrz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.rg] + [BZ.rz]] + "')>" + DYNY[[BZ.rg] + [BZ.rz]] + "</a>";
-        document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
+        // document.getElementById("DYWSnz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.nz] + "')>" + DYWS[BZ.nz] + "</a>";
+        // document.getElementById("DYWSyz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.yz] + "')>" + DYWS[BZ.yz] + "</a>";
+        // document.getElementById("DYWSrz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.rz] + "')>" + DYWS[BZ.rz] + "</a>";
+        // document.getElementById("DYWSsz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.sz] + "')>" + DYWS[BZ.sz] + "</a>";
+        // document.getElementById("DYZZnz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.ng] + [BZ.nz]] + "')>" + DYZZ[[BZ.ng] + [BZ.nz]] + "</a>";
+        // document.getElementById("DYZZyz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.yg] + [BZ.yz]] + "')>" + DYZZ[[BZ.yg] + [BZ.yz]] + "</a>";
+        // document.getElementById("DYZZrz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.rg] + [BZ.rz]] + "')>" + DYZZ[[BZ.rg] + [BZ.rz]] + "</a>";
+        // document.getElementById("DYZZsz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.sg] + [BZ.sz]] + "')>" + DYZZ[[BZ.sg] + [BZ.sz]] + "</a>";
+        // document.getElementById("DYNYnz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.ng] + [BZ.nz]] + "')>" + DYNY[[BZ.ng] + [BZ.nz]] + "</a>";
+        // document.getElementById("DYNYyz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.yg] + [BZ.yz]] + "')>" + DYNY[[BZ.yg] + [BZ.yz]] + "</a>";
+        // document.getElementById("DYNYrz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.rg] + [BZ.rz]] + "')>" + DYNY[[BZ.rg] + [BZ.rz]] + "</a>";
+        // document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
         LNDYQY = "<td>运年</td>";
         xipandayungz = "<td>大运</td>";
         for (i = 0; i <= 27;) {
-            LNDYQY += '<td>' + LNDY[i + 1] + '岁<br>' + LNDY[i] + '</td>';
+            console.log(LNDY[i + 1] - 1)
+            let age = LNDY[i + 1] - 1
+            LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
             xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
             i = i + 3;
         }
@@ -286,29 +289,35 @@ function writeSource(cs, ms) {
         for (let i = 0; i < 27; i++) {
             ddssxx += "document.getElementById('aBZcolor." + Q21[i] + "ys').style='color:" + tgdzColor[ZGss[Q21[i]]] + "';";
             if (ZGss[Q21[i]] != null) {
-                ddssxx += "document.getElementById(\"aZGss." + Q21[i] + "\").innerHTML=\"<a onclick=sc('wd','" + ZGss[Q21[i]] + "')>" + ZGss[Q21[i]] + "</a>\";";
+                ddssxx += "document.getElementById(\"aZGss." + Q21[i] + "\").innerHTML=\"<front style='color:#333333'>" + ZGss[Q21[i]] + "</front>\";";
             }
             if (i < 9) {
-                ddssxx += "document.getElementById('aBZcolor." + G8[i] + "ys').style='flex:1;color:" + tgdzColor[BZ[G8[i]]] + "';";
+                if (i == 5) {
+                    ddssxx += "document.getElementById('aBZcolor." + G8[i] + "ys').style='flex:1;color:blue';";
+                } else {
+                    ddssxx += "document.getElementById('aBZcolor." + G8[i] + "ys').style='flex:1;color:#333333';";
+                }
                 ddssxx += "document.getElementById('aBZcolor." + G8[i] + "ysa').style='font-size:24px;font-weight:700;color:" + tgdzColor[BZ[G8[i]]] + "';";
                 ddssxx += "document.getElementById('aBZcolor." + BQ8[i] + "ysa').style='font-size:24px;font-weight:700;color:" + tgdzColor[ZGss[BQ8[i]]] + "';";
+                console.log(BZ[G8[i]])
                 ddssxx += "document.getElementById(\"aBZ." + G8[i] + "\").innerHTML=\"<a onclick=sc('wd','" + BZ[G8[i]] + "')>" + BZ[G8[i]] + "</a>\";";
                 ddssxx += "document.getElementById(\"aBZ." + Z8[i] + "\").innerHTML=\"<a onclick=sc('wd','" + BZ[Z8[i]] + "')>" + BZ[Z8[i]] + "</a>\";";
-                ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['本']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['本']['全'] + "')>" + DZSS[BZ[Z8[i]]]['本']['全'] + "</a>\";";
+                ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['本']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['本']['全'] + "')>" + "(" +
+                    "<front color='#333333'>" +  DZSS[BZ[Z8[i]]]['本']['全'] + "</front>" + ")" + "</a>\";";
                 if (DZSS[BZ[Z8[i]]]['中']['全'] != null) {
-                    ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['中']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['中']['全'] + "')>" + DZSS[BZ[Z8[i]]]['中']['全'] + "</a>\";";
+                    ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['中']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['中']['全'] + "')>" + "(" + DZSS[BZ[Z8[i]]]['中']['全'] + ")" + "</a>\";";
                 }
                 if (DZSS[BZ[Z8[i]]]['余']['全'] != null) {
-                    ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['余']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['余']['全'] + "')>" + DZSS[BZ[Z8[i]]]['余']['全'] + "</a>\";";
+                    ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['余']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['余']['全'] + "')>" + "(" + DZSS[BZ[Z8[i]]]['余']['全'] + ")" + "</a>\";";
                 }
                 ddssxx += "document.getElementById(\"aDYNY[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYNY[BZ[G8[i]] + BZ[Z8[i]]] + "')>" + DYNY[BZ[G8[i]] + BZ[Z8[i]]] + "</a>\";";
-                ddssxx += "document.getElementById(\"aDYWS[BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYWS[BZ[Z8[i]]] + "')>" + DYWS[BZ[Z8[i]]] + "</a>\";";
-                ddssxx += "document.getElementById(\"aDYZZ[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "')>" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "</a>\";";
+                // ddssxx += "document.getElementById(\"aDYWS[BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYWS[BZ[Z8[i]]] + "')>" + "</a>\";";
+                // ddssxx += "document.getElementById(\"aDYZZ[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "')>" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "</a>\";";
                 ddssxx += "document.getElementById(\"aDYKW[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML='" + DYKW[BZ[G8[i]] + BZ[Z8[i]]] + "';";
                 if (i == 5) {
-                    ddssxx += "document.getElementById('asystem.sexx').innerHTML=\"<a onclick=sc('wd','元" + system.sexx + "')>元" + system.sexx + "</a>\";";
+                    ddssxx += "document.getElementById('asystem.sexx').innerHTML=\"<front color='blue'>元" + system.sexx + "</front>\";";
                 } else {
-                    ddssxx += "document.getElementById(\"aDZSS[BZ." + G8[i] + "]['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[G8[i]]]['全'] + "')>" + DZSS[BZ[G8[i]]]['全'] + "</a>\";";
+                    ddssxx += "document.getElementById(\"aDZSS[BZ." + G8[i] + "]['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[G8[i]]]['全'] + "')>" +  DZSS[BZ[G8[i]]]['全'] + "</a>\";";
                 }
             }
         }
