@@ -107,7 +107,7 @@ function writeSource(cs, ms) {
         ESJQB = ESJQB.replace(/\s/g, '');
         document.getElementById("chusheng.QH").innerHTML = "<a onclick=alert('" + ESJQB + "')>" + chusheng.DL2 + ' ' + chusheng.DL1 + ' ' + chusheng.CL2 + ' ' + chusheng.CL1 + "</a>";
         document.getElementById("system.SiLing").innerHTML = "";
-        document.getElementById("system.SiLingFangshi").innerHTML = system.SiLingFangshi;
+        document.getElementById("system.SiLingFangshi").innerHTML = "";
         document.getElementById("system.SCWG").innerHTML = "";
         document.getElementById("chusheng.QY").innerHTML = chusheng.QY;
         document.getElementById("system.PPFS").innerHTML = system.PPFS;
@@ -117,7 +117,6 @@ function writeSource(cs, ms) {
             document.getElementById("ZTYS").innerHTML = "<b>真太阳时地区：</b><font color='#993300'>" + system.city + "</font><br><b>真太阳时前日期：</b><font color='#993300'>" + system.Z_QRQ + "</font><br>"
         }
         document.getElementById("chusheng.gongli").innerHTML = chusheng.gongli;
-        console.log(chusheng)
         document.getElementById("chusheng.nongli").innerHTML = system.GNF + '年' + '(生肖' + system.shengxiao + ')' + chusheng.nongli.slice(5);
         document.getElementById("bazixinxi.liujiakongwangluokong").innerHTML = "";
         document.getElementById("bzgj").innerHTML = '八字' + deling[5];
@@ -275,14 +274,25 @@ function writeSource(cs, ms) {
         // document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
         LNDYQY = "<td>运年</td>";
         xipandayungz = "<td>大运</td>";
+        liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
+        dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
+        dayunqishi = "<td>大运始于:</td>";
         for (i = 0; i <= 27;) {
             console.log(LNDY[i + 1] - 1)
             let age = LNDY[i + 1] - 1
             LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
-            xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
+            if (age != 0) {
+                liunian += '<td>' + age + '岁' + '</td>';
+                dayunqishi += '<td>' + LNDY[i] + '</td>';
+                xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
+                dayun += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + "<front style='color: red'>" + LNDY[i + 2] + "</front></td>";
+            }
             i = i + 3;
         }
         document.getElementById("LNDYQY").innerHTML = LNDYQY;
+        document.getElementById("liunianage1").innerHTML = liunian;
+        document.getElementById("dayunqishi1").innerHTML = dayunqishi;
+        document.getElementById("dayun1").innerHTML = dayun;
         document.getElementById("xipandayungz").innerHTML = xipandayungz;
         ddssxx = '';
 
@@ -299,7 +309,6 @@ function writeSource(cs, ms) {
                 }
                 ddssxx += "document.getElementById('aBZcolor." + G8[i] + "ysa').style='font-size:24px;font-weight:700;color:" + tgdzColor[BZ[G8[i]]] + "';";
                 ddssxx += "document.getElementById('aBZcolor." + BQ8[i] + "ysa').style='font-size:24px;font-weight:700;color:" + tgdzColor[ZGss[BQ8[i]]] + "';";
-                console.log(BZ[G8[i]])
                 ddssxx += "document.getElementById(\"aBZ." + G8[i] + "\").innerHTML=\"<a onclick=sc('wd','" + BZ[G8[i]] + "')>" + BZ[G8[i]] + "</a>\";";
                 ddssxx += "document.getElementById(\"aBZ." + Z8[i] + "\").innerHTML=\"<a onclick=sc('wd','" + BZ[Z8[i]] + "')>" + BZ[Z8[i]] + "</a>\";";
                 ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['本']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['本']['全'] + "')>" + "(" +
@@ -777,7 +786,7 @@ $("#dayunliunian tr:eq(1) td").click(function (e) {
     $("#liunian_nayin").html(nayin[e.target.innerHTML]);
     $("#liuniantg .small").html($ssShorter[getShishen($tiangan.indexOf(e.target.innerHTML[0]), $tiangan.indexOf($("#rigan").html()))]);
     $("#liuniandz .small").html(getDzSS(e.target.innerHTML[1], $("#rigan").html()));
-    $("#liunianage").html($(e.target).attr("age") + "岁<br>" + $(e.target).attr("year"));
+    $("#liunianage").html($(e.target).attr("age") - 1 + "岁<br>" + $(e.target).attr("year"));
     var i = (parseInt($(e.target).attr("year")) - 1911) % 5;
     var yuegan = [];
     yuegan.push(...$yuegan1911.slice(2 * i));
@@ -844,7 +853,7 @@ $("#xipandayungz td").click(function (e) {
     $("#dayun_nayin").html(nayin[zdyddtd]);
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
-    $("#dayunage").html(e.target.dataset["age"] + "岁<br>" + e.target.dataset["year"]);
+    $("#dayunage").html(e.target.dataset["age"] - 1 + "岁<br>" + e.target.dataset["year"]);
     $("#dayunshensha").html(shensha[zdyddtd]);
     document.getElementById('ld').value = zdyddtd;
     $year = $("#dayunliunian").find('[year=' + currentYear + ']');

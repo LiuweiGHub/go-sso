@@ -72,8 +72,12 @@ func Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{"title": "首页"})
 }
 
+func PaiPan(c *gin.Context) {
+	c.Redirect(http.StatusFound, "show?act=ok&name=王依晨&DateType=5&inputdate=农历1998年三月十三+15时0分&ng=己卯&yg=丙寅&rg=庚寅&sg=丙子&sex=1&leixing=0&ztys=0&city1=北京&city2=北京&city3=东城区&Sect=1&Siling=0&leixinggg=on")
+}
+
 func Show(c *gin.Context) {
-	c.HTML(http.StatusOK, "show.html", gin.H{"title": "首页"})
+	c.HTML(http.StatusOK, "show.html", gin.H{"title": "排盘页"})
 }
 
 // 注销登录

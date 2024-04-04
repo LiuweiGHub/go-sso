@@ -28,6 +28,7 @@ func main() {
 	r.Static("/images", "./static/images")
 	r.GET("/index", user.Index)
 	r.GET("/show", user.Show)
+	r.GET("/paiPan", user.PaiPan)
 
 	r.Use(Auth)
 	r.POST("/renewal", user.Renewal)
