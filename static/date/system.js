@@ -84,12 +84,10 @@ function writeSource(cs, ms) {
         let BQ8 = ['Sbq', 'mbq', 'tbq', 'nbq', 'ybq', 'rbq', 'sbq', 'Tbq', 'Kbq'];
         let Z8 = ['Sz', 'mz', 'tz', 'nz', 'yz', 'rz', 'sz', 'Tz', 'Kz'];
         let Q21 = ['Sbq', 'Szq', 'Syq', 'tbq', 'tzq', 'tyq', 'mbq', 'mzq', 'myq', 'nbq', 'nzq', 'nyq', 'ybq', 'yzq', 'yyq', 'rbq', 'rzq', 'ryq', 'sbq', 'szq', 'syq', 'Tbq', 'Tzq', 'Tyq', 'Kbq', 'Kzq', 'Kyq'];
-        console.log(system)
         document.getElementById('system.XingZuo').innerHTML = system.XingZuo;
         document.getElementById('system.WuHou').innerHTML = "";
         document.getElementById('system.getYueXiang').innerHTML = "";
         document.getElementById('system.getZheng').innerHTML = "";
-        console.log(BZ)
         document.getElementById('system.sexxx').innerHTML = system.sexx + "&nbsp;&nbsp;胎元:&nbsp;" + BZ["tg"] +  BZ["tz"] + "<font color=\"#006600\">" + "[" + DYNY[BZ['tg'] + BZ['tz']] + "]" + "</font>  &nbsp;&nbsp;命宫:&nbsp;" + BZ["mg"] +  BZ["mz"] + "<font color=\"#006600\">" + "[" + DYNY[BZ['mg'] + BZ['mz']] + "]" + "</font>"
         document.getElementById('system.shengxiao').innerHTML = "";
         var search = window.location.search;
@@ -226,6 +224,7 @@ function writeSource(cs, ms) {
             '鬼谷子两头钳': FX.liangtoqian,
             '格物至言': FX.gewuzhiyan
         };
+        let $tiangan1 = ["癸", "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬"];
         // for (var key in proData) {
         //     demoP = document.getElementById("FX1");
         //     demoP.innerHTML = demoP.innerHTML + "<option value='" + key + "'>" + key + "</option>";
@@ -277,8 +276,8 @@ function writeSource(cs, ms) {
         liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
         dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
         dayunqishi = "<td>大运始于:</td>";
+        shishen = "<td>天干十神:</td>"
         for (i = 0; i <= 27;) {
-            console.log(LNDY[i + 1] - 1)
             let age = LNDY[i + 1] - 1
             LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
             if (age != 0) {
@@ -286,12 +285,15 @@ function writeSource(cs, ms) {
                 dayunqishi += '<td>' + LNDY[i] + '</td>';
                 xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
                 dayun += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + "<front style='color: red'>" + LNDY[i + 2] + "</front></td>";
+                let w = LNDY[i + 2].slice(0, 1)
+                shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
             }
             i = i + 3;
         }
         document.getElementById("LNDYQY").innerHTML = LNDYQY;
         document.getElementById("liunianage1").innerHTML = liunian;
         document.getElementById("dayunqishi1").innerHTML = dayunqishi;
+        document.getElementById("tianganshishen1").innerHTML = shishen;
         document.getElementById("dayun1").innerHTML = dayun;
         document.getElementById("xipandayungz").innerHTML = xipandayungz;
         ddssxx = '';
@@ -518,6 +520,7 @@ function yjxianyin(a) {
     $("#bm_tgliuyi").html('');
     $("#bm_dzliuyi").html('');
     $vvttss = $("#bm_tglines .big").map((i, v) => v.innerText).get();
+    console.log($vvttss)
     $vvttsss = $("#bm_dzlines .big").map((i, v) => v.innerText).get();
     acc = [];
     accc = [];
@@ -852,6 +855,10 @@ $("#xipandayungz td").click(function (e) {
     $("#dayun_zizuo").html(zizuo[zdyddtd]);
     $("#dayun_nayin").html(nayin[zdyddtd]);
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
+    console.log("aaaaaaaaaa")
+    console.log(zdyddtd[0])
+    console.log($("#rigan").html())
+    console.log(getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html())))
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
     $("#dayunage").html(e.target.dataset["age"] - 1 + "岁<br>" + e.target.dataset["year"]);
     $("#dayunshensha").html(shensha[zdyddtd]);
