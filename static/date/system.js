@@ -271,57 +271,7 @@ function writeSource(cs, ms) {
         // document.getElementById("DYNYyz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.yg] + [BZ.yz]] + "')>" + DYNY[[BZ.yg] + [BZ.yz]] + "</a>";
         // document.getElementById("DYNYrz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.rg] + [BZ.rz]] + "')>" + DYNY[[BZ.rg] + [BZ.rz]] + "</a>";
         // document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
-        let $diZhiVsTianGan= {
-            '子': ['癸'],
-            '丑': ['己', '癸', '辛'],
-            '寅': ['甲', '丙', '戊'],
-            '卯': ['乙'],
-            '辰': ['戊', '乙', '癸'],
-            '巳': ['丙', '戊', '庚'],
-            '午': ['丁', '己'],
-            '未': ['己', '丁', '乙'],
-            '申': ['庚', '壬', '午'],
-            '酉': ['辛'],
-            '戌': ['戊', '辛', '丁'],
-            '亥': ['壬', '甲']
-        };
-        LNDYQY = "<td>运年</td>";
-        xipandayungz = "<td>大运</td>";
-        liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
-        dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
-        dayunqishi = "<td>大运始于:</td>";
-        shishen = "<td>天干十神:</td>"
-        dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
-        for (i = 0; i <= 27;) {
-            let age = LNDY[i + 1] - 1
-            if (age != 0) {
-                LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
-                liunian += '<td>' + age + '岁' + '</td>';
-                dayunqishi += '<td>' + LNDY[i] + '</td>';
-                xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
-                dayun += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + "<front style='color: red'>" + LNDY[i + 2] + "</front></td>";
-                let w = LNDY[i + 2].slice(0, 1)
-                shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
-                let w1 = LNDY[i + 2].slice(1, 2)
-                dizhiTiangan = $diZhiVsTianGan[w1];
-                dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
-                for (j = 0; j < dizhiTiangan.length; j++) {
-                    console.log(dizhiTiangan[j])
-                    console.log($tiangan1.indexOf($("#rigan").html()))
-                    console.log(getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html())))
-                    dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
-                }
-                dizhishishen += '</td>'
-            }
-            i = i + 3;
-        }
-        document.getElementById("LNDYQY").innerHTML = LNDYQY;
-        document.getElementById("liunianage1").innerHTML = liunian;
-        document.getElementById("dayunqishi1").innerHTML = dayunqishi;
-        document.getElementById("tianganshishen1").innerHTML = shishen;
-        document.getElementById("dayun1").innerHTML = dayun;
-        document.getElementById("dizhishishen1").innerHTML = dizhishishen;
-        document.getElementById("xipandayungz").innerHTML = xipandayungz;
+
         ddssxx = '';
 
         for (let i = 0; i < 27; i++) {
@@ -415,6 +365,261 @@ function writeSource(cs, ms) {
             d = Number(system.GNF) + Number(x);
             dayunliuniancData += "dayunliuniancData['" + d + "']=\"" + LNXY[d] + "\";"
         }
+        let $diZhiVsTianGan= {
+            '子': ['癸'],
+            '丑': ['己', '癸', '辛'],
+            '寅': ['甲', '丙', '戊'],
+            '卯': ['乙'],
+            '辰': ['戊', '乙', '癸'],
+            '巳': ['丙', '戊', '庚'],
+            '午': ['丁', '己'],
+            '未': ['己', '丁', '乙'],
+            '申': ['庚', '壬', '午'],
+            '酉': ['辛'],
+            '戌': ['戊', '辛', '丁'],
+            '亥': ['壬', '甲']
+        };
+
+        let liuNianData1 = {
+            "1924": "甲子",
+            "1925": "乙丑",
+            "1926": "丙寅",
+            "1927": "丁卯",
+            "1928": "戊辰",
+            "1929": "己巳",
+            "1930": "庚午",
+            "1931": "辛未",
+            "1932": "壬申",
+            "1933": "癸酉",
+            "1934": "甲戌",
+            "1935": "乙亥",
+            "1936": "丙子",
+            "1937": "丁丑",
+            "1938": "戊寅",
+            "1939": "己卯",
+            "1940": "庚辰",
+            "1941": "辛巳",
+            "1942": "壬午",
+            "1943": "癸未",
+            "1944": "甲申",
+            "1945": "乙酉",
+            "1946": "丙戌",
+            "1947": "丁亥",
+            "1948": "戊子",
+            "1949": "己丑",
+            "1950": "庚寅",
+            "1951": "辛卯",
+            "1952": "壬辰",
+            "1953": "癸巳",
+            "1954": "甲午",
+            "1955": "乙未",
+            "1956": "丙申",
+            "1957": "丁酉",
+            "1958": "戊戌",
+            "1959": "己亥",
+            "1960": "庚子",
+            "1961": "辛丑",
+            "1962": "壬寅",
+            "1963": "癸卯",
+            "1964": "甲辰",
+            "1965": "乙巳",
+            "1966": "丙午",
+            "1967": "丁未",
+            "1968": "戊申",
+            "1969": "己酉",
+            "1970": "庚戌",
+            "1971": "辛亥",
+            "1972": "壬子",
+            "1973": "癸丑",
+            "1974": "甲寅",
+            "1975": "乙卯",
+            "1976": "丙辰",
+            "1977": "丁巳",
+            "1978": "戊午",
+            "1979": "己未",
+            "1980": "庚申",
+            "1981": "辛酉",
+            "1982": "壬戌",
+            "1983": "癸亥",
+            "1984": "甲子",
+            "1985": "乙丑",
+            "1986": "丙寅",
+            "1987": "丁卯",
+            "1988": "戊辰",
+            "1989": "己巳",
+            "1990": "庚午",
+            "1991": "辛未",
+            "1992": "壬申",
+            "1993": "癸酉",
+            "1994": "甲戌",
+            "1995": "乙亥",
+            "1996": "丙子",
+            "1997": "丁丑",
+            "1998": "戊寅",
+            "1999": "己卯",
+            "2000": "庚辰",
+            "2001": "辛巳",
+            "2002": "壬午",
+            "2003": "癸未",
+            "2004": "甲申",
+            "2005": "乙酉",
+            "2006": "丙戌",
+            "2007": "丁亥",
+            "2008": "戊子",
+            "2009": "己丑",
+            "2010": "庚寅",
+            "2011": "辛卯",
+            "2012": "壬辰",
+            "2013": "癸巳",
+            "2014": "甲午",
+            "2015": "乙未",
+            "2016": "丙申",
+            "2017": "丁酉",
+            "2018": "戊戌",
+            "2019": "己亥",
+            "2020": "庚子",
+            "2021": "辛丑",
+            "2022": "壬寅",
+            "2023": "癸卯",
+            "2024": "甲辰",
+            "2025": "乙巳",
+            "2026": "丙午",
+            "2027": "丁未",
+            "2028": "戊申",
+            "2029": "己酉",
+            "2030": "庚戌",
+            "2031": "辛亥",
+            "2032": "壬子",
+            "2033": "癸丑",
+            "2034": "甲寅",
+            "2035": "乙卯",
+            "2036": "丙辰",
+            "2037": "丁巳",
+            "2038": "戊午",
+            "2039": "己未",
+            "2040": "庚申",
+            "2041": "辛酉",
+            "2042": "壬戌",
+            "2043": "癸亥",
+            "2044": "甲子",
+            "2045": "乙丑",
+            "2046": "丙寅",
+            "2047": "丁卯",
+            "2048": "戊辰",
+            "2049": "己巳",
+            "2050": "庚午",
+            "2051": "辛未",
+            "2052": "壬申",
+            "2053": "癸酉",
+            "2054": "甲戌",
+            "2055": "乙亥",
+            "2056": "丙子",
+            "2057": "丁丑",
+            "2058": "戊寅",
+            "2059": "己卯",
+            "2060": "庚辰",
+            "2061": "辛巳",
+            "2062": "壬午",
+            "2063": "癸未",
+            "2064": "甲申",
+            "2065": "乙酉",
+            "2066": "丙戌",
+            "2067": "丁亥",
+            "2068": "戊子",
+            "2069": "己丑",
+            "2070": "庚寅",
+            "2071": "辛卯",
+            "2072": "壬辰",
+            "2073": "癸巳",
+            "2074": "甲午",
+            "2075": "乙未",
+            "2076": "丙申",
+            "2077": "丁酉",
+            "2078": "戊戌",
+            "2079": "己亥",
+            "2080": "庚子",
+            "2081": "辛丑",
+            "2082": "壬寅",
+            "2083": "癸卯",
+            "2084": "甲辰",
+            "2085": "乙巳",
+            "2086": "丙午",
+            "2087": "丁未",
+            "2088": "戊申",
+            "2089": "己酉",
+            "2090": "庚戌",
+            "2091": "辛亥",
+            "2092": "壬子",
+            "2093": "癸丑",
+            "2094": "甲寅",
+            "2095": "乙卯",
+            "2096": "丙辰",
+            "2097": "丁巳",
+            "2098": "戊午",
+            "2099": "己未",
+            "2100": "庚申",
+            "2101": "辛酉",
+            "2102": "壬戌",
+            "2103": "癸亥"
+        }
+        LNDYQY = "<td>运年</td>";
+        xipandayungz = "<td>大运</td>";
+        liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
+        dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
+        dayunqishi = "<td>大运始于:</td>";
+        shishen = "<td>天干十神:</td>"
+        dayunzhiyu = "<td>大运止于:</td>"
+        dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
+        liunian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
+        for (i = 0; i <= 27;) {
+            let age = LNDY[i + 1] - 1
+            if (age != 0) {
+                LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
+                liunian += '<td>' + age + '岁' + '</td>';
+                dayunqishi += '<td>' + LNDY[i] + '</td>';
+                xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
+                dayun += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + "<front style='color: red'>" + LNDY[i + 2] + "</front></td>";
+                let w = LNDY[i + 2].slice(0, 1)
+                shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
+                let w1 = LNDY[i + 2].slice(1, 2)
+                dizhiTiangan = $diZhiVsTianGan[w1];
+                // 地支十神
+                dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
+                for (j = 0; j < dizhiTiangan.length; j++) {
+                    dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
+                }
+                dizhishishen += '</td>'
+                // 大运止于
+                let t = LNDY[i] + 9
+                dayunzhiyu += '<td>' + t + '</td>';
+                // var sesx = zdyddtd.slice(1);
+                // $("#dayun_xingyun").html(xingyun[sesx]);
+                // 流年
+                year1 = LNDY[i]
+                console.log(year1)
+                liunian1 += "<td style=\"vertical-align:text-top\">"
+                for (var j = 0; j < 10; j++) {
+                    if (j < 5) {
+                        liunian1 += "<front style='color:blue'>" + liuNianData1[(year1 + j)][0] + "</front>" + liuNianData1[(year1 + j)][1] + "\n";
+                    } else {
+                        liunian1 +=  liuNianData1[(year1 + j)][0] + "<front style='color:blue'>" + liuNianData1[(year1 + j)][1] + "</front>" + "\n";
+                    }
+                }
+                liunian1 += "</td>"
+            }
+            i = i + 3;
+        }
+        document.getElementById("LNDYQY").innerHTML = LNDYQY;
+        document.getElementById("liunianage1").innerHTML = liunian;
+        document.getElementById("dayunqishi1").innerHTML = dayunqishi;
+        document.getElementById("tianganshishen1").innerHTML = shishen;
+        document.getElementById("dayun1").innerHTML = dayun;
+        document.getElementById("dizhishishen1").innerHTML = dizhishishen;
+        document.getElementById("dayunzhiyu1").innerHTML = dayunzhiyu;
+        document.getElementById("liunian1").innerHTML = liunian1;
+
+        // 勿动
+        document.getElementById("xipandayungz").innerHTML = xipandayungz;
         document.getElementById("dayunliuniancData").innerHTML = "var liuyi=[['甲己','合土'],['乙庚','合金'],['丙辛','合水'],['丁壬','合木'],['戊癸','合火'],['甲庚','冲'],['乙辛','冲'],['丙壬','冲'],['丁癸','冲'],['巳申','合化水'],['辰酉','合化金'],['卯戌','合化火'],['寅亥','合化木'],['子丑','合化土'],['午未','合化火或土'],['申子辰','合化水'],['寅午戌','合化火'],['亥卯未','合化木'],['巳酉丑','合化金'],['亥子丑','汇聚北方水'],['寅卯辰','汇聚东方木'],['巳午未','汇聚南方火'],['申酉戌','汇聚西方金'],['子卯','为无礼之刑'],['丑未戌','为恃势之刑'],['寅巳申','为无恩之刑'],['辰辰','为自刑'],['午午','为自刑'],['酉酉','为自刑'],['亥亥','为自刑'],['子午','相冲'],['卯酉','相冲'],['寅申','相冲'],['巳亥','相冲'],['辰戌','相冲'],['丑未','相冲'],['子未','相害'],['丑午','相害'],['寅巳','相害'],['卯辰','相害'],['申亥','相害'],['酉戌','相害'],['寅午','暗合土'],['子巳','暗合火'],['巳酉','暗合水'],['卯申','暗合金'],['亥午','暗合木'],['寅丑','暗合'],['子戌','暗合'],['子辰','暗合'],['寅未','暗合'],['子酉','相破'],['寅亥','相破'],['卯午','相破'],['辰丑','相破'],['巳申','相破'],['未戌','相破']];" + ddssxx + dayunliuniancData + DYnayin + "};" + DYzizuo + "};" + DYxingyun + "};" + DYshensha + "};" + DYkongwang + "};function addScriptTag(src){var script=document.createElement('script');script.setAttribute('type','text/javascript');script.src=src;document.body.appendChild(script);}function sc(wd,mm){addScriptTag('" + url + "Homepage.php?yhbh=" + system.yhbh + "&SYLX='+wd+'&id='+mm);}function copyToClipboard(s){if(window.clipboardData){window.clipboardData.setData('text',s);}else{(function(s){document.oncopy=function(e){e.clipboardData.setData('text',s);e.preventDefault();document.oncopy=null;}})(s);document.execCommand('Copy')}alert('已复制到剪贴板！');}DYKSNF=" + LNDY[3] + ";XYKSNF=" + LNDY[0] + ";";
     }
 
@@ -546,10 +751,7 @@ function yjxianyin(a) {
     $("#bm_tgliuyi").html('');
     $("#bm_dzliuyi").html('');
     $vvttss = $("#bm_tglines .big").map((i, v) => v.innerText).get();
-    $vvttsss = $("#bm_dzlines .big").map((i, v) => v.innerText).get();
-    console.log($vvttsss)
-    console.log("iiiiiiiiiiiiiiii")
-
+    $vvttsss = $("#bm_dzlines .big").map((i, v) => v.innerText).get()
     acc = [];
     accc = [];
     if (a == 'shenxianyin') {
@@ -854,11 +1056,14 @@ $("#xipandayungz td").click(function (e) {
     if (!e.target.dataset['year'])
         return;
     var year = parseInt(e.target.dataset['year']);
+    console.log(year)
     var yearr = e.target.dataset['yearr'];
     $(this).css('backgroundColor', '#999').siblings().css('backgroundColor', '');
     for (var i = 0; i < 10; i++) {
         $("#dayunliunian tr:eq(0) td:eq(" + (i + 1) + ")").html(year + i);
         $("#dayunliunian tr:eq(1) td:eq(" + (i + 1) + ")").html(dayunliunianData[(year + i)]).attr('year', year + i).attr('age', parseInt(e.target.dataset["age"]) + i);
+        console.log("dddddddddddd")
+        console.log(dayunliunianData[(year + i)])
         $("#dayunliunianc tr:eq(0) td:eq(" + (i + 1) + ")").html(dayunliuniancData[(year + i)]).attr('year', year + i).attr('age', parseInt(e.target.dataset["age"]) + i);
         if (yearr == '小运') {
             ccc = DYKSNF - year;
@@ -883,10 +1088,6 @@ $("#xipandayungz td").click(function (e) {
     $("#dayun_zizuo").html(zizuo[zdyddtd]);
     $("#dayun_nayin").html(nayin[zdyddtd]);
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
-    console.log("aaaaaaaaaa")
-    console.log(zdyddtd[1])
-    console.log($("#rigan").html())
-    console.log(getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html())))
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
     $("#dayunage").html(e.target.dataset["age"] - 1 + "岁<br>" + e.target.dataset["year"]);
     $("#dayunshensha").html(shensha[zdyddtd]);
