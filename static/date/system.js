@@ -271,22 +271,47 @@ function writeSource(cs, ms) {
         // document.getElementById("DYNYyz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.yg] + [BZ.yz]] + "')>" + DYNY[[BZ.yg] + [BZ.yz]] + "</a>";
         // document.getElementById("DYNYrz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.rg] + [BZ.rz]] + "')>" + DYNY[[BZ.rg] + [BZ.rz]] + "</a>";
         // document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
+        let $diZhiVsTianGan= {
+            '子': ['癸'],
+            '丑': ['己', '癸', '辛'],
+            '寅': ['甲', '丙', '戊'],
+            '卯': ['乙'],
+            '辰': ['戊', '乙', '癸'],
+            '巳': ['丙', '戊', '庚'],
+            '午': ['丁', '己'],
+            '未': ['己', '丁', '乙'],
+            '申': ['庚', '壬', '午'],
+            '酉': ['辛'],
+            '戌': ['戊', '辛', '丁'],
+            '亥': ['壬', '甲']
+        };
         LNDYQY = "<td>运年</td>";
         xipandayungz = "<td>大运</td>";
         liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
         dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
         dayunqishi = "<td>大运始于:</td>";
         shishen = "<td>天干十神:</td>"
+        dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
         for (i = 0; i <= 27;) {
             let age = LNDY[i + 1] - 1
-            LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
             if (age != 0) {
+                LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
                 liunian += '<td>' + age + '岁' + '</td>';
                 dayunqishi += '<td>' + LNDY[i] + '</td>';
                 xipandayungz += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + LNDY[i + 2] + "</td>";
                 dayun += "<td data-age='" + LNDY[i + 1] + "' data-year='" + LNDY[i] + "' data-yearr='" + LNDY[i + 2] + "'>" + "<front style='color: red'>" + LNDY[i + 2] + "</front></td>";
                 let w = LNDY[i + 2].slice(0, 1)
                 shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
+                let w1 = LNDY[i + 2].slice(1, 2)
+                dizhiTiangan = $diZhiVsTianGan[w1];
+                dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
+                for (j = 0; j < dizhiTiangan.length; j++) {
+                    console.log(dizhiTiangan[j])
+                    console.log($tiangan1.indexOf($("#rigan").html()))
+                    console.log(getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html())))
+                    dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
+                }
+                dizhishishen += '</td>'
             }
             i = i + 3;
         }
@@ -295,6 +320,7 @@ function writeSource(cs, ms) {
         document.getElementById("dayunqishi1").innerHTML = dayunqishi;
         document.getElementById("tianganshishen1").innerHTML = shishen;
         document.getElementById("dayun1").innerHTML = dayun;
+        document.getElementById("dizhishishen1").innerHTML = dizhishishen;
         document.getElementById("xipandayungz").innerHTML = xipandayungz;
         ddssxx = '';
 
@@ -520,8 +546,10 @@ function yjxianyin(a) {
     $("#bm_tgliuyi").html('');
     $("#bm_dzliuyi").html('');
     $vvttss = $("#bm_tglines .big").map((i, v) => v.innerText).get();
-    console.log($vvttss)
     $vvttsss = $("#bm_dzlines .big").map((i, v) => v.innerText).get();
+    console.log($vvttsss)
+    console.log("iiiiiiiiiiiiiiii")
+
     acc = [];
     accc = [];
     if (a == 'shenxianyin') {
@@ -856,7 +884,7 @@ $("#xipandayungz td").click(function (e) {
     $("#dayun_nayin").html(nayin[zdyddtd]);
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
     console.log("aaaaaaaaaa")
-    console.log(zdyddtd[0])
+    console.log(zdyddtd[1])
     console.log($("#rigan").html())
     console.log(getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html())))
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
