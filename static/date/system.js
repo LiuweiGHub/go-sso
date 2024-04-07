@@ -379,7 +379,20 @@ function writeSource(cs, ms) {
             '戌': ['戊', '辛', '丁'],
             '亥': ['壬', '甲']
         };
-
+        let $xingYun = {
+            "子": "胎",
+            "丑": "养",
+            "寅": "长生",
+            "卯": "沐浴",
+            "辰": "冠带",
+            "巳": "临官",
+            "午": "帝旺",
+            "未": "衰",
+            "申": "病",
+            "酉": "死",
+            "戌": "墓",
+            "亥": "绝"
+        }
         let liuNianData1 = {
             "1924": "甲子",
             "1925": "乙丑",
@@ -568,6 +581,7 @@ function writeSource(cs, ms) {
         dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
         dayunqishi = "<td>大运始于:</td>";
         shishen = "<td>天干十神:</td>"
+        shiErChangSheng = "<td>十二长生:</td>"
         dayunzhiyu = "<td>大运止于:</td>"
         dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
         liunian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
@@ -583,12 +597,17 @@ function writeSource(cs, ms) {
                 shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
                 let w1 = LNDY[i + 2].slice(1, 2)
                 dizhiTiangan = $diZhiVsTianGan[w1];
+                console.log(w1)
+                console.log("wwwwwwwwwwwww")
+
                 // 地支十神
                 dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
                 for (j = 0; j < dizhiTiangan.length; j++) {
                     dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
                 }
                 dizhishishen += '</td>'
+                // 十二长生
+                shiErChangSheng += "<td>" + $xingYun[w1] + "</td>"
                 // 大运止于
                 let t = LNDY[i] + 9
                 dayunzhiyu += '<td>' + t + '</td>';
@@ -596,7 +615,6 @@ function writeSource(cs, ms) {
                 // $("#dayun_xingyun").html(xingyun[sesx]);
                 // 流年
                 year1 = LNDY[i]
-                console.log(year1)
                 liunian1 += "<td style=\"vertical-align:text-top\">"
                 for (var j = 0; j < 10; j++) {
                     if (j < 5) {
@@ -615,6 +633,7 @@ function writeSource(cs, ms) {
         document.getElementById("tianganshishen1").innerHTML = shishen;
         document.getElementById("dayun1").innerHTML = dayun;
         document.getElementById("dizhishishen1").innerHTML = dizhishishen;
+        document.getElementById("shierchangsheng1").innerHTML = shiErChangSheng;
         document.getElementById("dayunzhiyu1").innerHTML = dayunzhiyu;
         document.getElementById("liunian1").innerHTML = liunian1;
 
@@ -707,6 +726,7 @@ function liushishijian(bbb, aaa, ccc, ggg, ddd) {
     $("#liushidz .small").html(getDzSS(ccc, $("#rigan").html()));
     $("#liushi_kongwang").html(kongwang[aaa + ccc]);
     $("#liushi_xingyun").html(xingyun[ccc]);
+    console.log(xingyun)
     $("#liushi_zizuo").html(zizuo[aaa + ccc]);
     $("#liushi_nayin").html(nayin[aaa + ccc]);
     document.getElementById("xiangxiliuke1").innerHTML = "<a onclick=liukeshijian('xiangxiliuke1','" + $jiazi[$yibaiesk[ccc]] + "','23','01')>" + $jiazi[$yibaiesk[ccc]] + "</a>";
