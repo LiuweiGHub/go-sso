@@ -585,6 +585,10 @@ function writeSource(cs, ms) {
         dayunzhiyu = "<td>大运止于:</td>"
         dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
         liunian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
+        xiaoYun1 = "<td>小<span class=\"kong\">空空</span>运:</td>"
+        xiaoYunShiShen1 = "<td>小运十神:</td>"
+        xiaoyunage1 = "<td></td>"
+        xiaoYunLiuNian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
         for (i = 0; i <= 27;) {
             let age = LNDY[i + 1] - 1
             if (age != 0) {
@@ -597,9 +601,6 @@ function writeSource(cs, ms) {
                 shishen += '<td>' + getShishen($tiangan1.indexOf(w), $tiangan1.indexOf($("#rigan").html())) + '</td>';
                 let w1 = LNDY[i + 2].slice(1, 2)
                 dizhiTiangan = $diZhiVsTianGan[w1];
-                console.log(w1)
-                console.log("wwwwwwwwwwwww")
-
                 // 地支十神
                 dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
                 for (j = 0; j < dizhiTiangan.length; j++) {
@@ -625,6 +626,15 @@ function writeSource(cs, ms) {
                 }
                 liunian1 += "</td>"
             }
+            // 小运模块
+            if (LNDY[i] <= LNDY[3]) {
+                xiaoyunage1 += '<td>' + LNDY[i + 1] + '岁<br>'
+                let w2 = LNDY[i + 2 + 3].slice(0, 1)
+                xiaoYunShiShen1 += '<td>' + getShishen($tiangan1.indexOf(w2), $tiangan1.indexOf($("#rigan").html())) + '</td>';
+                let w3 = LNDY[i + 2 + 3]
+                xiaoYun1 += "<td>" + w3 + "</td>"
+                xiaoYunLiuNian1 += "<td>" + liuNianData1[LNDY[i]] + "</td>";
+            }
             i = i + 3;
         }
         document.getElementById("LNDYQY").innerHTML = LNDYQY;
@@ -636,6 +646,10 @@ function writeSource(cs, ms) {
         document.getElementById("shierchangsheng1").innerHTML = shiErChangSheng;
         document.getElementById("dayunzhiyu1").innerHTML = dayunzhiyu;
         document.getElementById("liunian1").innerHTML = liunian1;
+        document.getElementById("xiaoYunShiShen1").innerHTML = xiaoYunShiShen1;
+        document.getElementById("xiaoyunage1").innerHTML = xiaoyunage1;
+        document.getElementById("xiaoYun1").innerHTML = xiaoYun1;
+        document.getElementById("xiaoyunliunian1").innerHTML = xiaoYunLiuNian1;
 
         // 勿动
         document.getElementById("xipandayungz").innerHTML = xipandayungz;
@@ -1076,17 +1090,17 @@ $("#xipandayungz td").click(function (e) {
     if (!e.target.dataset['year'])
         return;
     var year = parseInt(e.target.dataset['year']);
-    console.log(year)
     var yearr = e.target.dataset['yearr'];
     $(this).css('backgroundColor', '#999').siblings().css('backgroundColor', '');
     for (var i = 0; i < 10; i++) {
         $("#dayunliunian tr:eq(0) td:eq(" + (i + 1) + ")").html(year + i);
         $("#dayunliunian tr:eq(1) td:eq(" + (i + 1) + ")").html(dayunliunianData[(year + i)]).attr('year', year + i).attr('age', parseInt(e.target.dataset["age"]) + i);
-        console.log("dddddddddddd")
-        console.log(dayunliunianData[(year + i)])
+
         $("#dayunliunianc tr:eq(0) td:eq(" + (i + 1) + ")").html(dayunliuniancData[(year + i)]).attr('year', year + i).attr('age', parseInt(e.target.dataset["age"]) + i);
         if (yearr == '小运') {
             ccc = DYKSNF - year;
+            console.log(ccc)
+            console.log('cccccccccc')
             if (ccc < i) {
                 $("#dayunliunian tr:eq(0) td:eq(" + (i + 1) + ")").html('');
                 $("#dayunliunian tr:eq(1) td:eq(" + (i + 1) + ")").html('').attr('year', '').attr('age', '');
@@ -1099,6 +1113,8 @@ $("#xipandayungz td").click(function (e) {
     if (yearr == '小运') {
         document.getElementById('liuyunbt').innerHTML = '小运';
         zdyddtd = XYKSNF;
+        console.log(zdyddtd)
+
     }
     $("#dayuntg .big").html(zdyddtd[0]).css('color', tgdzColor[zdyddtd[0]]);
     $("#dayundz .big").html(zdyddtd[1]).css('color', tgdzColor[zdyddtd[1]]);
