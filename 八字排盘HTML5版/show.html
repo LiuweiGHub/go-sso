@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<meta name='keywords' id='keywords' />
+<meta name='Description' id='Description' />
+<meta charset='UTF-8'>
+<title id='Descriptiona' ></title>
+<meta name='viewport' content='initial-scale=1.0,maximum-scale=1.0,user-scalable=0' />
+<h2 style='text-align:center; color:#CC0000;'>八字排盘</h2>
+<script type='text/javascript' src='date/jquery.js'></script>
+<html lang='zh-CN' class='no-js no-asynchronous'>
+<head>
+<meta charset='UTF-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+<meta name='theme-color' content='#898C7B'>
+<meta name='applicable-device' content='pc,mobile'>
+<meta name='renderer' content='webkit'>
+<link href='date/Swiper.css' rel='stylesheet' />
+<link type='text/css' href='date/smcsss.css' rel='stylesheet' />
+<script type='text/javascript' src='date/Swiper.js'></script>
+<div class='smnr'>
+<div style='padding:10px;'>
+<b>八字排盘结果：</b><br><b>姓名：</b><b id='system.name'></b>&nbsp;&nbsp;<b id='system.xmwx'></b>
+<font color='#006600'>[<a id='system.nylm'></a>][<a id='JSFW.zg'></a>]</font><br><b>性别：</b><b id='system.sexxx'></b><br><b>生肖：</b><b id='system.shengxiao'></b><br><b>节气：</b><b id='chusheng.QH'></b><br><b>物候：</b><b id='system.WuHou'></b><br><b>二十八星宿：</b><b id='system.getXiuSong'></b><br><b>人元司令分野：</b><b id='system.SiLing'></b>用事（<b id='system.SiLingFangshi'></b>）<br><b>三才五格：</b><b id='system.SCWG'></b><br><b>六甲空亡：</b>
+<font color='#993300'><a id='bazixinxi.liujiakongwangluokong'></a></font><br><b>强弱：</b>
+<font color='#993300'><a id='bzgj'></a></font><br><b>起运：</b>命主于出生后<font color='#006600'><b id='chusheng.QY'></b></font>后起运&nbsp;&nbsp;排盘方式：<b id='system.PPFS'></b><br><b>交运：</b>命主于公历<font color='#993300'><b id='system.JYRQ'></b></font>交运<br><b>换运：</b>以后每逢尾数带<font color='#993300'><b id='chusheng.HYWS'></b></font>的年份换运<div id='ZTYS'></div><b>公历：</b>
+<font color='#993300'><b id='chusheng.gongli'></b></font>&nbsp;<b id='system.XingZuo'></b><br><b>农历：</b>
+<font color='#993300'><b id='chusheng.nongli'></b></font>&nbsp;<b id='system.getYueXiang'></b>&nbsp;<b id='system.getZheng'></b><br>专业：
+四柱:&nbsp;<input id='sxianyin' name='girl' type='radio' onclick=yjxianyin('sxianyin') checked/>
+&nbsp;&nbsp;胎元:&nbsp;<input id='taixianyin' name='girl' type='radio' onclick=yjxianyin('taixianyin') />
+&nbsp;&nbsp;命宫:&nbsp;<input id='mingxianyin' name='girl' type='radio' onclick=yjxianyin('mingxianyin') />
+&nbsp;&nbsp;身宫:&nbsp;<input id='shenxianyin' name='girl' type='radio' onclick=yjxianyin('shenxianyin') />
+&nbsp;&nbsp;胎息:&nbsp;<input id='xxianyin' name='girl' type='radio' onclick=yjxianyin('xxianyin') />
+&nbsp;&nbsp;五柱:&nbsp;<input id='wxianyin' name='girl' type='radio' onclick=yjxianyin('wxianyin') />
+<br>
+<table class='table' border='0' cellpadding='0' cellspacing='0'>
+<tr style='background-color:#666'>
+<td><b style='white-space:nowrap;'>四柱:&nbsp;</b></td>
+<td id='shenxianyin1'><a onclick=sc('wd','身宫')>身宫</a></td>
+<td id='mingxianyin1'><a onclick=sc('wd','命宫')>命宫</a></td>
+<td id='taixianyin1'><a onclick=sc('wd','胎元')>胎元</a></td>
+<td id='xxianyin1'><a onclick=sc('wd','胎息')>胎息</a></td>
+<td><a onclick=sc('wd','年柱')>年柱</a></td>
+<td><a onclick=sc('wd','月柱')>月柱</a></td>
+<td><a onclick=sc('wd','日柱')>日柱</a></td>
+<td><a onclick=sc('wd','时柱')>时柱</a></td>
+<td id='wxianyin1'><a onclick=sc('wd','刻柱')>刻柱</a></td>
+</tr>
+<tr style='background-color:#CCC'>
+<td><b style='white-space:nowrap;'>十神:&nbsp;</b></td>
+<td id='shenxianyin2'><span id='aBZcolor.Sgys'><a id="aDZSS[BZ.Sg]['全']"></a></span></span></td>
+<td id='mingxianyin2'><span id='aBZcolor.mgys'><a id="aDZSS[BZ.mg]['全']"></a></span></span></td>
+<td id='taixianyin2'><span id='aBZcolor.tgys'><a id="aDZSS[BZ.tg]['全']"></a></span></span></td>
+<td id='xxianyin2'><span id='aBZcolor.Tgys'><a id="aDZSS[BZ.Tg]['全']"></a></span></span></td>
+<td><span id='aBZcolor.ngys'><a id="aDZSS[BZ.ng]['全']"></a></span></span></td>
+<td><span id='aBZcolor.ygys'><a id="aDZSS[BZ.yg]['全']"></a></span></span></td>
+<td><span style='flex:1'>
+<font id='aBZcolor.rgys'><a id='asystem.sexx'></a></font>
+</span></td>
+<td><span id='aBZcolor.sgys'><a id="aDZSS[BZ.sg]['全']"></a></span></span></td>
+<td id='wxianyin2'><span id='aBZcolor.Kgys'><a id="aDZSS[BZ.Kg]['全']"></a></span></span></td>
+</tr>
+<tr style='background-color:#999' id='bm_tglines'>
+<td><b style='white-space:nowrap;'>天干:&nbsp;</b></td>
+<td id='shenxianyin3'><span class='big' id='aBZcolor.Sgysa'><a id='aBZ.Sg'></a></span></td>
+<td id='mingxianyin3'><span class='big' id='aBZcolor.mgysa'><a id='aBZ.mg'></a></span></td>
+<td id='taixianyin3'><span class='big' id='aBZcolor.tgysa'><a id='aBZ.tg'></a></span></td>
+<td id='xxianyin3'><span class='big' id='aBZcolor.Tgysa'><a id='aBZ.Tg'></a></span></td>
+<td><span class='big' id='aBZcolor.ngysa'><a id='aBZ.ng'></a></span></td>
+<td><span class='big' id='aBZcolor.ygysa'><a id='aBZ.yg'></a></span></td>
+<td><span class='big' id='aBZcolor.rgysa'><a id='aBZ.rg'></a></span></td>
+<td><span class='big' id='aBZcolor.sgysa'><a id='aBZ.sg'></a></span></td>
+<td id='wxianyin3'><span class='big' id='aBZcolor.Kgysa'><a id='aBZ.Kg'></a></span></td>
+</tr>
+<tr style='background-color:#CCC' id='bm_dzlines'>
+<td><b style='white-space:nowrap;'>地支:&nbsp;</b></td>
+<td id='shenxianyin4'><span class='big' id='aBZcolor.Sbqysa'><a id='aBZ.Sz'></a></span></td>
+<td id='mingxianyin4'><span class='big' id='aBZcolor.mbqysa'><a id='aBZ.mz'></a></span></td>
+<td id='taixianyin4'><span class='big' id='aBZcolor.tbqysa'><a id='aBZ.tz'></a></span></td>
+<td id='xxianyin4'><span class='big' id='aBZcolor.Tbqysa'><a id='aBZ.Tz'></a></span></td>
+<td><span class='big' id='aBZcolor.nbqysa'><a id='aBZ.nz'></a></span></td>
+<td><span class='big' id='aBZcolor.ybqysa'><a id='aBZ.yz'></a></span></td>
+<td><span class='big' id='aBZcolor.rbqysa'><a id='aBZ.rz'></a></span></td>
+<td><span class='big' id='aBZcolor.sbqysa'><a id='aBZ.sz'></a></span></td>
+<td id='wxianyin4'><span class='big' id='aBZcolor.Kbqysa'><a id='aBZ.Kz'></a></span></td>
+</tr>
+<tr style='background-color:#999'>
+<td><b style='white-space:nowrap;'>藏干:&nbsp;</b></td>
+<td id='shenxianyin5'><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.Sbqys'><a id='aZGss.Sbq'></a>&nbsp;<a id="aDZSS[BZ.Sz]['本']['全']"></a></span><span id='aBZcolor.Szqys'><a id='aZGss.Szq'></a>&nbsp;<a id="aDZSS[BZ.Sz]['中']['全']"></a></span><span id='aBZcolor.Syqys'><a id='aZGss.Syq'></a>&nbsp;<a id="aDZSS[BZ.Sz]['余']['全']"></a></span></td>
+<td id='mingxianyin5'><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.mbqys'><a id='aZGss.mbq'></a>&nbsp;<a id="aDZSS[BZ.mz]['本']['全']"></a></span><span id='aBZcolor.mzqys'><a id='aZGss.mzq'></a>&nbsp;<a id="aDZSS[BZ.mz]['中']['全']"></a></span><span id='aBZcolor.myqys'><a id='aZGss.myq'></a>&nbsp;<a id="aDZSS[BZ.mz]['余']['全']"></a></span></td>
+<td id='taixianyin5'><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.tbqys'><a id='aZGss.tbq'></a>&nbsp;<a id="aDZSS[BZ.tz]['本']['全']"></a></span><span id='aBZcolor.tzqys'><a id='aZGss.tzq'></a>&nbsp;<a id="aDZSS[BZ.tz]['中']['全']"></a></span><span id='aBZcolor.tyqys'><a id='aZGss.tyq'></a>&nbsp;<a id="aDZSS[BZ.tz]['余']['全']"></a></span></td>
+<td id='xxianyin5'><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.Tbqys'><a id='aZGss.Tbq'></a>&nbsp;<a id="aDZSS[BZ.Tz]['本']['全']"></a></span><span id='aBZcolor.Tzqys'><a id='aZGss.Tzq'></a>&nbsp;<a id="aDZSS[BZ.Tz]['中']['全']"></a></span><span id='aBZcolor.Tyqys'><a id='aZGss.Tyq'></a>&nbsp;<a id="aDZSS[BZ.Tz]['余']['全']"></a></span></td>
+<td><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.nbqys'><a id='aZGss.nbq'></a>&nbsp;<a id="aDZSS[BZ.nz]['本']['全']"></a></span><span id='aBZcolor.nzqys'><a id='aZGss.nzq'></a>&nbsp;<a id="aDZSS[BZ.nz]['中']['全']"></a></span><span id='aBZcolor.nyqys'><a id='aZGss.nyq'></a>&nbsp;<a id="aDZSS[BZ.nz]['余']['全']"></a></span></td>
+<td><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.ybqys'><a id='aZGss.ybq'></a>&nbsp;<a id="aDZSS[BZ.yz]['本']['全']"></a></span><span id='aBZcolor.yzqys'><a id='aZGss.yzq'></a>&nbsp;<a id="aDZSS[BZ.yz]['中']['全']"></a></span><span id='aBZcolor.yyqys'><a id='aZGss.yyq'></a>&nbsp;<a id="aDZSS[BZ.yz]['余']['全']"></a></span></td>
+<td><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.rbqys'><a id='aZGss.rbq'></a>&nbsp;<a id="aDZSS[BZ.rz]['本']['全']"></a></span><span id='aBZcolor.rzqys'><a id='aZGss.rzq'></a>&nbsp;<a id="aDZSS[BZ.rz]['中']['全']"></a></span><span id='aBZcolor.ryqys'><a id='aZGss.ryq'></a>&nbsp;<a id="aDZSS[BZ.rz]['余']['全']"></a></span></td>
+<td><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.sbqys'><a id='aZGss.sbq'></a>&nbsp;<a id="aDZSS[BZ.sz]['本']['全']"></a></span><span id='aBZcolor.szqys'><a id='aZGss.szq'></a>&nbsp;<a id="aDZSS[BZ.sz]['中']['全']"></a></span><span id='aBZcolor.syqys'><a id='aZGss.syq'></a>&nbsp;<a id="aDZSS[BZ.sz]['余']['全']"></a></span></td>
+<td id='wxianyin5'><span style='flex:1;display:flex;flex-direction:column;'><span id='aBZcolor.Kbqys'><a id='aZGss.Kbq'></a>&nbsp;<a id="aDZSS[BZ.Kz]['本']['全']"></a></span><span id='aBZcolor.Kzqys'><a id='aZGss.Kzq'></a>&nbsp;<a id="aDZSS[BZ.Kz]['中']['全']"></a></span><span id='aBZcolor.Kyqys'><a id='aZGss.Kyq'></a>&nbsp;<a id="aDZSS[BZ.Kz]['余']['全']"></a></span></td>
+</tr>
+<tr style='background-color:#CCC'>
+<td><b style='white-space:nowrap;clear:both;'>纳音:&nbsp;</b></td>
+<td id='shenxianyin6'><a id='aDYNY[BZ.Sg+BZ.Sz]'></a></td>
+<td id='mingxianyin6'><a id='aDYNY[BZ.mg+BZ.mz]'></a></td>
+<td id='taixianyin6'><a id='aDYNY[BZ.tg+BZ.tz]'></a></td>
+<td id='xxianyin6'><a id='aDYNY[BZ.Tg+BZ.Tz]'></a></td>
+<td><a id='aDYNY[BZ.ng+BZ.nz]'></a></td>
+<td><a id='aDYNY[BZ.yg+BZ.yz]'></a></td>
+<td><a id='aDYNY[BZ.rg+BZ.rz]'></a></td>
+<td><a id='aDYNY[BZ.sg+BZ.sz]'></a></td>
+<td id='wxianyin6'><a id='aDYNY[BZ.Kg+BZ.Kz]'></a></td>
+</tr>
+<tr style='background-color:#999'>
+<td><b style='white-space:nowrap;clear:both;'>空亡:&nbsp;</b></td>
+<td id='shenxianyin7'><a id='aDYKW[BZ.Sg+BZ.Sz]'></a></td>
+<td id='mingxianyin7'><a id='aDYKW[BZ.mg+BZ.mz]'></a></td>
+<td id='taixianyin7'><a id='aDYKW[BZ.tg+BZ.tz]'></a></td>
+<td id='xxianyin7'><a id='aDYKW[BZ.Tg+BZ.Tz]'></a></td>
+<td><a id='aDYKW[BZ.ng+BZ.nz]'></a></td>
+<td><a id='aDYKW[BZ.yg+BZ.yz]'></a></td>
+<td><a id='aDYKW[BZ.rg+BZ.rz]'></a></td>
+<td><a id='aDYKW[BZ.sg+BZ.sz]'></a></td>
+<td id='wxianyin7'><a id='aDYKW[BZ.Kg+BZ.Kz]'></a></td>
+</tr>
+<tr style='background-color:#ccc'>
+<td><b style='white-space:nowrap;clear:both;'>神煞:&nbsp;</b></td>
+<td id='shenxianyin8'>
+<div class='item'>
+<div>
+<div id='aSgSS'></div>
+</div>
+</div>
+</td>
+<td id='mingxianyin8'>
+<div class='item'>
+<div>
+<div id='amgSS'></div>
+</div>
+</div>
+</td>
+<td id='taixianyin8'>
+<div class='item'>
+<div>
+<div id='atgSS'></div>
+</div>
+</div>
+</td>
+<td id='xxianyin8'>
+<div class='item'>
+<div>
+<div id='aTgSS'></div>
+</div>
+</div>
+</td>
+<td>
+<div class='item'>
+<div>
+<div id='aNZSS'></div>
+</div>
+</div>
+</td>
+<td>
+<div class='item'>
+<div>
+<div id='aYZSS'></div>
+</div>
+</div>
+</td>
+<td>
+<div class='item'>
+<div>
+<div id='aRZSS'></div>
+</div>
+</div>
+</td>
+<td>
+<div class='item'>
+<div>
+<div id='aSZSS'></div>
+</div>
+</div>
+</td>
+<td id='wxianyin8'>
+<div class='item'>
+<div>
+<div id='aKgSS'></div>
+</div>
+</div>
+</td>
+</tr>
+<tr style='background-color:#999'>
+<td><b style='white-space:nowrap;clear:both;'>星运:&nbsp;</b></td>
+<td id='shenxianyin9'><a id='aDYWS[BZ.Sz]'></a></td>
+<td id='mingxianyin9'><a id='aDYWS[BZ.mz]'></a></td>
+<td id='taixianyin9'><a id='aDYWS[BZ.tz]'></a></td>
+<td id='xxianyin9'><a id='aDYWS[BZ.Tz]'></a></td>
+<td><a id='aDYWS[BZ.nz]'></a></td>
+<td><a id='aDYWS[BZ.yz]'></a></td>
+<td><a id='aDYWS[BZ.rz]'></a></td>
+<td><a id='aDYWS[BZ.sz]'></a></td>
+<td id='wxianyin9'><a id='aDYWS[BZ.Kz]'></a></td>
+</tr>
+<tr style='background-color:#CCC'>
+<td><b style='white-space:nowrap;clear:both;'>自座:&nbsp;</b></td>
+<td id='shenxianyin10'><a id='aDYZZ[BZ.Sg+BZ.Sz]'></a></td>
+<td id='mingxianyin10'><a id='aDYZZ[BZ.mg+BZ.mz]'></a></td>
+<td id='taixianyin10'><a id='aDYZZ[BZ.tg+BZ.tz]'></a></td>
+<td id='xxianyin10'><a id='aDYZZ[BZ.Tg+BZ.Tz]'></a></td>
+<td><a id='aDYZZ[BZ.ng+BZ.nz]'></a></td>
+<td><a id='aDYZZ[BZ.yg+BZ.yz]'></a></td>
+<td><a id='aDYZZ[BZ.rg+BZ.rz]'></a></td>
+<td><a id='aDYZZ[BZ.sg+BZ.sz]'></a></td>
+<td id='wxianyin10'><a id='aDYZZ[BZ.Kg+BZ.Kz]'></a></td>
+</tr>
+</table>
+<table class='table'>
+<tr style='background-color:#999'>
+<td width='60'>天干关系:</td>
+<td id='bm_tgliuyi' style='text-align:left'></td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>地支关系:</td>
+<td id='bm_dzliuyi' style='text-align:left'></td>
+</tr>
+<tr style='background-color:#999'>
+<td width='60'>八字包含:</td>
+<td style='text-align:left'>
+<div id='BZBH1'></div>
+</td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>八字包含:</td>
+<td id='bm_dzlii' style='text-align:left'>
+<div id='BZBH2'>
+</td>
+</tr>
+<tr style='background-color:#999'>
+<td width='60'>藏干包含:</td>
+<td style='text-align:left'>
+<div id='BZBH3'>
+</td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>藏干包含:</td>
+<td style='text-align:left'>
+<div id='BZBH4'>
+</td>
+</tr>
+<tr style='background-color:#999'>
+<td width='60' onclick=sc('wd','燥湿分析') >燥湿分析:</td>
+<td style='text-align:left'>
+<div id='BZBH5'>
+</td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>用神参考:</td>
+<td style='text-align:left'>
+<div id='YSCK'>
+</td>
+</tr>
+<tr style='background-color:#999'>
+<td width='60'>五行旺衰:</td>
+<td style='text-align:left'><b id='chusheng.WXWS'></b></td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>称骨重量:</td>
+<td id='bm_dzliui' style='text-align:left'><b id='FX.gz'></b></td>
+</tr>
+<tr style='background-color:#999'>
+<td width='60'>称骨评语:</td>
+<td style='text-align:left'><b id='FX.cgg'></b></td>
+</tr>
+<tr style='background-color:#ccc'>
+<td width='60'>程序分析:</td>
+<td id='bm_dzlii' style='text-align:left'>
+<select id='FX1'></select><select id='FX2' onchange='show()'><option value='请选择'>请选择</option></select><br>
+<a id='heading'></a>
+</td>
+</tr>
+</table>
+<div class='smnr'>
+<!--细盘-->
+<table class='table'>
+<colgroup>
+<col style='border-right: 1px solid #999;' id='col1'/>
+<col style='border-right: 1px solid #999;' id='col2'/>
+<col style='border-right: 1px solid #999;' id='col3'/>
+<col style='border-right: 1px solid #999;' id='col4'/>
+<col style='border-right: 1px solid #999;' id='col5'/>
+<col style='border-right: 1px solid #999;' />
+</colgroup>
+<tbody>
+<tr style='background-color:#999'>
+<td>日期</td>
+<td id='liushibt'>流时</td>
+<td id='liuribt'>流日</td>
+<td id='liuyuebt'>流月</td>
+<td id='liunianbt'>流年</td>
+<td id='liuyunbt'>大运</td>
+<td>年柱</td>
+<td>月柱</td>
+<td>日柱</td>
+<td>时柱</td>
+</tr>
+<tr>
+<td>岁年</td>
+<td id='liushiage'></td>
+<td id='liuriage'></td>
+<td id='liuyueage'></td>
+<td id='liunianage'><br></td>
+<td id='dayunage'><br></td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+<td>*</td>
+</tr>
+<tr id='tgline'>
+<td>天干</td>
+<td id='liushitgs'>
+<div class='bz' id='liushitg'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuritgs'>
+<div class='bz' id='liuritg'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuyuetgs'>
+<div class='bz' id='liuyuetg'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuniantgs'>
+<div class='bz' id='liuniantg'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='dayuntgs'>
+<div class='bz' id='dayuntg'><span class='big'></span><span class='small'></span></div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZNG'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZYG'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZRG'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZSG'></div>
+</div>
+</td>
+</tr>
+<tr id='dzline'>
+<td>地支</td>
+<td id='liushidzs'>
+<div class='bz' id='liushidz'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuridzs'>
+<div class='bz' id='liuridz'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuyuedzs'>
+<div class='bz' id='liuyuedz'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='liuniandzs'>
+<div class='bz' id='liuniandz'><span class='big'></span><span class='small'></span></div>
+</td>
+<td id='dayundzs'>
+<div class='bz' id='dayundz'><span class='big'></span><span class='small'></span></div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZNZ'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZYZ'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZRZ'></div>
+</div>
+</td>
+<td>
+<div class='bz'>
+<div id='BZSZ'></div>
+</div>
+</td>
+</tr>
+<!--空亡-->
+<tr style='background-color:#DDD;'>
+<td>空亡</td>
+<td id='liushi_kongwang'></td>
+<td id='liuri_kongwang'></td>
+<td id='liuyue_kongwang'></td>
+<td id='liunian_kongwang'></td>
+<td id='dayun_kongwang'></td>
+<td id='DaYunKWa'></td>
+<td id='DaYunKWb'></td>
+<td id='DaYunKWc'></td>
+<td id='DaYunKWd'></td>
+</tr>
+<!--星运-->
+<tr style='background-color:#ccc;'>
+<td>星运</td>
+<td id='liushi_xingyun'></td>
+<td id='liuri_xingyun'></td>
+<td id='liuyue_xingyun'></td>
+<td id='liunian_xingyun'></td>
+<td id='dayun_xingyun'></td>
+<td><a id='DYWSnz'></a></td>
+<td><a id='DYWSyz'></a></td>
+<td><a id='DYWSrz'></a></td>
+<td><a id='DYWSsz'></a></td>
+</tr>
+<!--自座-->
+<tr style='background-color:#DDD;'>
+<td>自座</td>
+<td id='liushi_zizuo'></td>
+<td id='liuri_zizuo'></td>
+<td id='liuyue_zizuo'></td>
+<td id='liunian_zizuo'></td>
+<td id='dayun_zizuo'></td>
+<td><a id='DYZZnz'></a></td>
+<td><a id='DYZZyz'></a></td>
+<td><a id='DYZZrz'></a></td>
+<td><a id='DYZZsz'></a></td>
+</tr>
+<!--纳音-->
+<tr style='background-color:#ccc;'>
+<td>纳音</td>
+<td id='liushi_nayin'></td>
+<td id='liuri_nayin'></td>
+<td id='liuyue_nayin'></td>
+<td id='liunian_nayin'></td>
+<td id='dayun_nayin'></td>
+<td><a id='DYNYnz'></a></td>
+<td><a id='DYNYyz'></a></td>
+<td><a id='DYNYrz'></a></td>
+<td><a id='DYNYsz'></a></td>
+</tr>
+</tbody>
+</table>
+<!--大运-->
+<table class='table'>
+<tbody>
+<tr style='background-color:#999'>
+<td>专业</td>
+<td>流年:<input id='liuyinian' type='checkbox' onclick=tiangandizhiliuyi() checked/></td>
+<td>流月:<input id='liuyiyue' type='checkbox' onclick=tiangandizhiliuyi() checked/></td>
+<td>流日:<input id='liuyiri' type='checkbox' onclick=tiangandizhiliuyi() checked/></td>
+<td>流时:<input id='liuyishi' type='checkbox' onclick=tiangandizhiliuyi() checked/></td>
+<td>流刻:<input id='liuyike' type='checkbox' onclick=tiangandizhiliuyi() checked/></td>
+<td><b id='nbtsc'></b></td>
+</tr>
+</tbody>
+</table>
+<table class='table' id='xipanliuyun'>
+<tbody>
+<tr id='LNDYQY'></tr>
+<tr id='xipandayungz'></tr>
+</tbody>
+</table>
+<!--流年-->
+<table class='table' id='dayunliunian'>
+<tbody>
+<tr>
+<td>岁年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>流年</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table class='table' id='dayunliunianc'>
+<tbody>
+<tr>
+<td>小运</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!--流月-->
+<table class='table' id='xipanliuyue'>
+<tbody>
+<tr>
+<td>节气</td>
+<td>立春</td>
+<td>惊蛰</td>
+<td>清明</td>
+<td>立夏</td>
+<td>芒种</td>
+<td>小暑</td>
+<td>立秋</td>
+<td>白露</td>
+<td>寒露</td>
+<td>立冬</td>
+<td>大雪</td>
+<td>小寒</td>
+</tr>
+<tr>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+<td>流月</td>
+</tr>
+</tbody>
+</table>
+<!--流日-->
+<div class='table line bg-tr' id='xipanliuri'>
+<div class='nowrap'>流日</div>
+<div class='swiper-container'>
+<div class='nowrap liuri-box swiper-wrapper'><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span></div>
+</div>
+</div>
+<!--流时-->
+<table class='table' id='xipanliushi'>
+<tbody>
+<tr>
+<td>时间</td>
+<td>23时</td>
+<td>01时</td>
+<td>03时</td>
+<td>05时</td>
+<td>07时</td>
+<td>09时</td>
+<td>11时</td>
+<td>13时</td>
+<td>15时</td>
+<td>17时</td>
+<td>19时</td>
+<td>21时</td>
+<td>23时</td>
+</tr>
+<tr>
+<td>流时</td>
+<td id='xiangxiliushi1'>流时</td>
+<td id='xiangxiliushi2'>流时</td>
+<td id='xiangxiliushi3'>流时</td>
+<td id='xiangxiliushi4'>流时</td>
+<td id='xiangxiliushi5'>流时</td>
+<td id='xiangxiliushi6'>流时</td>
+<td id='xiangxiliushi7'>流时</td>
+<td id='xiangxiliushi8'>流时</td>
+<td id='xiangxiliushi9'>流时</td>
+<td id='xiangxiliushi10'>流时</td>
+<td id='xiangxiliushi11'>流时</td>
+<td id='xiangxiliushi12'>流时</td>
+<td id='xiangxiliushi13'>流时</td>
+</tr>
+</tbody>
+</table>
+<!--流刻-->
+<table class='table' id='xipanliuke'>
+<tbody>
+<tr>
+<td>刻时</td>
+<td>0分</td>
+<td>12分</td>
+<td>24分</td>
+<td>36分</td>
+<td>48分</td>
+<td>60分</td>
+<td>72分</td>
+<td>84分</td>
+<td>96分</td>
+<td>108分</td>
+</tr>
+<tr>
+<td>流刻</td>
+<td id='xiangxiliuke1'>流刻</td>
+<td id='xiangxiliuke2'>流刻</td>
+<td id='xiangxiliuke3'>流刻</td>
+<td id='xiangxiliuke4'>流刻</td>
+<td id='xiangxiliuke5'>流刻</td>
+<td id='xiangxiliuke6'>流刻</td>
+<td id='xiangxiliuke7'>流刻</td>
+<td id='xiangxiliuke8'>流刻</td>
+<td id='xiangxiliuke9'>流刻</td>
+<td id='xiangxiliuke10'>流刻</td>
+</tr>
+</tbody>
+</table>
+<table class='table'>
+<tbody>
+<tr>
+<td width='60' valign='top'>天干留意:</td>
+<td id='tgliuyi' style='text-align:left'></td>
+</tr>
+<tr>
+<td width='60' valign='top'>地支留意:</td>
+<td id='dzliuyi' style='text-align:left'></td>
+</tr>
+<tr id='dayunshenshaa'>
+<td width='60' valign='top'>大运神煞:</td>
+<td id='dayunshensha' style='text-align:left'></td>
+</tr>
+<tr id='liunianshenshaa'>
+<td width='60' valign='top'>流年神煞:</td>
+<td id='liunianshensha' style='text-align:left'></td>
+</tr>
+<tr id='liuyueshenshaa'>
+<td width='60' valign='top'>流月神煞:</td>
+<td id='liuyueshensha' style='text-align:left'></td>
+</tr>
+<tr id='liurishenshaa'>
+<td width='60' valign='top'>流日神煞:</td>
+<td id='liurishensha' style='text-align:left'></td>
+</tr>
+<tr id='liushishenshaa'>
+<td width='60' valign='top'>流时神煞:</td>
+<td id='liushishensha' style='text-align:left'></td>
+</tr>
+<tr id='liukeshenshaa'>
+<td width='60' valign='top'>流刻神煞:</td>
+<td id='liukeshensha' style='text-align:left'></td>
+</tr>
+</tbody>
+</table>
+<input type='hidden' id='ld'>
+<input type='hidden' id='ln'>
+<input type='hidden' id='ly'>
+<input type='hidden' id='lr'>
+<input type='hidden' id='ls'>
+<input type='hidden' id='lk'>
+<!--细盘-->
+</div><input type='hidden' id='yzx' name='yzx' value='2' /><input type='hidden' id='bz_sx' name='bz_sx' value='0' /><input type='hidden' id='rzx' name='rzx' value='0' />
+<script type='text/javascript' id='dayunliuniancData'></script>
+<script type='text/javascript' src='date/lunar.js'></script>
+<div id='zwdshxjz'></div>
+<script type='text/javascript' src='date/system.js'></script>
+<style>data:text/css,html,body,a,div,p,img,textarea{-webkit-touch-callout:text!important;-webkit-user-select:text!important;user-select:text!important}
+</style>
+<style type="text/css">
+	iframe { width: 100%; height:100%; border: 0; overflow: hidden; flex: 1; }
+</style>
