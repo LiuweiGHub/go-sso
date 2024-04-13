@@ -29,6 +29,10 @@ func main() {
 	r.GET("/index", user.Index)
 	r.GET("/show", user.Show)
 	r.GET("/paiPan", user.PaiPan)
+	r.GET("/record", user.Record)
+	r.GET("/loginIndex", user.LoginIndex)
+	r.GET("/register", user.Register)
+	r.GET("/resetPassword", user.ResetPassword)
 
 	r.Use(Auth)
 	r.POST("/renewal", user.Renewal)

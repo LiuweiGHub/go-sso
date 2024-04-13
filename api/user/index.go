@@ -77,6 +77,22 @@ func Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{"title": "首页"})
 }
 
+func Record(c *gin.Context) {
+	c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
+}
+
+func LoginIndex(c *gin.Context) {
+	c.HTML(http.StatusOK, "login.html", gin.H{"title": "登录页"})
+}
+
+func Register(c *gin.Context) {
+	c.HTML(http.StatusOK, "register.html", gin.H{"title": "注册页"})
+}
+
+func ResetPassword(c *gin.Context) {
+	c.HTML(http.StatusOK, "repwd.html", gin.H{"title": "重置密码"})
+}
+
 func PaiPan(c *gin.Context) {
 	name := c.Query("name")
 	dateType := c.Query("dateType")

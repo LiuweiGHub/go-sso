@@ -1,0 +1,143 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/date/bootstrap.min.css">
+    <title>用户登录/注册</title>
+    <style type="text/css">
+        .nav {
+            margin-bottom: 15px;
+        }
+
+        .nav a {
+            color: #999;
+        }
+    </style>
+    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
+        position: fixed !important
+    }</style>
+</head>
+<body mpa-version="9.1.8" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
+<div class="container" style="padding-top: 15px;">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" href="loginIndex">登录</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="register">注册</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="resetPassword">重置密码</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="repwd" role="tabpanel">
+            <form method="post">
+                <div class="form-group">
+                    <input type="text" name="mob" id="registerMob" class="form-control" placeholder="手机号码">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="pwd" class="form-control" placeholder="新密码至少六位">
+                </div>
+                <div class="input-group form-group">
+                    <input type="text" name="code" id="code" class="form-control">
+                    <div class="input-group-append">
+                        <button code-type="repwd" class="btn btn-outline-secondary" type="button" id="captchaBtn"
+                                style="width: 150px;">获取验证码
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-dark btn-block">确认重置</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="bar">
+    <a href="/index">
+        <img src="static/images/home.svg">
+        <span>排盘</span>
+    </a>
+    <a href="/record" class="left-border">
+        <img src="static/images/menu.svg">
+        <span>记录</span>
+    </a>
+</div>
+<style>
+    #bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        border-width: 1px 0 0 0;
+        border-style: solid;
+        border-color: #CCC;
+        background-color: #EEE;
+        position: fixed;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 1200px; /* 适当的最大宽度 */
+        text-align: center; /* 文本居中 */
+    }
+
+    #bar a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        text-decoration: none;
+        font-size: 12px;
+        color: #666;
+        padding: 3px 0;
+    }
+</style>
+<script src="static/date/jquery.min.js"></script>
+<script src="static/date/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $("#captchaBtn").click(function (e) {
+        $.get('mob_code.php?type=' + $(this).attr("code-type") + '&mob=' + $("#registerMob").val(), function (data) {
+            if (data.code != 0) {
+                alert(data.msg);
+            } else {
+                $(this).attr("disabled", true);
+                let s = 60;
+                $("#captchaBtn").html((s--) + "s");
+                let timer = setInterval(function () {
+                    if (s == 0) {
+                        clearInterval(timer);
+                        $("#captchaBtn").attr("disabled", false).html('获取验证码');
+                        return;
+                    }
+                    $("#captchaBtn").html((s--) + "s");
+                }, 1000)
+            }
+        });
+    })
+
+    var account = localStorage.getItem('account');
+    if (account) {
+        account = JSON.parse(account);
+        $("#login input[name=mob]").val(account.mob);
+        $("#login input[name=pwd]").val(account.pwd);
+    }
+
+    function login() {
+        if ($("#saveAccount").prop("checked")) {
+            localStorage.setItem("account", JSON.stringify({
+                mob: $("#login input[name=mob]").val(),
+                pwd: $("#login input[name=pwd]").val()
+            }));
+        }
+        return true;
+    }
+</script>
+
+
+<div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+     id="mpa-rootsc-image-gatherer"></div>
+<div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+     id="mpa-rootsc-text-gatherer"></div>
+<div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+     id="mpa-rootsc-video-gatherer"></div>
+</body>
+</html>
