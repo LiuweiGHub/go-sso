@@ -11,6 +11,7 @@ import (
 	"go-sso/utils/sms"
 	"go-sso/utils/verify"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -18,6 +19,10 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
+
+var Months = map[string]string{"1": "正月", "2": "二月", "3": "三月", "4": "四月", "5": "五月", "6": "六月", "7": "七月", "8": "八月", "9": "九月", "10": "十月", "11": "冬月", "12": "腊月"}
+var RunMonths = map[string]string{"1": "闰正月", "2": "闰二月", "3": "闰三月", "4": "闰四月", "5": "闰五月", "6": "闰六月", "7": "闰七月", "8": "闰八月", "9": "闰九月", "10": "闰十月", "11": "闰冬月", "12": "闰腊月"}
+var Dates = map[string]string{"1": "初一", "2": "初二", "3": "初三", "4": "初四", "5": "初五", "6": "初六", "7": "初七", "8": "初八", "9": "初九", "10": "初十", "11": "十一", "12": "十二", "13": "十三", "14": "十四", "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九", "20": "二十", "21": "廿一", "22": "廿二", "23": "廿三", "24": "廿四", "25": "廿五", "26": "廿六", "27": "廿七", "28": "廿八", "29": "廿九", "30": "三十", "31": "三一"}
 
 type UserMobile struct {
 	Mobile string `form:"mobile" json:"mobile" binding:"required"`
@@ -73,7 +78,56 @@ func Index(c *gin.Context) {
 }
 
 func PaiPan(c *gin.Context) {
-	c.Redirect(http.StatusFound, "show?act=ok&name=王依晨&DateType=5&inputdate=农历1998年三月十三+15时0分&ng=己卯&yg=丙寅&rg=庚寅&sg=丙子&sex=1&leixing=0&ztys=0&city1=北京&city2=北京&city3=东城区&Sect=1&Siling=0&leixinggg=on")
+	name := c.Query("name")
+	dateType := c.Query("dateType")
+	year := c.Query("year")
+	month := c.Query("month")
+	date := c.Query("date")
+	hour := c.Query("hour")
+	minute := c.Query("minute")
+	nyear := c.Query("nyear")
+	nmonth := c.Query("nmonth")
+	ndate := c.Query("ndate")
+	nhour := c.Query("nhour")
+	sex := c.Query("sex")
+	ifrun := c.Query("ifrun")
+
+	inputDate := ""
+	if dateType == "0" {
+		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
+	} else {
+		if ifrun == "1" {
+			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
+		} else {
+			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
+		}
+	}
+	v := url.Values{}
+	v.Add("act", "ok")
+	v.Add("name", name)
+	v.Add("DateType", "5")
+	v.Add("inputdate", inputDate)
+	v.Add("ng", "癸巳")
+	v.Add("yg", "丙寅")
+	v.Add("rg", "庚寅")
+	v.Add("sg", "丙子")
+	v.Add("sex", sex)
+	v.Add("leixing", "0")
+	v.Add("ztys", "0")
+	v.Add("city1", "北京")
+	v.Add("city2", "北京")
+	v.Add("city3", "东城区")
+	v.Add("Sect", "1")
+	v.Add("Siling", "0")
+	v.Add("leixinggg", "on")
+	//v.Add("api", "1")
+	//v.Add("bcxx", "1")
+	params := v.Encode()
+	path := "show?" + params
+	//c.Redirect(http.StatusFound, "show?act=ok&name=王依晨&DateType=5&inputdate=农历1998年三月十三+15时0分&ng=己卯&yg=丙寅&rg=庚寅&sg=丙子&sex=1&leixing=0&ztys=0&city1=北京&city2=北京&city3=东城区&Sect=1&Siling=0&leixinggg=on")
+
+	c.Redirect(http.StatusFound, path)
+
 }
 
 func Show(c *gin.Context) {

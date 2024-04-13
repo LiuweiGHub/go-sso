@@ -573,7 +573,67 @@ function writeSource(cs, ms) {
             "2100": "庚申",
             "2101": "辛酉",
             "2102": "壬戌",
-            "2103": "癸亥"
+            "2103": "癸亥",
+            "2104": "甲子",
+            "2105": "乙丑",
+            "2106": "丙寅",
+            "2107": "丁卯",
+            "2108": "戊辰",
+            "2109": "己巳",
+            "2110": "庚午",
+            "2111": "辛未",
+            "2112": "壬申",
+            "2113": "癸酉",
+            "2114": "甲戌",
+            "2115": "乙亥",
+            "2116": "丙子",
+            "2117": "丁丑",
+            "2118": "戊寅",
+            "2119": "己卯",
+            "2120": "庚辰",
+            "2121": "辛巳",
+            "2122": "壬午",
+            "2123": "癸未",
+            "2124": "甲申",
+            "2125": "乙酉",
+            "2126": "丙戌",
+            "2127": "丁亥",
+            "2128": "戊子",
+            "2129": "己丑",
+            "2130": "庚寅",
+            "2131": "辛卯",
+            "2132": "壬辰",
+            "2133": "癸巳",
+            "2133": "甲午",
+            "2134": "乙未",
+            "2135": "丙申",
+            "2136": "丁酉",
+            "2137": "戊戌",
+            "2138": "己亥",
+            "2139": "庚子",
+            "2140": "辛丑",
+            "2141": "壬寅",
+            "2142": "癸卯",
+            "2143": "甲辰",
+            "2144": "乙巳",
+            "2145": "丙午",
+            "2146": "丁未",
+            "2147": "戊申",
+            "2148": "己酉",
+            "2149": "庚戌",
+            "2150": "辛亥",
+            "2151": "壬子",
+            "2152": "癸丑",
+            "2153": "甲寅",
+            "2154": "乙卯",
+            "2155": "丙辰",
+            "2156": "丁巳",
+            "2157": "戊午",
+            "2158": "己未",
+            "2159": "庚申",
+            "2160": "辛酉",
+            "2161": "壬戌",
+            "2162": "癸亥"
         }
         LNDYQY = "<td>运年</td>";
         xipandayungz = "<td>大运</td>";
@@ -740,7 +800,6 @@ function liushishijian(bbb, aaa, ccc, ggg, ddd) {
     $("#liushidz .small").html(getDzSS(ccc, $("#rigan").html()));
     $("#liushi_kongwang").html(kongwang[aaa + ccc]);
     $("#liushi_xingyun").html(xingyun[ccc]);
-    console.log(xingyun)
     $("#liushi_zizuo").html(zizuo[aaa + ccc]);
     $("#liushi_nayin").html(nayin[aaa + ccc]);
     document.getElementById("xiangxiliuke1").innerHTML = "<a onclick=liukeshijian('xiangxiliuke1','" + $jiazi[$yibaiesk[ccc]] + "','23','01')>" + $jiazi[$yibaiesk[ccc]] + "</a>";
@@ -1099,8 +1158,6 @@ $("#xipandayungz td").click(function (e) {
         $("#dayunliunianc tr:eq(0) td:eq(" + (i + 1) + ")").html(dayunliuniancData[(year + i)]).attr('year', year + i).attr('age', parseInt(e.target.dataset["age"]) + i);
         if (yearr == '小运') {
             ccc = DYKSNF - year;
-            console.log(ccc)
-            console.log('cccccccccc')
             if (ccc < i) {
                 $("#dayunliunian tr:eq(0) td:eq(" + (i + 1) + ")").html('');
                 $("#dayunliunian tr:eq(1) td:eq(" + (i + 1) + ")").html('').attr('year', '').attr('age', '');
@@ -1113,8 +1170,6 @@ $("#xipandayungz td").click(function (e) {
     if (yearr == '小运') {
         document.getElementById('liuyunbt').innerHTML = '小运';
         zdyddtd = XYKSNF;
-        console.log(zdyddtd)
-
     }
     $("#dayuntg .big").html(zdyddtd[0]).css('color', tgdzColor[zdyddtd[0]]);
     $("#dayundz .big").html(zdyddtd[1]).css('color', tgdzColor[zdyddtd[1]]);
