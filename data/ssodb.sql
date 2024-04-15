@@ -124,3 +124,13 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE `records` (
+                         `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键',
+                         `type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '排盘方式',
+                         `sex` tinyint(4) UNSIGNED NOT NULL COMMENT '性别',
+                         `birthday` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '生日',
+                         `ctime` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '注册时间',
+                         `remark` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

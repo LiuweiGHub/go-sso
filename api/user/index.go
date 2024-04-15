@@ -240,6 +240,9 @@ func SendSms(c *gin.Context) {
 
 }
 
+func Save(c *gin.Context) {
+}
+
 // 手机号注册
 func SignupByMobile(c *gin.Context) {
 	var userMobile UserMobile
