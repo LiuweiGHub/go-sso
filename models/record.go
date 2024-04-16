@@ -2,9 +2,32 @@ package models
 
 type Record struct {
 	Id       int64  `json:"id" xorm:"pk autoincr comment('主键') BIGINT(20)"`
+	Name     string `json:"name" xorm:"not null default '' comment('姓名') VARCHAR(50)"`
 	Type     string `json:"type" xorm:"not null default '' comment('排盘方式') VARCHAR(50)"`
 	Sex      int    `json:"sex" xorm:"not null default 0 comment('性别') INT(10)"`
 	Birthday string `json:"birthday" xorm:"not null default '' comment('生日') VARCHAR(50)"`
 	Remark   string `json:"remark" xorm:"not null default '' comment('备注') VARCHAR(50)"`
 	Ctime    int    `json:"ctime" xorm:"not null default 0 comment('注册时间') INT(10)"`
+}
+
+func (u *Record) GetRow() bool {
+	has, err := mEngine.Get(u)
+	if err == nil && has {
+		return true
+	}
+	return false
+}
+
+func (u *Record) Add() (int64, error) {
+	session := mEngine.NewSession()
+	defer session.Close()
+	// add Begin() before any action
+	if err := session.Begin(); err != nil {
+		return 0, err
+	}
+	_, err := session.Insert(u)
+	if err != nil {
+		return 0, err
+	}
+	return u.Id, session.Commit()
 }

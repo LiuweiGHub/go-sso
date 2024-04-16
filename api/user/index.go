@@ -78,6 +78,7 @@ func Index(c *gin.Context) {
 }
 
 func Record(c *gin.Context) {
+
 	c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
 }
 
@@ -109,13 +110,25 @@ func PaiPan(c *gin.Context) {
 	ifrun := c.Query("ifrun")
 
 	inputDate := ""
+	t := ""
 	if dateType == "0" {
+		t = "公历"
 		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
 	} else {
+		t = "农历"
 		if ifrun == "1" {
 			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		} else {
 			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
+		}
+	}
+	// 保存
+	isSave := c.Query("save")
+	if isSave == "1" {
+		birthday := year + "-" + month + "-" + date + " " + hour + ":" + minute
+		res := Save(name, sex, t, birthday)
+		if false == res {
+			response.ShowError(c, "save fail")
 		}
 	}
 	v := url.Values{}
@@ -136,14 +149,9 @@ func PaiPan(c *gin.Context) {
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
-	//v.Add("api", "1")
-	//v.Add("bcxx", "1")
 	params := v.Encode()
 	path := "show?" + params
-	//c.Redirect(http.StatusFound, "show?act=ok&name=王依晨&DateType=5&inputdate=农历1998年三月十三+15时0分&ng=己卯&yg=丙寅&rg=庚寅&sg=丙子&sex=1&leixing=0&ztys=0&city1=北京&city2=北京&city3=东城区&Sect=1&Siling=0&leixinggg=on")
-
 	c.Redirect(http.StatusFound, path)
-
 }
 
 func Show(c *gin.Context) {
@@ -240,7 +248,22 @@ func SendSms(c *gin.Context) {
 
 }
 
-func Save(c *gin.Context) {
+func Save(name string, sex string, dateType string, birthday string) bool {
+	s, _ := strconv.Atoi(sex)
+	model := models.Record{
+		Name:     name,
+		Sex:      s,
+		Type:     dateType,
+		Birthday: birthday,
+		Ctime:    int(time.Now().Unix()),
+	}
+	_, err := model.Add()
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	return true
+
 }
 
 // 手机号注册
