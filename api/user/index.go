@@ -78,8 +78,22 @@ func Index(c *gin.Context) {
 }
 
 func Record(c *gin.Context) {
+	name := c.Query("name")
+	page := c.Query("page")
+	pageSize := c.Query("pageSize")
+	r := models.Record{
+		Name: name,
+	}
+	p, _ := strconv.Atoi(page)
+	s, _ := strconv.Atoi(pageSize)
+	byPage, _ := r.GetRecordByPage(name, p, s)
+	c.HTML(http.StatusOK, "index/test.tmpl", map[string]interface{}{
+		"title": "HTML 渲染 示例3",
+		"list":  byPage,
+	})
+	//c.JSON(200, byPage)
 
-	c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
+	//c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
 }
 
 func LoginIndex(c *gin.Context) {

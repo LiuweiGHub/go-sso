@@ -1,5 +1,9 @@
 package models
 
+import (
+	"fmt"
+)
+
 type Record struct {
 	Id       int64  `json:"id" xorm:"pk autoincr comment('主键') BIGINT(20)"`
 	Name     string `json:"name" xorm:"not null default '' comment('姓名') VARCHAR(50)"`
@@ -30,4 +34,18 @@ func (u *Record) Add() (int64, error) {
 		return 0, err
 	}
 	return u.Id, session.Commit()
+}
+
+func (u *Record) GetRecordByPage(name string, page int, pageSize int) ([]map[string]string, error) {
+	if page == 0 {
+		page = 1
+	}
+	sql := "select * from sso.record"
+	if len(name) > 0 {
+		sql += fmt.Sprintf(" where name like '%s' ", name+"%")
+	}
+	sql += " order by id desc"
+	sql += " limit ?,?"
+	offset := (page - 1) * pageSize
+	return mEngine.SQL(sql, offset, pageSize).QueryString()
 }

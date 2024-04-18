@@ -29,6 +29,11 @@ func main() {
 	r.GET("/index", user.Index)
 	r.GET("/show", user.Show)
 	r.GET("/paiPan", user.PaiPan)
+	r.LoadHTMLFiles("view/test.tmpl")
+	//r.GET("/record", func(c *gin.Context) {
+	//
+	//	c.HTML(http.StatusOK, "index/test.tmpl", gin.H{"title": "HTML 渲染 示例1"})
+	//})
 	r.GET("/record", user.Record)
 	r.GET("/loginIndex", user.LoginIndex)
 	r.GET("/register", user.Register)
