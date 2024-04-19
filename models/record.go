@@ -36,6 +36,20 @@ func (u *Record) Add() (int64, error) {
 	return u.Id, session.Commit()
 }
 
+func (u *Record) Delete() (int64, error) {
+	session := mEngine.NewSession()
+	defer session.Close()
+	// add Begin() before any action
+	if err := session.Begin(); err != nil {
+		return 0, err
+	}
+	_, err := session.Delete(u)
+	if err != nil {
+		return 0, err
+	}
+	return u.Id, session.Commit()
+}
+
 func (u *Record) GetRecordByPage(name string, page int, pageSize int) ([]map[string]string, error) {
 	if page == 0 {
 		page = 1

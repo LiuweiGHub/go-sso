@@ -23,6 +23,7 @@ import (
 var Months = map[string]string{"1": "正月", "2": "二月", "3": "三月", "4": "四月", "5": "五月", "6": "六月", "7": "七月", "8": "八月", "9": "九月", "10": "十月", "11": "冬月", "12": "腊月"}
 var RunMonths = map[string]string{"1": "闰正月", "2": "闰二月", "3": "闰三月", "4": "闰四月", "5": "闰五月", "6": "闰六月", "7": "闰七月", "8": "闰八月", "9": "闰九月", "10": "闰十月", "11": "闰冬月", "12": "闰腊月"}
 var Dates = map[string]string{"1": "初一", "2": "初二", "3": "初三", "4": "初四", "5": "初五", "6": "初六", "7": "初七", "8": "初八", "9": "初九", "10": "初十", "11": "十一", "12": "十二", "13": "十三", "14": "十四", "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九", "20": "二十", "21": "廿一", "22": "廿二", "23": "廿三", "24": "廿四", "25": "廿五", "26": "廿六", "27": "廿七", "28": "廿八", "29": "廿九", "30": "三十", "31": "三一"}
+var Sex = map[string]string{"0": "男", "1": "女"}
 
 type UserMobile struct {
 	Mobile string `form:"mobile" json:"mobile" binding:"required"`
@@ -78,22 +79,43 @@ func Index(c *gin.Context) {
 }
 
 func Record(c *gin.Context) {
+
+	id := c.Query("id")
+	if len(id) > 0 {
+		deleteRecord(id)
+	}
+
 	name := c.Query("name")
-	page := c.Query("page")
-	pageSize := c.Query("pageSize")
+	page := c.DefaultQuery("page", "1")
+	pageSize := c.DefaultQuery("pageSize", "10")
 	r := models.Record{
 		Name: name,
 	}
 	p, _ := strconv.Atoi(page)
 	s, _ := strconv.Atoi(pageSize)
-	byPage, _ := r.GetRecordByPage(name, p, s)
-	c.HTML(http.StatusOK, "index/test.tmpl", map[string]interface{}{
-		"title": "HTML 渲染 示例3",
-		"list":  byPage,
+	list, _ := r.GetRecordByPage(name, p, s)
+	for k, v := range list {
+		fmt.Println(k, v)
+		splits := strings.Split(v["birthday"], " ")
+		date := splits[0]
+		nums := strings.Split(date, "-")
+		list[k]["birthday"] = nums[0] + "年" + nums[1] + "月" + nums[2] + "日"
+		list[k]["sex"] = Sex[v["sex"]]
+	}
+	c.HTML(http.StatusOK, "content.tmpl", map[string]interface{}{
+		"list": list,
 	})
 	//c.JSON(200, byPage)
 
 	//c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
+}
+
+func deleteRecord(id string) {
+	i, _ := strconv.Atoi(id)
+	r := models.Record{
+		Id: int64(i),
+	}
+	r.Delete()
 }
 
 func LoginIndex(c *gin.Context) {
