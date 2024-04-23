@@ -105,9 +105,35 @@ func Record(c *gin.Context) {
 	c.HTML(http.StatusOK, "content.tmpl", map[string]interface{}{
 		"list": list,
 	})
-	//c.JSON(200, byPage)
+}
 
-	//c.HTML(http.StatusOK, "record.html", gin.H{"title": "记录页"})
+func Edit(c *gin.Context) {
+	id := c.Query("id")
+	i, _ := strconv.Atoi(id)
+
+	r := models.Record{
+		Id: int64(i),
+	}
+	row, _ := r.GetRowById()
+	var isNongLi, isGongLi, isNv, isNan bool
+	if row.Type == "农历" {
+		isNongLi = true
+	} else {
+		isGongLi = true
+	}
+	if row.Sex == 0 {
+		isNan = true
+	} else {
+		isNv = true
+	}
+	c.HTML(http.StatusOK, "edit.tmpl", map[string]interface{}{
+		"title":    "修改记录",
+		"name":     row.Name,
+		"isNv":     isNv,
+		"isNongLi": isNongLi,
+		"isGongLi": isGongLi,
+		"isNan":    isNan,
+	})
 }
 
 func deleteRecord(id string) {

@@ -14,6 +14,8 @@ type Record struct {
 	Ctime    int    `json:"ctime" xorm:"not null default 0 comment('注册时间') INT(10)"`
 }
 
+var recordTable = "record"
+
 func (u *Record) GetRow() bool {
 	has, err := mEngine.Get(u)
 	if err == nil && has {
@@ -62,4 +64,10 @@ func (u *Record) GetRecordByPage(name string, page int, pageSize int) ([]map[str
 	sql += " limit ?,?"
 	offset := (page - 1) * pageSize
 	return mEngine.SQL(sql, offset, pageSize).QueryString()
+}
+
+func (u *Record) GetRowById() (Record, error) {
+	var record Record
+	_, err := mEngine.Table(recordTable).Where("id=?", u.Id).Get(&record)
+	return record, err
 }
