@@ -29,6 +29,7 @@ func main() {
 	r.GET("/index", user.Index)
 	r.GET("/show", user.Show)
 	r.GET("/paiPan", user.PaiPan)
+	r.GET("/modify", user.Modify)
 	//r.LoadHTMLFiles("view/record.html")
 	//r.GET("/record", func(c *gin.Context) {
 	//

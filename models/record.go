@@ -66,6 +66,15 @@ func (u *Record) GetRecordByPage(name string, page int, pageSize int) ([]map[str
 	return mEngine.SQL(sql, offset, pageSize).QueryString()
 }
 
+func (u *Record) Update(record Record) int64 {
+	affected, err := mEngine.Id(record.Id).Update(&record)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Affected rows: %d\n", affected)
+	return affected
+}
+
 func (u *Record) GetRowById() (Record, error) {
 	var record Record
 	_, err := mEngine.Table(recordTable).Where("id=?", u.Id).Get(&record)

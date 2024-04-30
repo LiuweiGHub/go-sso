@@ -17,6 +17,7 @@ require (
 	github.com/go-xorm/sqlfiddle v0.0.0-20180821085327-62ce714f951a // indirect
 	github.com/go-xorm/xorm v0.0.0-20180925133144-7a9249de3324
 	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/iancoleman/orderedmap v0.3.0 // indirect
 	github.com/jackc/fake v0.0.0-20150926172116-812a484cc733 // indirect
 	github.com/jackc/pgx v3.2.0+incompatible // indirect
 	github.com/lib/pq v0.0.0-20180523175426-90697d60dd84 // indirect

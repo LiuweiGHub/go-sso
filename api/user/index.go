@@ -2,6 +2,7 @@ package user
 
 import (
 	"fmt"
+	"github.com/iancoleman/orderedmap"
 	"go-sso/models"
 	"go-sso/modules/app"
 	"go-sso/utils/common"
@@ -126,13 +127,280 @@ func Edit(c *gin.Context) {
 	} else {
 		isNv = true
 	}
-	c.HTML(http.StatusOK, "edit.tmpl", map[string]interface{}{
-		"title":    "修改记录",
-		"name":     row.Name,
-		"isNv":     isNv,
-		"isNongLi": isNongLi,
-		"isGongLi": isGongLi,
-		"isNan":    isNan,
+	var years []string
+	for i := 1902; i < 2038; i++ {
+		y := strconv.Itoa(i)
+		years = append(years, y)
+	}
+	var months []string
+	for i := 1; i < 13; i++ {
+		m := strconv.Itoa(i)
+		months = append(months, m)
+	}
+	var days []string
+	for i := 1; i < 32; i++ {
+		d := strconv.Itoa(i)
+		days = append(days, d)
+	}
+	var hours []string
+	for i := 0; i < 24; i++ {
+		h := strconv.Itoa(i)
+		hours = append(hours, h)
+	}
+	var minutes []string
+	for i := 0; i < 60; i++ {
+		m := strconv.Itoa(i)
+		minutes = append(minutes, m)
+	}
+	baziNian := orderedmap.New()
+	baziNian.Set("1902", "壬寅")
+	baziNian.Set("1903", "癸卯")
+	baziNian.Set("1904", "甲辰")
+	baziNian.Set("1905", "乙巳")
+	baziNian.Set("1906", "丙午")
+	baziNian.Set("1907", "丁未")
+	baziNian.Set("1908", "戊申")
+	baziNian.Set("1909", "己酉")
+	baziNian.Set("1910", "庚戌")
+	baziNian.Set("1911", "辛亥")
+	baziNian.Set("1912", "壬子")
+	baziNian.Set("1913", "癸丑")
+	baziNian.Set("1914", "甲寅")
+	baziNian.Set("1915", "乙卯")
+	baziNian.Set("1916", "丙辰")
+	baziNian.Set("1917", "丁巳")
+	baziNian.Set("1918", "戊午")
+	baziNian.Set("1919", "己未")
+	baziNian.Set("1920", "庚申")
+	baziNian.Set("1921", "辛酉")
+	baziNian.Set("1922", "壬戌")
+	baziNian.Set("1923", "癸亥")
+	baziNian.Set("1924", "甲子")
+	baziNian.Set("1925", "乙丑")
+	baziNian.Set("1926", "丙寅")
+	baziNian.Set("1927", "丁卯")
+	baziNian.Set("1928", "戊辰")
+	baziNian.Set("1929", "己巳")
+	baziNian.Set("1930", "庚午")
+	baziNian.Set("1931", "辛未")
+	baziNian.Set("1932", "壬申")
+	baziNian.Set("1933", "癸酉")
+	baziNian.Set("1934", "甲戌")
+	baziNian.Set("1935", "乙亥")
+	baziNian.Set("1936", "丙子")
+	baziNian.Set("1937", "丁丑")
+	baziNian.Set("1938", "戊寅")
+	baziNian.Set("1939", "己卯")
+	baziNian.Set("1940", "庚辰")
+	baziNian.Set("1941", "辛巳")
+	baziNian.Set("1942", "壬午")
+	baziNian.Set("1943", "癸未")
+	baziNian.Set("1944", "甲申")
+	baziNian.Set("1945", "乙酉")
+	baziNian.Set("1946", "丙戌")
+	baziNian.Set("1947", "丁亥")
+	baziNian.Set("1948", "戊子")
+	baziNian.Set("1949", "己丑")
+	baziNian.Set("1950", "庚寅")
+	baziNian.Set("1951", "辛卯")
+	baziNian.Set("1952", "壬辰")
+	baziNian.Set("1953", "癸巳")
+	baziNian.Set("1954", "甲午")
+	baziNian.Set("1955", "乙未")
+	baziNian.Set("1956", "丙申")
+	baziNian.Set("1957", "丁酉")
+	baziNian.Set("1958", "戊戌")
+	baziNian.Set("1959", "己亥")
+	baziNian.Set("1960", "庚子")
+	baziNian.Set("1961", "辛丑")
+	baziNian.Set("1962", "壬寅")
+	baziNian.Set("1963", "癸卯")
+	baziNian.Set("1964", "甲辰")
+	baziNian.Set("1965", "乙巳")
+	baziNian.Set("1966", "丙午")
+	baziNian.Set("1967", "丁未")
+	baziNian.Set("1968", "戊申")
+	baziNian.Set("1969", "己酉")
+	baziNian.Set("1970", "庚戌")
+	baziNian.Set("1971", "辛亥")
+	baziNian.Set("1972", "壬子")
+	baziNian.Set("1973", "癸丑")
+	baziNian.Set("1974", "甲寅")
+	baziNian.Set("1975", "乙卯")
+	baziNian.Set("1976", "丙辰")
+	baziNian.Set("1977", "丁巳")
+	baziNian.Set("1978", "戊午")
+	baziNian.Set("1979", "己未")
+	baziNian.Set("1980", "庚申")
+	baziNian.Set("1981", "辛酉")
+	baziNian.Set("1982", "壬戌")
+	baziNian.Set("1983", "癸亥")
+	baziNian.Set("1984", "甲子")
+	baziNian.Set("1985", "乙丑")
+	baziNian.Set("1986", "丙寅")
+	baziNian.Set("1987", "丁卯")
+	baziNian.Set("1988", "戊辰")
+	baziNian.Set("1989", "己巳")
+	baziNian.Set("1990", "庚午")
+	baziNian.Set("1991", "辛未")
+	baziNian.Set("1992", "壬申")
+	baziNian.Set("1993", "癸酉")
+	baziNian.Set("1994", "甲戌")
+	baziNian.Set("1995", "乙亥")
+	baziNian.Set("1996", "丙子")
+	baziNian.Set("1997", "丁丑")
+	baziNian.Set("1998", "戊寅")
+	baziNian.Set("1999", "己卯")
+	baziNian.Set("2000", "庚辰")
+	baziNian.Set("2001", "辛巳")
+	baziNian.Set("2002", "壬午")
+	baziNian.Set("2003", "癸未")
+	baziNian.Set("2004", "甲申")
+	baziNian.Set("2005", "乙酉")
+	baziNian.Set("2006", "丙戌")
+	baziNian.Set("2007", "丁亥")
+	baziNian.Set("2008", "戊子")
+	baziNian.Set("2009", "己丑")
+	baziNian.Set("2010", "庚寅")
+	baziNian.Set("2011", "辛卯")
+	baziNian.Set("2012", "壬辰")
+	baziNian.Set("2013", "癸巳")
+	baziNian.Set("2014", "甲午")
+	baziNian.Set("2015", "乙未")
+	baziNian.Set("2016", "丙申")
+	baziNian.Set("2017", "丁酉")
+	baziNian.Set("2018", "戊戌")
+	baziNian.Set("2019", "己亥")
+	baziNian.Set("2020", "庚子")
+	baziNian.Set("2021", "辛丑")
+	baziNian.Set("2022", "壬寅")
+	baziNian.Set("2023", "癸卯")
+	baziNian.Set("2024", "甲辰")
+	baziNian.Set("2025", "乙巳")
+	baziNian.Set("2026", "丙午")
+	baziNian.Set("2027", "丁未")
+	baziNian.Set("2028", "戊申")
+	baziNian.Set("2029", "己酉")
+	nongLiYue := orderedmap.New()
+	nongLiYue.Set("1", "正月")
+	nongLiYue.Set("2", "二月")
+	nongLiYue.Set("3", "三月")
+	nongLiYue.Set("4", "四月")
+	nongLiYue.Set("5", "五月")
+	nongLiYue.Set("6", "六月")
+	nongLiYue.Set("7", "七月")
+	nongLiYue.Set("8", "八月")
+	nongLiYue.Set("9", "九月")
+	nongLiYue.Set("10", "十月")
+	nongLiYue.Set("11", "十一月")
+	nongLiYue.Set("12", "十二月")
+	nongLiDay := orderedmap.New()
+	nongLiDay.Set("1", "初一")
+	nongLiDay.Set("2", "初二")
+	nongLiDay.Set("3", "初三")
+	nongLiDay.Set("4", "初四")
+	nongLiDay.Set("5", "初五")
+	nongLiDay.Set("6", "初六")
+	nongLiDay.Set("7", "初七")
+	nongLiDay.Set("8", "初八")
+	nongLiDay.Set("9", "初九")
+	nongLiDay.Set("10", "初十")
+	nongLiDay.Set("11", "十一")
+	nongLiDay.Set("12", "十二")
+	nongLiDay.Set("13", "十三")
+	nongLiDay.Set("14", "十四")
+	nongLiDay.Set("15", "十五")
+	nongLiDay.Set("16", "十六")
+	nongLiDay.Set("17", "十七")
+	nongLiDay.Set("18", "十八")
+	nongLiDay.Set("19", "十九")
+	nongLiDay.Set("20", "二十")
+	nongLiDay.Set("21", "廿一")
+	nongLiDay.Set("22", "廿二")
+	nongLiDay.Set("23", "廿三")
+	nongLiDay.Set("24", "廿四")
+	nongLiDay.Set("25", "廿五")
+	nongLiDay.Set("26", "廿六")
+	nongLiDay.Set("27", "廿七")
+	nongLiDay.Set("28", "廿八")
+	nongLiDay.Set("29", "廿九")
+	nongLiDay.Set("30", "三十")
+
+	nongLiHour := orderedmap.New()
+	nongLiHour.Set("0", "姿势")
+	nongLiHour.Set("0", "子时")
+	nongLiHour.Set("1", "丑时")
+	nongLiHour.Set("2", "丑时")
+	nongLiHour.Set("3", "寅时")
+	nongLiHour.Set("4", "寅时")
+	nongLiHour.Set("5", "卯时")
+	nongLiHour.Set("6", "卯时")
+	nongLiHour.Set("7", "辰时")
+	nongLiHour.Set("8", "辰时")
+	nongLiHour.Set("9", "巳时")
+	nongLiHour.Set("10", "巳时")
+	nongLiHour.Set("11", "午时")
+	nongLiHour.Set("12", "午时")
+	nongLiHour.Set("13", "未时")
+	nongLiHour.Set("14", "未时")
+	nongLiHour.Set("15", "申时")
+	nongLiHour.Set("16", "申时")
+	nongLiHour.Set("17", "酉时")
+	nongLiHour.Set("18", "酉时")
+	nongLiHour.Set("19", "戌时")
+	nongLiHour.Set("20", "戌时")
+	nongLiHour.Set("21", "亥时")
+	nongLiHour.Set("22", "亥时")
+	nongLiHour.Set("23", "子时")
+	type Record struct {
+		Id         string
+		Title      string
+		Name       string
+		IsNv       bool
+		IsNan      bool
+		IsGongLi   bool
+		IsNongLi   bool
+		Years      []string
+		BaziNian   map[string]interface{}
+		NongLiYue  map[string]interface{}
+		NongLiDay  map[string]interface{}
+		NongLiHour map[string]interface{}
+		Months     []string
+		Days       []string
+		Hours      []string
+		Minutes    []string
+		Year       string
+		Month      string
+		Day        string
+		Hour       string
+		Minute     string
+	}
+	birthday := row.Birthday
+	split := strings.Split(birthday, " ")
+	ds := strings.Split(split[0], "-")
+	hs := strings.Split(split[1], ":")
+	c.HTML(http.StatusOK, "edit.tmpl", Record{
+		Id:         id,
+		Title:      "修改记录",
+		Name:       row.Name,
+		IsNv:       isNv,
+		IsNan:      isNan,
+		IsGongLi:   isGongLi,
+		IsNongLi:   isNongLi,
+		Years:      years,
+		BaziNian:   baziNian.Values(),
+		NongLiYue:  nongLiYue.Values(),
+		NongLiDay:  nongLiDay.Values(),
+		NongLiHour: nongLiHour.Values(),
+		Months:     months,
+		Days:       days,
+		Hours:      hours,
+		Minutes:    minutes,
+		Year:       ds[0],
+		Month:      ds[1],
+		Day:        ds[2],
+		Hour:       hs[0],
+		Minute:     hs[1],
 	})
 }
 
@@ -154,6 +422,80 @@ func Register(c *gin.Context) {
 
 func ResetPassword(c *gin.Context) {
 	c.HTML(http.StatusOK, "repwd.html", gin.H{"title": "重置密码"})
+}
+
+func Modify(c *gin.Context) {
+	id := c.Query("id")
+	name := c.Query("name")
+	dateType := c.Query("DateType")
+	year := c.Query("year")
+	month := c.Query("month")
+	date := c.Query("date")
+	hour := c.Query("hour")
+	minute := c.Query("minute")
+	nyear := c.Query("nyear")
+	nmonth := c.Query("nmonth")
+	ndate := c.Query("ndate")
+	nhour := c.Query("nhour")
+	sex := c.Query("sex")
+	ifrun := c.Query("ifrun")
+
+	inputDate := ""
+	t := ""
+	birthday := ""
+	if dateType == "0" {
+		t = "公历"
+		birthday = year + "-" + month + "-" + date + " " + hour + ":" + minute
+		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
+	} else {
+		t = "农历"
+		birthday = nyear + "-" + nmonth + "-" + ndate + " " + nhour + ":" + "00"
+		if ifrun == "1" {
+			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + "00分"
+		} else {
+			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + "00分"
+			fmt.Println(inputDate)
+		}
+	}
+	// 保存
+	isSave := c.Query("save")
+	if isSave == "1" {
+
+		i, _ := strconv.Atoi(id)
+		fmt.Println(i)
+		s, _ := strconv.Atoi(sex)
+
+		r := models.Record{
+			Id:       int64(i),
+			Birthday: birthday,
+			Sex:      s,
+			Type:     t,
+			Name:     name,
+		}
+		fmt.Println(r)
+		r.Update(r)
+	}
+	v := url.Values{}
+	v.Add("act", "ok")
+	v.Add("name", name)
+	v.Add("DateType", "5")
+	v.Add("inputdate", inputDate)
+	v.Add("ng", "癸巳")
+	v.Add("yg", "丙寅")
+	v.Add("rg", "庚寅")
+	v.Add("sg", "丙子")
+	v.Add("sex", sex)
+	v.Add("leixing", "0")
+	v.Add("ztys", "0")
+	v.Add("city1", "北京")
+	v.Add("city2", "北京")
+	v.Add("city3", "东城区")
+	v.Add("Sect", "1")
+	v.Add("Siling", "0")
+	v.Add("leixinggg", "on")
+	params := v.Encode()
+	path := "show?" + params
+	c.Redirect(http.StatusFound, path)
 }
 
 func PaiPan(c *gin.Context) {
