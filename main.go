@@ -9,6 +9,7 @@ import (
 	"go-sso/utils/handle"
 	"go-sso/utils/request"
 	"go-sso/utils/response"
+	"net/http"
 	"net/url"
 	"strconv"
 
@@ -27,26 +28,25 @@ func main() {
 	r.Static("/static", "./static")
 	r.Static("/images", "./static/images")
 	r.GET("/index", user.Index)
+	r.POST("/userLogin", user.Login)
+	r.GET("/resetPassword", user.ResetPassword)
+	r.GET("/register", user.Register)
+	r.GET("/sendsms", user.SendSms)
+	r.GET("/loginIndex", user.LoginIndex)
+	r.POST("/login", user.Login)
+
+	r.Use(Auth)
+
 	r.GET("/show", user.Show)
 	r.GET("/paiPan", user.PaiPan)
 	r.GET("/modify", user.Modify)
-	//r.LoadHTMLFiles("view/record.html")
-	//r.GET("/record", func(c *gin.Context) {
-	//
-	//	c.HTML(http.StatusOK, "index/test.tmpl", gin.H{"title": "HTML 渲染 示例1"})
-	//})
 	r.GET("/record", user.Record)
 	r.GET("/edit", user.Edit)
-	r.GET("/loginIndex", user.LoginIndex)
-	r.GET("/register", user.Register)
-	r.GET("/resetPassword", user.ResetPassword)
 
-	r.Use(Auth)
 	r.POST("/renewal", user.Renewal)
 	r.POST("/logout", user.Logout)
-	r.POST("/login", user.Login)
+	r.POST("/modifyPwd", user.ModifyPwd)
 	r.POST("/login/mobile", user.LoginByMobileCode)
-	r.POST("/sendsms", user.SendSms)
 	r.POST("/signup/mobile", user.SignupByMobile)
 	r.POST("/signup/mobile/exist", user.MobileIsExists)
 	r.GET("/", api.Index)
@@ -81,7 +81,8 @@ func Auth(c *gin.Context) {
 		accessToken, has := request.GetParam(c, app.ACCESS_TOKEN)
 		if !has {
 			c.Abort() //组织调起其他函数
-			response.ShowError(c, "nologin")
+			c.Redirect(http.StatusFound, "loginIndex")
+			//response.ShowError(c, "nologin")
 			return
 		}
 		ret, err := app.ParseToken(accessToken)
@@ -94,7 +95,8 @@ func Auth(c *gin.Context) {
 		has = app.CheckBlack(uid, accessToken)
 		if has {
 			c.Abort() //组织调起其他函数
-			response.ShowError(c, "nologin")
+			c.Redirect(http.StatusFound, "loginIndex")
+			//response.ShowError(c, "nologin")
 			return
 		}
 		c.Set("uid", ret.UserId)

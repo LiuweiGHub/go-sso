@@ -37,26 +37,33 @@ type UserMobileCode struct {
 }
 
 type UserMobilePasswd struct {
-	Mobile string `form:"mobile" json:"mobile" binding:"required"`
-	Passwd string `form:"passwd" json:"passwd" binding:"required,max=20,min=6"`
+	Mobile string `form:"mob" json:"mob" binding:"required"`
+	Passwd string `form:"pwd" json:"pwd" binding:"required,max=20,min=6"`
 }
 
 type Mobile struct {
-	Mobile string `form:"mobile" json:"mobile" binding:"required"`
+	Mobile string `form:"mob" json:"mob" binding:"required"`
 }
 
-var MobileTrans = map[string]string{"mobile": "手机号"}
+var MobileTrans = map[string]string{"mob": "手机号"}
 
 var UserMobileTrans = map[string]string{"Mobile": "手机号", "Passwd": "密码", "Code": "验证码"}
 
 // 手机密码
 func Login(c *gin.Context) {
 	var userMobile UserMobilePasswd
-	if err := c.BindJSON(&userMobile); err != nil {
-		msg := handle.TransTagName(&UserMobileTrans, err)
-		response.ShowValidatorError(c, msg)
-		return
-	}
+	//if err := c.BindJSON(&userMobile); err != nil {
+	//	msg := handle.TransTagName(&UserMobileTrans, err)
+	//	response.ShowValidatorError(c, msg)
+	//	return
+	//}
+	mobile, _ := c.GetPostForm("mob")
+	password, _ := c.GetPostForm("pwd")
+	userMobile.Mobile = mobile
+	userMobile.Passwd = password
+	fmt.Println(userMobile)
+	fmt.Println(c.GetPostForm("mob"))
+	fmt.Println(c.GetPostForm("pwd"))
 	model := models.Users{Mobile: userMobile.Mobile}
 	if has := model.GetRow(); !has {
 		response.ShowError(c, "mobile_not_exists")
@@ -71,6 +78,7 @@ func Login(c *gin.Context) {
 		response.ShowError(c, "fail")
 		return
 	}
+	fmt.Println("aaaaaaaaaaaaaaa")
 	response.ShowSuccess(c, "success")
 	return
 }
@@ -454,15 +462,12 @@ func Modify(c *gin.Context) {
 			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + "00分"
 		} else {
 			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + "00分"
-			fmt.Println(inputDate)
 		}
 	}
 	// 保存
 	isSave := c.Query("save")
 	if isSave == "1" {
-
 		i, _ := strconv.Atoi(id)
-		fmt.Println(i)
 		s, _ := strconv.Atoi(sex)
 
 		r := models.Record{
@@ -472,7 +477,6 @@ func Modify(c *gin.Context) {
 			Type:     t,
 			Name:     name,
 		}
-		fmt.Println(r)
 		r.Update(r)
 	}
 	v := url.Values{}
@@ -578,6 +582,21 @@ func Logout(c *gin.Context) {
 	return
 }
 
+// 修改密码
+func ModifyPwd(c *gin.Context) {
+	cookie := c.Request.Cookies()
+	userId := cookie[2].Value
+	pwd, _ := c.GetPostForm("pwd")
+	uid, _ := strconv.Atoi(userId)
+	model := models.Users{}
+	model.Id = int64(uid)
+	row, _ := model.GetRowById()
+	model.Passwd = common.Sha1En(pwd + row.Salt)
+	model.Update(model)
+	response.ShowSuccess(c, "success")
+	return
+}
+
 // 手机验证码登录
 func LoginByMobileCode(c *gin.Context) {
 	var userMobile UserMobileCode
@@ -630,26 +649,28 @@ func MobileIsExists(c *gin.Context) {
 // 发送短信验证码
 func SendSms(c *gin.Context) {
 	var p Mobile
-	if err := c.BindJSON(&p); err != nil {
-		msg := handle.TransTagName(&MobileTrans, err)
-		response.ShowValidatorError(c, msg)
-		return
-	}
+	p.Mobile = c.Query("mob")
+	//if err := c.BindJSON(&p); err != nil {
+	//	msg := handle.TransTagName(&MobileTrans, err)
+	//	response.ShowValidatorError(c, msg)
+	//	return
+	//}
 	if !verify.CheckMobile(p.Mobile) {
 		response.ShowError(c, "mobile_error")
 		return
 	}
 	//生成随机数
 	code := common.GetRandomNum(6)
+	fmt.Println(code)
 	msg := strings.Replace(sms.SMSTPL, "[code]", code, 1)
 	err := sms.SendSms(p.Mobile, msg)
+	fmt.Println(err)
 	if err != nil {
 		response.ShowError(c, "fail")
 		return
 	}
 	response.ShowError(c, "success")
 	return
-
 }
 
 func Save(name string, sex string, dateType string, birthday string) bool {
@@ -773,7 +794,6 @@ func Renewal(c *gin.Context) {
 }
 func Info(c *gin.Context) {
 	uid := c.MustGet("uid").(int64)
-	fmt.Println(uid)
 	model := models.Users{}
 	model.Id = uid
 	row, err := model.GetRowById()

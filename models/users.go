@@ -1,8 +1,10 @@
 package models
 
 import (
+	"fmt"
 	"time"
 )
+
 type Users struct {
 	Ctime  int       `json:"ctime" xorm:"not null default 0 comment('创建时间') index INT(10)"`
 	Email  string    `json:"email" xorm:"not null default '' comment('邮箱') VARCHAR(100)"`
@@ -11,22 +13,25 @@ type Users struct {
 	Mtime  time.Time `json:"mtime" xorm:"not null default 'CURRENT_TIMESTAMP' comment('修改时间') TIMESTAMP"`
 	Name   string    `json:"name" xorm:"not null default '' comment('用户名') VARCHAR(50)"`
 	Passwd string    `json:"passwd" xorm:"not null comment('密码') VARCHAR(50)"`
-	Mobile  string    `json:"mobile" xorm:"not null default '' comment('手机号') VARCHAR(20)"`
+	Mobile string    `json:"mobile" xorm:"not null default '' comment('手机号') VARCHAR(20)"`
 	Salt   string    `json:"salt" xorm:"not null comment('盐值') CHAR(4)"`
 	Status int       `json:"status" xorm:"not null default 0 comment('状态（0：未审核,1:通过 10删除）') TINYINT(4)"`
 }
 type UserRow struct {
-	Id     int64     `json:"id" xorm:"pk autoincr comment('主键') BIGINT(20)"`
-	Name   string    `json:"name" xorm:"not null default '' comment('用户名') VARCHAR(50)"`
-	Email  string    `json:"email" xorm:"not null default '' comment('邮箱') VARCHAR(100)"`
-	Mobile  string    `json:"mobile" xorm:"not null default '' comment('手机号') VARCHAR(20)"`
-
+	Id     int64  `json:"id" xorm:"pk autoincr comment('主键') BIGINT(20)"`
+	Name   string `json:"name" xorm:"not null default '' comment('用户名') VARCHAR(50)"`
+	Email  string `json:"email" xorm:"not null default '' comment('邮箱') VARCHAR(100)"`
+	Mobile string `json:"mobile" xorm:"not null default '' comment('手机号') VARCHAR(20)"`
+	Passwd string `json:"passwd" xorm:"not null comment('密码') VARCHAR(50)"`
+	Salt   string `json:"salt" xorm:"not null comment('盐值') CHAR(4)"`
 }
+
 var UsersStatusOk = 1
 var UsersStatusDel = 10
 var UsersStatusDef = 0
 
 var usersTable = "users"
+
 func (u *Users) GetRow() bool {
 	has, err := mEngine.Get(u)
 	if err == nil && has {
@@ -68,8 +73,17 @@ func IsExistsMobile(mobile string) bool {
 	model := Users{Mobile: mobile}
 	return model.GetRow()
 }
-func(u *Users) GetRowById() (UserRow,error) {
+func (u *Users) GetRowById() (UserRow, error) {
 	var userRow UserRow
-	_,err := mEngine.Table(usersTable).Where("id=?",u.Id).Get(&userRow)
-	return userRow,err
+	_, err := mEngine.Table(usersTable).Where("id=?", u.Id).Get(&userRow)
+	return userRow, err
+}
+
+func (u *Users) Update(user Users) int64 {
+	affected, err := mEngine.Id(user.Id).Update(&user)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Affected rows: %d\n", affected)
+	return affected
 }

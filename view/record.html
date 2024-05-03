@@ -31,7 +31,7 @@
             <button class="btn btn-outline-secondary" type="submit" id="searchBtn">搜索</button>
             <a href="javascript:" class="btn btn-outline-secondary" type="button" data-toggle="modal"
                data-target="#modifyPwdModal">修改密码</a>
-            <a href="?a=logout" class="btn btn-outline-secondary" type="button" id="logout">退出</a>
+            <button class="btn btn-outline-secondary" type="button" id="logout">退出</button>
         </div>
     </form>
 
@@ -171,11 +171,35 @@
             alert("密码不能为空");
             return;
         }
-        $.post("?a=modify_pwd", {pwd: $("[name=pwd]").val()}, function (data) {
+        $.post("modifyPwd", {pwd: $("[name=pwd]").val()}, function (data) {
             $("#modifyPwdModal").modal("hide");
             $("[name=pwd]").val("");
+            console.log(data)
+            if (data.msg == 'success') {
+                $.post("logout", {}, function (data) {
+                    if (data.msg == 'success') {
+                        window.location.href = 'loginIndex';
+                    } else {
+                        alert("服务异常，请稍后再试！")
+                    }
+                })
+            } else {
+                alert("服务异常，请稍后再试！")
+            }
         })
     })
+
+    // 清空accessToken 并跳转到首页
+    $("#logout").click(function () {
+        $.post("logout", {}, function (data) {
+            if (data.msg == 'success') {
+                window.location.href = 'index';
+            } else {
+                alert("服务异常，请稍后再试！")
+            }
+        })
+    })
+
 </script>
 
 

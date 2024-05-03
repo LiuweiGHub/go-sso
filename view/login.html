@@ -32,7 +32,6 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="login" role="tabpanel">
-            <form method="post">
                 <div class="form-group">
                     <input type="text" name="mob" class="form-control" placeholder="手机号码">
                 </div>
@@ -45,8 +44,7 @@
                         <label class="form-check-label" for="saveAccount">保存账号密码</label>
                     </div>
                 </div>
-                <button onclick="return login()" type="submit" class="btn btn-dark btn-block">登录</button>
-            </form>
+                <button id="userLogin" type="submit" class="btn btn-dark btn-block">登录</button>
         </div>
     </div>
 </div>
@@ -120,12 +118,54 @@
         $("#login input[name=pwd]").val(account.pwd);
     }
 
+    // 清空accessToken 并跳转到首页
+    $("#userLogin").click(function () {
+        var username = $("#login input[name=mob]").val();
+        var password = $("#login input[name=pwd]").val();
+        $.post("userLogin", {
+            pwd: password,
+            mob: username
+        }, function (data) {
+            if (data.msg == 'success') {
+                window.location.href = 'record';
+            } else if (data.msg == '用户名或密码错误') {
+                alert('登录失败，请检查用户名和密码。');
+            } else if (data.msg == '手机号不存在') {
+                alert('手机号不存在！');
+            } else {
+                alert('服务器无响应，请稍后再试。');
+            }
+        })
+    })
+
     function login() {
         if ($("#saveAccount").prop("checked")) {
             localStorage.setItem("account", JSON.stringify({
                 mob: $("#login input[name=mob]").val(),
                 pwd: $("#login input[name=pwd]").val()
             }));
+            e.preventDefault();
+            var username = $("#login input[name=mob]").val();
+            var password = $("#login input[name=pwd]").val();
+
+            $.ajax({
+                url: 'login',
+                type: 'POST',
+                data: { mob: username, pwd: password },
+                success: function(response) {
+                    if (response === 'success') {
+                        // 登录成功，跳转到另一个页面或者显示成功信息
+                        window.location.href = 'index.html';
+                    } else {
+                        // 登录失败，显示错误信息
+                        $('#loginError').text('登录失败，请检查用户名和密码。');
+                    }
+                },
+                error: function() {
+                    // 请求失败，显示错误信息
+                    $('#loginError').text('服务器无响应，请稍后再试。');
+                }
+            });
         }
         return true;
     }

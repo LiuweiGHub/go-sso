@@ -12,13 +12,14 @@ import (
 )
 
 const (
-	SMSTPL = "【xxxx】您正在申请手机注册，验证码为：[code]，若非本人操作请忽略！"
+	SMSTPL = "【解八字】您的验证码为：[code]，请勿泄漏于他人！"
 	//账号
-	ACCOUNT = "***************"
+	ACCOUNT = "LTAI5tA44PUdU8merJEVS9CR"
 	//密码
-	PSWD = "***************"
+	PSWD = "oUNnTEmWSbm3BMnp1p3GxrurNaYH7f"
 	// 发送url，
-	URL = "xxxxxxxxxxxxxxxxxxx"
+	URL = "http://sms.market.alicloudapi.com/singleSendSms?PhoneNumbers=13366746326&SignName=解八字&TemplateCode=SMS_465423974"
+	//  curl -i --get --include 'http://sms.market.alicloudapi.com/singleSendSms?PhoneNumbers=13366746326&SignName=解八字&TemplateCode=SMS_465423974'  -H 'Authorization:APPCODE 你自己的AppCode'
 )
 
 func SmsCheck(key, code string) bool {
@@ -60,7 +61,7 @@ func HttpPostForm(url string, data url.Values) (string, error) {
 	return string(body), nil
 }
 
-//发送短信
+// 发送短信
 func SendSms(mobile, msg string) error {
 	if mobile == "" {
 		return errors.New("mobile is not null")

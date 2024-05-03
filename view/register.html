@@ -95,7 +95,7 @@
 <script src="static/date/bootstrap.min.js"></script>
 <script type="text/javascript">
     $("#captchaBtn").click(function (e) {
-        $.get('mob_code.php?type=' + $(this).attr("code-type") + '&mob=' + $("#registerMob").val(), function (data) {
+        $.get('sendsms?&mob=' + $("#registerMob").val(), function (data) {
             if (data.code != 0) {
                 alert(data.msg);
             } else {
