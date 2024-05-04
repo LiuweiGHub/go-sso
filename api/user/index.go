@@ -597,6 +597,39 @@ func ModifyPwd(c *gin.Context) {
 	return
 }
 
+// 新增或修改备注
+func Remark(c *gin.Context) {
+	id := c.Query("id")
+	type Record struct {
+		Id     string
+		Remark string
+	}
+	i, _ := strconv.Atoi(id)
+	record := models.Record{
+		Id: int64(i),
+	}
+	row, _ := record.GetRowById()
+	c.HTML(http.StatusOK, "remark.tmpl", Record{
+		Id:     id,
+		Remark: row.Remark,
+	})
+}
+
+// 新增或修改备注
+func SaveRemark(c *gin.Context) {
+	id, _ := c.GetPostForm("id")
+	fmt.Println(id)
+	i, _ := strconv.Atoi(id)
+	model := models.Record{}
+	model.Id = int64(i)
+	remark, _ := c.GetPostForm("remark")
+	model.Remark = remark
+	fmt.Println(model)
+	model.Update(model)
+	response.ShowSuccess(c, "success")
+	return
+}
+
 // 手机验证码登录
 func LoginByMobileCode(c *gin.Context) {
 	var userMobile UserMobileCode

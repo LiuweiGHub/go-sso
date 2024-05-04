@@ -137,38 +137,6 @@
             }
         })
     })
-
-    function login() {
-        if ($("#saveAccount").prop("checked")) {
-            localStorage.setItem("account", JSON.stringify({
-                mob: $("#login input[name=mob]").val(),
-                pwd: $("#login input[name=pwd]").val()
-            }));
-            e.preventDefault();
-            var username = $("#login input[name=mob]").val();
-            var password = $("#login input[name=pwd]").val();
-
-            $.ajax({
-                url: 'login',
-                type: 'POST',
-                data: { mob: username, pwd: password },
-                success: function(response) {
-                    if (response === 'success') {
-                        // 登录成功，跳转到另一个页面或者显示成功信息
-                        window.location.href = 'index.html';
-                    } else {
-                        // 登录失败，显示错误信息
-                        $('#loginError').text('登录失败，请检查用户名和密码。');
-                    }
-                },
-                error: function() {
-                    // 请求失败，显示错误信息
-                    $('#loginError').text('服务器无响应，请稍后再试。');
-                }
-            });
-        }
-        return true;
-    }
 </script>
 
 
