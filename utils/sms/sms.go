@@ -2,24 +2,24 @@ package sms
 
 import (
 	"errors"
-	"github.com/gomodule/redigo/redis"
 	"go-sso/utils/cache"
 	"go-sso/utils/verify"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"unicode/utf8"
+
+	"github.com/gomodule/redigo/redis"
 )
 
 const (
 	SMSTPL = "【解八字】您的验证码为：[code]，请勿泄漏于他人！"
 	//账号
-	ACCOUNT = "LTAI5tA44PUdU8merJEVS9CR"
+	ACCOUNT = ""
 	//密码
-	PSWD = "oUNnTEmWSbm3BMnp1p3GxrurNaYH7f"
+	PSWD = ""
 	// 发送url，
-	URL = "http://sms.market.alicloudapi.com/singleSendSms?PhoneNumbers=13366746326&SignName=解八字&TemplateCode=SMS_465423974"
-	//  curl -i --get --include 'http://sms.market.alicloudapi.com/singleSendSms?PhoneNumbers=13366746326&SignName=解八字&TemplateCode=SMS_465423974'  -H 'Authorization:APPCODE 你自己的AppCode'
+	URL = ""
 )
 
 func SmsCheck(key, code string) bool {
