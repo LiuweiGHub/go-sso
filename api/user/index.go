@@ -107,6 +107,7 @@ func Record(c *gin.Context) {
 		times := strings.Split(time, ":")
 
 		list[k]["birthday"] = nums[0] + "年" + nums[1] + "月" + nums[2] + "日"
+		list[k]["sexNum"] = v["sex"]
 		list[k]["sex"] = Sex[v["sex"]]
 		list[k]["dateType"] = DateType[v["type"]]
 		list[k]["year"] = nums[0]
