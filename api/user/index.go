@@ -2,7 +2,6 @@ package user
 
 import (
 	"fmt"
-	"github.com/iancoleman/orderedmap"
 	"go-sso/models"
 	"go-sso/modules/app"
 	"go-sso/utils/common"
@@ -17,6 +16,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/iancoleman/orderedmap"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -25,6 +26,7 @@ var Months = map[string]string{"1": "正月", "2": "二月", "3": "三月", "4":
 var RunMonths = map[string]string{"1": "闰正月", "2": "闰二月", "3": "闰三月", "4": "闰四月", "5": "闰五月", "6": "闰六月", "7": "闰七月", "8": "闰八月", "9": "闰九月", "10": "闰十月", "11": "闰冬月", "12": "闰腊月"}
 var Dates = map[string]string{"1": "初一", "2": "初二", "3": "初三", "4": "初四", "5": "初五", "6": "初六", "7": "初七", "8": "初八", "9": "初九", "10": "初十", "11": "十一", "12": "十二", "13": "十三", "14": "十四", "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九", "20": "二十", "21": "廿一", "22": "廿二", "23": "廿三", "24": "廿四", "25": "廿五", "26": "廿六", "27": "廿七", "28": "廿八", "29": "廿九", "30": "三十", "31": "三一"}
 var Sex = map[string]string{"0": "男", "1": "女"}
+var DateType = map[string]string{"农历": "1", "公历": "0"}
 
 type UserMobile struct {
 	Mobile string `form:"mobile" json:"mobile" binding:"required"`
@@ -52,18 +54,10 @@ var UserMobileTrans = map[string]string{"Mobile": "手机号", "Passwd": "密码
 // 手机密码
 func Login(c *gin.Context) {
 	var userMobile UserMobilePasswd
-	//if err := c.BindJSON(&userMobile); err != nil {
-	//	msg := handle.TransTagName(&UserMobileTrans, err)
-	//	response.ShowValidatorError(c, msg)
-	//	return
-	//}
 	mobile, _ := c.GetPostForm("mob")
 	password, _ := c.GetPostForm("pwd")
 	userMobile.Mobile = mobile
 	userMobile.Passwd = password
-	fmt.Println(userMobile)
-	fmt.Println(c.GetPostForm("mob"))
-	fmt.Println(c.GetPostForm("pwd"))
 	model := models.Users{Mobile: userMobile.Mobile}
 	if has := model.GetRow(); !has {
 		response.ShowError(c, "mobile_not_exists")
@@ -93,22 +87,33 @@ func Record(c *gin.Context) {
 		deleteRecord(id)
 	}
 
+	cookie := c.Request.Cookies()
+	userId := cookie[2].Value
 	name := c.Query("name")
 	page := c.DefaultQuery("page", "1")
-	pageSize := c.DefaultQuery("pageSize", "10")
+	pageSize := c.DefaultQuery("pageSize", "10000")
 	r := models.Record{
 		Name: name,
 	}
 	p, _ := strconv.Atoi(page)
 	s, _ := strconv.Atoi(pageSize)
-	list, _ := r.GetRecordByPage(name, p, s)
+	list, _ := r.GetRecordByPage(name, userId, p, s)
 	for k, v := range list {
 		fmt.Println(k, v)
 		splits := strings.Split(v["birthday"], " ")
 		date := splits[0]
 		nums := strings.Split(date, "-")
+		time := splits[1]
+		times := strings.Split(time, ":")
+
 		list[k]["birthday"] = nums[0] + "年" + nums[1] + "月" + nums[2] + "日"
 		list[k]["sex"] = Sex[v["sex"]]
+		list[k]["dateType"] = DateType[v["type"]]
+		list[k]["year"] = nums[0]
+		list[k]["month"] = nums[1]
+		list[k]["day"] = nums[2]
+		list[k]["hour"] = times[0]
+		list[k]["min"] = times[1]
 	}
 	c.HTML(http.StatusOK, "content.tmpl", map[string]interface{}{
 		"list": list,
@@ -439,17 +444,19 @@ func ModifyPassword(c *gin.Context) {
 		return
 	}
 	if !verify.CheckCode(mob, code) {
-		fmt.Println(mob)
-		fmt.Println(pwd)
-		fmt.Println(code)
 		response.ShowError(c, "code_error")
 		return
 	}
-	user := models.Users{
-		Mobile: mob,
-		Passwd: pwd,
+	model := models.Users{}
+	model.Mobile = mob
+	row, _ := model.GetRowByMobile(mob)
+	fmt.Println(row)
+	if row.Id == 0 {
+		response.ShowError(c, "mobile_not_exists")
+		return
 	}
-	user.Update(user)
+	model.Passwd = common.Sha1En(pwd + row.Salt)
+	model.Update(model)
 	response.ShowSuccess(c, "success")
 }
 
@@ -524,6 +531,8 @@ func Modify(c *gin.Context) {
 }
 
 func PaiPan(c *gin.Context) {
+	cookie := c.Request.Cookies()
+	userId := cookie[2].Value
 	name := c.Query("name")
 	dateType := c.Query("dateType")
 	year := c.Query("year")
@@ -555,9 +564,57 @@ func PaiPan(c *gin.Context) {
 	isSave := c.Query("save")
 	if isSave == "1" {
 		birthday := year + "-" + month + "-" + date + " " + hour + ":" + minute
-		res := Save(name, sex, t, birthday)
+		res := Save(name, sex, t, birthday, ifrun, userId)
 		if false == res {
 			response.ShowError(c, "save fail")
+		}
+	}
+	v := url.Values{}
+	v.Add("act", "ok")
+	v.Add("name", name)
+	v.Add("DateType", "5")
+	v.Add("inputdate", inputDate)
+	v.Add("ng", "癸巳")
+	v.Add("yg", "丙寅")
+	v.Add("rg", "庚寅")
+	v.Add("sg", "丙子")
+	v.Add("sex", sex)
+	v.Add("leixing", "0")
+	v.Add("ztys", "0")
+	v.Add("city1", "北京")
+	v.Add("city2", "北京")
+	v.Add("city3", "东城区")
+	v.Add("Sect", "1")
+	v.Add("Siling", "0")
+	v.Add("leixinggg", "on")
+	params := v.Encode()
+	path := "show?" + params
+	c.Redirect(http.StatusFound, path)
+}
+
+func PaiPanDetail(c *gin.Context) {
+	name, _ := c.GetPostForm("name")
+	dateType, _ := c.GetPostForm("dateType")
+	year, _ := c.GetPostForm("year")
+	month, _ := c.GetPostForm("month")
+	date, _ := c.GetPostForm("date")
+	hour, _ := c.GetPostForm("hour")
+	minute, _ := c.GetPostForm("minute")
+	nyear, _ := c.GetPostForm("nyear")
+	nmonth, _ := c.GetPostForm("nmonth")
+	ndate, _ := c.GetPostForm("ndate")
+	nhour, _ := c.GetPostForm("nhour")
+	sex, _ := c.GetPostForm("sex")
+	ifrun, _ := c.GetPostForm("ifrun")
+
+	inputDate := ""
+	if dateType == "0" {
+		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
+	} else {
+		if ifrun == "1" {
+			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
+		} else {
+			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		}
 	}
 	v := url.Values{}
@@ -661,10 +718,10 @@ func LoginByMobileCode(c *gin.Context) {
 		return
 	}
 	//验证code
-	//if sms.SmsCheck("code"+userMobile.Mobile, userMobile.Code) {
-	//	response.ShowError(c, "code_error")
-	//	return
-	//}
+	if sms.SmsCheck("code"+userMobile.Mobile, userMobile.Code) {
+		response.ShowError(c, "code_error")
+		return
+	}
 	model := models.Users{Mobile: userMobile.Mobile}
 	if has := model.GetRow(); !has {
 		response.ShowError(c, "mobile_not_exists")
@@ -734,13 +791,18 @@ func saveSms(mobile string, code string) {
 	model.Add()
 }
 
-func Save(name string, sex string, dateType string, birthday string) bool {
+func Save(name string, sex string, dateType string, birthday string, isRun string, userId string) bool {
 	s, _ := strconv.Atoi(sex)
+	r, _ := strconv.Atoi(isRun)
+	uid, _ := strconv.Atoi(userId)
+
 	model := models.Record{
 		Name:     name,
+		Uid:      int64(uid),
 		Sex:      s,
 		Type:     dateType,
 		Birthday: birthday,
+		IsRun:    r,
 		Ctime:    int(time.Now().Unix()),
 	}
 	_, err := model.Add()
@@ -749,16 +811,19 @@ func Save(name string, sex string, dateType string, birthday string) bool {
 		return false
 	}
 	return true
-
 }
 
 // 手机号注册
 func SignupByMobile(c *gin.Context) {
+	mobile, _ := c.GetPostForm("mob")
+	pwd, _ := c.GetPostForm("pwd")
+	code, _ := c.GetPostForm("code")
 	var userMobile UserMobile
-	if err := c.BindJSON(&userMobile); err != nil {
-		msg := handle.TransTagName(&UserMobileTrans, err)
-		fmt.Println(msg)
-		response.ShowValidatorError(c, msg)
+	userMobile.Code = code
+	userMobile.Mobile = mobile
+	userMobile.Passwd = pwd
+	if !verify.CheckMobile(mobile) {
+		response.ShowError(c, "mobile_error")
 		return
 	}
 	model := models.Users{Mobile: userMobile.Mobile}
@@ -767,11 +832,10 @@ func SignupByMobile(c *gin.Context) {
 		return
 	}
 	//验证code
-	//if sms.SmsCheck("code"+userMobile.Mobile,userMobile.Code) {
-	//	response.ShowError(c, "code_error")
-	//	return
-	//}
-
+	if !verify.CheckCode(mobile, code) {
+		response.ShowError(c, "code_error")
+		return
+	}
 	model.Salt = common.GetRandomBoth(4)
 	model.Passwd = common.Sha1En(userMobile.Passwd + model.Salt)
 	model.Ctime = int(time.Now().Unix())

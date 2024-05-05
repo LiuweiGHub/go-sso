@@ -32,7 +32,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `device` (
   `id` bigint(20) UNSIGNED NOT NULL COMMENT '主键',
   `uid` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户主键',
-  `client` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '客户端',
+  `client` varchar(500) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '客户端',
   `model` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '设备型号',
   `ip` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'ip地址',
   `ext` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '扩展信息',
@@ -127,14 +127,17 @@ COMMIT;
 
 CREATE TABLE `record` (
       `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+      `uid` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户主键',
       `name` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '姓名',
       `type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '排盘方式',
       `sex` tinyint(4) UNSIGNED NOT NULL COMMENT '性别',
       `birthday` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '生日',
+      `is_run` tinyint(4) UNSIGNED NOT NULL COMMENT '是否润月',
       `ctime` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '注册时间',
       `remark` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注',
       PRIMARY KEY (`id`),
-      KEY `ctime` (`ctime`)
+      KEY `ctime` (`ctime`),
+      KEY `uid` (`uid`)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

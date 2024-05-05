@@ -39,21 +39,21 @@
         {{ range $key,$value := .list }}
         <li data-name={{ $value.name }} class="list-group-item d-flex justify-content-between align-items-center">
             {{ $value.name }} {{ $value.sex }} {{ $value.birthday }}
-            <form method="post" action="paipan.php" style="display: none;">
+            <form method="post" action="paiPanDetail" style="display: none;">
                 <input type="hidden" name="act" value="ok">
-                <input type="hidden" name="name" value="杜骄轩">
-                <input type="hidden" name="DateType" value="1">
-                <input type="hidden" name="year" value="2024">
-                <input type="hidden" name="month" value="1">
-                <input type="hidden" name="date" value="25">
-                <input type="hidden" name="hour" value="9">
-                <input type="hidden" name="minute" value="30">
-                <input type="hidden" name="nyear" value="1998">
-                <input type="hidden" name="ifrun" value="1">
-                <input type="hidden" name="nmonth" value="5">
-                <input type="hidden" name="ndate" value="3">
-                <input type="hidden" name="nhour" value="22">
-                <input type="hidden" name="sex" value="0">
+                <input type="hidden" name="name" value="{{ $value.name }}">
+                <input type="hidden" name="DateType" value="{{ $value.dateType }}">
+                <input type="hidden" name="year" value="{{ $value.year}}">
+                <input type="hidden" name="month" value="{{ $value.month }}">
+                <input type="hidden" name="date" value="{{ $value.day }}">
+                <input type="hidden" name="hour" value="{{ $value.hour }}">
+                <input type="hidden" name="minute" value="{{ $value.min }}">
+                <input type="hidden" name="nyear" value="{{ $value.year }}">
+                <input type="hidden" name="ifrun" value="{{ $value.is_run }}">
+                <input type="hidden" name="nmonth" value="{{ $value.month }}">
+                <input type="hidden" name="ndate" value="{{ $value.day }}">
+                <input type="hidden" name="nhour" value="{{ $value.hour }}">
+                <input type="hidden" name="sex" value="{{ $value.sex }}">
                 <input type="hidden" name="hsp" value="1">
                 <input type="hidden" name="cgp" value="1">
                 <input type="hidden" name="lnp" value="1">
@@ -153,18 +153,6 @@
     $(".list-group-item").click(function (e) {
         $(e.target).find('form').submit();
     })
-    // $("#searchBtn").click(function(e) {
-    // 	if ($("#key").val() == '')
-    // 		return;
-    // 	const key = $("#key").val();
-    // 	$(".list-group li").each(function(i, v) {
-    // 		if ($(v).data('name').toString().includes(key)) {
-    // 			$(v).attr("style", "display: ''");
-    // 		} else {
-    // 			$(v).attr("style", "display: none!important");
-    // 		}
-    // 	})
-    // })
 
     $("#savePwd").click(function () {
         if ($("[name=pwd]").val() == "") {
@@ -174,7 +162,6 @@
         $.post("modifyPwd", {pwd: $("[name=pwd]").val()}, function (data) {
             $("#modifyPwdModal").modal("hide");
             $("[name=pwd]").val("");
-            console.log(data)
             if (data.msg == 'success') {
                 $.post("logout", {}, function (data) {
                     if (data.msg == 'success') {
@@ -201,8 +188,6 @@
     })
 
 </script>
-
-
 <div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
      id="mpa-rootsc-image-gatherer"></div>
 <div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"

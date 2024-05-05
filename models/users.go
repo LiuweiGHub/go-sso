@@ -39,6 +39,16 @@ func (u *Users) GetRow() bool {
 	}
 	return false
 }
+
+func (u *Users) GetRowByMobile(mobile string) (UserRow, error) {
+	var user UserRow
+	has, err := mEngine.Table(usersTable).Where("mobile=?", mobile).OrderBy("id desc").Limit(1).Get(&user)
+	if has {
+		return user, nil
+	}
+	return user, err
+}
+
 func (u *Users) GetAll() ([]Users, error) {
 	var users []Users
 	err := mEngine.Find(&users)

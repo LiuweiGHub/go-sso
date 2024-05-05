@@ -32,12 +32,11 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="repwd" role="tabpanel">
-            <form method="post">
                 <div class="form-group">
                     <input type="text" name="mob" id="mob" class="form-control" placeholder="手机号码" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="pwd" id="pwd" class="form-control" placeholder="新密码至少六位" required>
+                    <input type="password" name="pwd" id="pwd" class="form-control" placeholder="新密码至少六位" required>
                 </div>
                 <div class="input-group form-group">
                     <input type="text" name="code" id="code" class="form-control" required>
@@ -48,7 +47,6 @@
                     </div>
                 </div>
                 <button id="modifyPassword" class="btn btn-dark btn-block">确认重置</button>
-            </form>
         </div>
     </div>
 </div>
@@ -128,8 +126,8 @@
 
     $("#captchaBtn").click(function (e) {
         $.get('sendsms?type=' + $(this).attr("code-type") + '&mob=' + $("#mob").val(), function (data) {
-            if (data.code != 0) {
-                alert(data.msg);
+            if (data.code != 0 && data.msg != 'success') {
+                alert(data.msg)
             } else {
                 $(this).attr("disabled", true);
                 let s = 60;
@@ -146,13 +144,6 @@
         });
     })
 
-    // var account = localStorage.getItem('account');
-    // if (account) {
-    //     account = JSON.parse(account);
-    //     $("#login input[name=mob]").val(account.mob);
-    //     $("#login input[name=pwd]").val(account.pwd);
-    // }
-
     $("#modifyPassword").click(function (e) {
         var mob = $("#mob").val()
         var pwd = $("#pwd").val()
@@ -166,10 +157,8 @@
             code: code
         }, function (data) {
             if (data.msg != 'success') {
-                console.log(data)
                 alert(data.msg);
             } else {
-                console.log(data)
                 alert('密码重置成功')
             }
         });
