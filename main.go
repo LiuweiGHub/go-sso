@@ -30,6 +30,7 @@ func main() {
 	r.GET("/index", user.Index)
 	r.POST("/userLogin", user.Login)
 	r.GET("/resetPassword", user.ResetPassword)
+	r.GET("/modifyPassword", user.ModifyPassword)
 	r.GET("/register", user.Register)
 	r.GET("/sendsms", user.SendSms)
 	r.GET("/loginIndex", user.LoginIndex)

@@ -137,3 +137,17 @@ CREATE TABLE `record` (
       KEY `ctime` (`ctime`)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `sms` (
+                          `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+                          `mobile` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '手机号',
+                          `code` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '验证码',
+                          `expire_time` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '过期时间',
+                          `ctime` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '注册时间',
+                          PRIMARY KEY (`id`),
+                          KEY `ctime` (`ctime`),
+                          KEY `mobile` (`mobile`)
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

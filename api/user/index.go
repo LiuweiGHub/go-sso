@@ -78,7 +78,6 @@ func Login(c *gin.Context) {
 		response.ShowError(c, "fail")
 		return
 	}
-	fmt.Println("aaaaaaaaaaaaaaa")
 	response.ShowSuccess(c, "success")
 	return
 }
@@ -431,6 +430,28 @@ func Register(c *gin.Context) {
 func ResetPassword(c *gin.Context) {
 	c.HTML(http.StatusOK, "repwd.html", gin.H{"title": "重置密码"})
 }
+func ModifyPassword(c *gin.Context) {
+	mob, _ := c.GetPostForm("mob")
+	pwd, _ := c.GetPostForm("pwd")
+	code, _ := c.GetPostForm("code")
+	if !verify.CheckMobile(mob) {
+		response.ShowError(c, "mobile_error")
+		return
+	}
+	if !verify.CheckCode(mob, code) {
+		fmt.Println(mob)
+		fmt.Println(pwd)
+		fmt.Println(code)
+		response.ShowError(c, "code_error")
+		return
+	}
+	user := models.Users{
+		Mobile: mob,
+		Passwd: pwd,
+	}
+	user.Update(user)
+	response.ShowSuccess(c, "success")
+}
 
 func Modify(c *gin.Context) {
 	id := c.Query("id")
@@ -683,11 +704,6 @@ func MobileIsExists(c *gin.Context) {
 func SendSms(c *gin.Context) {
 	var p Mobile
 	p.Mobile = c.Query("mob")
-	//if err := c.BindJSON(&p); err != nil {
-	//	msg := handle.TransTagName(&MobileTrans, err)
-	//	response.ShowValidatorError(c, msg)
-	//	return
-	//}
 	if !verify.CheckMobile(p.Mobile) {
 		response.ShowError(c, "mobile_error")
 		return
@@ -695,15 +711,27 @@ func SendSms(c *gin.Context) {
 	//生成随机数
 	code := common.GetRandomNum(6)
 	fmt.Println(code)
-	msg := strings.Replace(sms.SMSTPL, "[code]", code, 1)
-	err := sms.SendSms(p.Mobile, msg)
-	fmt.Println(err)
+	err := sms.AliSendSms(p.Mobile, code)
 	if err != nil {
 		response.ShowError(c, "fail")
 		return
 	}
+	// 保存短信内容
+	saveSms(p.Mobile, code)
 	response.ShowError(c, "success")
 	return
+}
+
+func saveSms(mobile string, code string) {
+	expireTime := time.Now().Add(time.Minute * 5)
+	fmt.Println(expireTime)
+	model := models.Sms{
+		Mobile:     mobile,
+		Code:       code,
+		ExpireTime: int(expireTime.Unix()),
+		Ctime:      int(time.Now().Unix()),
+	}
+	model.Add()
 }
 
 func Save(name string, sex string, dateType string, birthday string) bool {

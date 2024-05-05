@@ -34,20 +34,20 @@
         <div class="tab-pane active" id="repwd" role="tabpanel">
             <form method="post">
                 <div class="form-group">
-                    <input type="text" name="mob" id="registerMob" class="form-control" placeholder="手机号码">
+                    <input type="text" name="mob" id="mob" class="form-control" placeholder="手机号码" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="pwd" class="form-control" placeholder="新密码至少六位">
+                    <input type="text" name="pwd" id="pwd" class="form-control" placeholder="新密码至少六位" required>
                 </div>
                 <div class="input-group form-group">
-                    <input type="text" name="code" id="code" class="form-control">
+                    <input type="text" name="code" id="code" class="form-control" required>
                     <div class="input-group-append">
                         <button code-type="repwd" class="btn btn-outline-secondary" type="button" id="captchaBtn"
-                                style="width: 150px;">获取验证码
+                                style="width: 150px;"><span id="countdown">获取验证码</span>
                         </button>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-dark btn-block">确认重置</button>
+                <button id="modifyPassword" class="btn btn-dark btn-block">确认重置</button>
             </form>
         </div>
     </div>
@@ -94,8 +94,40 @@
 <script src="static/date/jquery.min.js"></script>
 <script src="static/date/bootstrap.min.js"></script>
 <script type="text/javascript">
+    // 获取验证码按钮
+    var getCodeBtn = document.getElementById('captchaBtn');
+
+    // 倒计时秒数显示元素
+    var countdownElement = document.getElementById('countdown');
+
+    // 初始化倒计时为 60 秒
+    var countdown = 60;
+
+    // 更新倒计时显示
+    function updateCountdown() {
+        if (countdown === 0) {
+            countdownElement.textContent = '获取验证码';
+            getCodeBtn.disabled = false;
+        } else {
+            countdown--;
+            countdownElement.textContent = countdown + ' 秒后重发';
+            getCodeBtn.disabled = true;
+        }
+    }
+
+    // 绑定点击事件
+    getCodeBtn.addEventListener('click', function() {
+        // 禁用按钮防止重复点击
+        getCodeBtn.disabled = true;
+        // 开始倒计时
+        setInterval(updateCountdown, 1000);
+        countdown = 60;
+    });
+
+
+
     $("#captchaBtn").click(function (e) {
-        $.get('mob_code.php?type=' + $(this).attr("code-type") + '&mob=' + $("#registerMob").val(), function (data) {
+        $.get('sendsms?type=' + $(this).attr("code-type") + '&mob=' + $("#mob").val(), function (data) {
             if (data.code != 0) {
                 alert(data.msg);
             } else {
@@ -114,22 +146,34 @@
         });
     })
 
-    var account = localStorage.getItem('account');
-    if (account) {
-        account = JSON.parse(account);
-        $("#login input[name=mob]").val(account.mob);
-        $("#login input[name=pwd]").val(account.pwd);
-    }
+    // var account = localStorage.getItem('account');
+    // if (account) {
+    //     account = JSON.parse(account);
+    //     $("#login input[name=mob]").val(account.mob);
+    //     $("#login input[name=pwd]").val(account.pwd);
+    // }
 
-    function login() {
-        if ($("#saveAccount").prop("checked")) {
-            localStorage.setItem("account", JSON.stringify({
-                mob: $("#login input[name=mob]").val(),
-                pwd: $("#login input[name=pwd]").val()
-            }));
+    $("#modifyPassword").click(function (e) {
+        var mob = $("#mob").val()
+        var pwd = $("#pwd").val()
+        var code = $("#code").val()
+        if(mob.length == 0 || pwd.length == 0 || code.length == 0) {
+            return
         }
-        return true;
-    }
+        $.post('modifyPassword', {
+            mob: mob,
+            pwd: pwd,
+            code: code
+        }, function (data) {
+            if (data.msg != 'success') {
+                console.log(data)
+                alert(data.msg);
+            } else {
+                console.log(data)
+                alert('密码重置成功')
+            }
+        });
+    })
 </script>
 
 
