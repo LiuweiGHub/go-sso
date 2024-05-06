@@ -380,18 +380,18 @@ function writeSource(cs, ms) {
             '亥': ['壬', '甲']
         };
         let $xingYun = {
-            "子": "胎",
+            "子": "长生",
             "丑": "养",
-            "寅": "长生",
-            "卯": "沐浴",
-            "辰": "冠带",
-            "巳": "临官",
-            "午": "帝旺",
+            "寅": "胎",
+            "卯": "绝",
+            "辰": "墓",
+            "巳": "死",
+            "午": "病",
             "未": "衰",
-            "申": "病",
-            "酉": "死",
-            "戌": "墓",
-            "亥": "绝"
+            "申": "帝旺",
+            "酉": "临官",
+            "戌": "冠带",
+            "亥": "沐浴"
         }
         let liuNianData1 = {
             "1924": "甲子",
@@ -637,13 +637,13 @@ function writeSource(cs, ms) {
         }
         LNDYQY = "<td>运年</td>";
         xipandayungz = "<td>大运</td>";
-        liunian = "<td>岁<span class=\"kong\">空空</span>年:</td>";
-        dayun = "<td>大<span class=\"kong\">空空</span>运:</td>";
+        liunian = "<td  style='white-space:nowrap'>岁<span class=\"kong\">空空</span>年:</td>";
+        dayun = "<td  style='white-space:nowrap'>大<span class=\"kong\">空空</span>运:</td>";
         dayunqishi = "<td>大运始于:</td>";
         shishen = "<td>天干十神:</td>"
         shiErChangSheng = "<td>十二长生:</td>"
         dayunzhiyu = "<td>大运止于:</td>"
-        dizhishishen = "<td style='vertical-align: text-top'>地支十神:</td>"
+        dizhishishen = "<td style='vertical-align: -webkit-center'>地支十神:</td>"
         liunian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
         xiaoYun1 = "<td>小<span class=\"kong\">空空</span>运:</td>"
         xiaoYunShiShen1 = "<td>小运十神:</td>"
@@ -667,16 +667,18 @@ function writeSource(cs, ms) {
                     dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
                 }
                 dizhishishen += '</td>'
-                // 十二长生
-                shiErChangSheng += "<td>" + $xingYun[w1] + "</td>"
+                
                 // 大运止于
                 let t = LNDY[i] + 9
                 dayunzhiyu += '<td>' + t + '</td>';
                 // var sesx = zdyddtd.slice(1);
                 // $("#dayun_xingyun").html(xingyun[sesx]);
-                // 流年
                 year1 = LNDY[i]
-                liunian1 += "<td style=\"vertical-align:text-top\">"
+                // 十二长生
+                shiErChangSheng += "<td>" + $xingYun[w1] + "</td>"
+
+                // 流年
+                liunian1 += "<td style=\"vertical-align:text-top\"><p>"
                 for (var j = 0; j < 10; j++) {
                     if (j < 5) {
                         liunian1 += "<front style='color:blue'>" + liuNianData1[(year1 + j)][0] + "</front>" + liuNianData1[(year1 + j)][1] + "\n";
@@ -684,7 +686,7 @@ function writeSource(cs, ms) {
                         liunian1 +=  liuNianData1[(year1 + j)][0] + "<front style='color:blue'>" + liuNianData1[(year1 + j)][1] + "</front>" + "\n";
                     }
                 }
-                liunian1 += "</td>"
+                liunian1 += "</p></td>"
             }
             // 小运模块
             if (LNDY[i] <= LNDY[3]) {
@@ -1107,7 +1109,11 @@ $("#dayunliunian tr:eq(1) td").click(function (e) {
     $("#liuniandz .big").html(e.target.innerHTML[1]).css('color', tgdzColor[e.target.innerHTML[1]]);
     $("#liunian_kongwang").html(kongwang[e.target.innerHTML]);
     var sesx = e.target.innerHTML.slice(1);
+    console.log(sesx)
     $("#liunian_xingyun").html(xingyun[sesx]);
+    console.log(xingyun)
+    console.log(xingyun[sesx])
+
     $("#liunian_zizuo").html(zizuo[e.target.innerHTML]);
     $("#liunian_nayin").html(nayin[e.target.innerHTML]);
     $("#liuniantg .small").html($ssShorter[getShishen($tiangan.indexOf(e.target.innerHTML[0]), $tiangan.indexOf($("#rigan").html()))]);

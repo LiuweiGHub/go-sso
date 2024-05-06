@@ -535,7 +535,7 @@ func PaiPan(c *gin.Context) {
 	cookie := c.Request.Cookies()
 	userId := cookie[2].Value
 	name := c.Query("name")
-	dateType := c.Query("dateType")
+	dateType := c.Query("DateType")
 	year := c.Query("year")
 	month := c.Query("month")
 	date := c.Query("date")
@@ -595,7 +595,7 @@ func PaiPan(c *gin.Context) {
 
 func PaiPanDetail(c *gin.Context) {
 	name, _ := c.GetPostForm("name")
-	dateType, _ := c.GetPostForm("dateType")
+	dateType, _ := c.GetPostForm("DateType")
 	year, _ := c.GetPostForm("year")
 	month, _ := c.GetPostForm("month")
 	date, _ := c.GetPostForm("date")
@@ -618,6 +618,7 @@ func PaiPanDetail(c *gin.Context) {
 			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		}
 	}
+
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
@@ -697,13 +698,11 @@ func Remark(c *gin.Context) {
 // 新增或修改备注
 func SaveRemark(c *gin.Context) {
 	id, _ := c.GetPostForm("id")
-	fmt.Println(id)
 	i, _ := strconv.Atoi(id)
 	model := models.Record{}
 	model.Id = int64(i)
 	remark, _ := c.GetPostForm("remark")
 	model.Remark = remark
-	fmt.Println(model)
 	model.Update(model)
 	response.ShowSuccess(c, "success")
 	return
