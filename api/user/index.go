@@ -607,7 +607,6 @@ func PaiPanDetail(c *gin.Context) {
 	nhour, _ := c.GetPostForm("nhour")
 	sex, _ := c.GetPostForm("sex")
 	ifrun, _ := c.GetPostForm("ifrun")
-
 	inputDate := ""
 	if dateType == "0" {
 		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
