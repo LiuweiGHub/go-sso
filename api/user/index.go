@@ -617,7 +617,6 @@ func PaiPanDetail(c *gin.Context) {
 			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		}
 	}
-
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
