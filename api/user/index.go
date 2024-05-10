@@ -537,7 +537,12 @@ func Modify(c *gin.Context) {
 
 func PaiPan(c *gin.Context) {
 	cookie := c.Request.Cookies()
-	userId := cookie[2].Value
+	var userId string
+	for _, v := range cookie {
+		if v.Name == "UserId" {
+			userId = v.Value
+		}
+	}
 	name := c.Query("name")
 	dateType := c.Query("DateType")
 	year := c.Query("year")
