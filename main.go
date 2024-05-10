@@ -1,7 +1,6 @@
 package main
 
 import (
-	"go-sso/api"
 	"go-sso/api/user"
 	"go-sso/conf"
 	"go-sso/modules/app"
@@ -27,6 +26,7 @@ func main() {
 	r.LoadHTMLGlob("view/*.html")
 	r.Static("/static", "./static")
 	r.Static("/images", "./static/images")
+	r.GET("/", user.Index)
 	r.GET("/index", user.Index)
 	r.POST("/userLogin", user.Login)
 	r.GET("/resetPassword", user.ResetPassword)
@@ -54,7 +54,6 @@ func main() {
 	r.POST("/login/mobile", user.LoginByMobileCode)
 	r.POST("/signup/mobile", user.SignupByMobile)
 	r.POST("/signup/mobile/exist", user.MobileIsExists)
-	r.GET("/", api.Index)
 	r.GET("/my/info", user.Info) //用户信息
 	r.GET("/pong", func(c *gin.Context) {
 		c.JSON(200, gin.H{
