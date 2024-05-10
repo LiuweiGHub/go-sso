@@ -247,14 +247,14 @@ function writeSource(cs, ms) {
         document.getElementById("BZBH3").innerHTML = "金" + bazixinxi.zh[3][0] + '个，木' + bazixinxi.zh[3][1] + '个，水' + bazixinxi.zh[3][2] + '个，火' + bazixinxi.zh[3][3] + '个，土' + bazixinxi.zh[3][4] + "个";
         document.getElementById("BZBH4").innerHTML = "阴" + bazixinxi.zh[4][1] + '个，阳' + bazixinxi.zh[4][0] + '个，阴占比' + bazixinxi.zh[5][0] + "％，阳占比" + bazixinxi.zh[5][1] + "％";
         document.getElementById("BZBH5").innerHTML = bazixinxi.ZaoShi;
-        document.getElementById("BZNG").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.ng] + "'>" + BZ.ng + "</span><span class='small'>" + DZSS[BZ.ng]['半'] + "</span>";
-        document.getElementById("BZYG").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.yg] + "'>" + BZ.yg + "</span><span class='small'>" + DZSS[BZ.yg]['半'] + "</span>";
-        document.getElementById("BZRG").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.rg] + "' id='rigan'>" + BZ.rg + "</span><span class='small'>" + system.sexx + "</span>";
-        document.getElementById("BZSG").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.sg] + "'>" + BZ.sg + "</span><span class='small'>" + DZSS[BZ.sg]['半'] + "</span>";
-        document.getElementById("BZNZ").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.nz] + "'>" + BZ.nz + "</span><span class='small'>" + DZSS[BZ.nz]['本']['半'] + DZSS[BZ.nz]['中']['半'] + DZSS[BZ.nz]['余']['半'] + "</span>";
-        document.getElementById("BZYZ").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.yz] + "'>" + BZ.yz + "</span><span class='small'>" + DZSS[BZ.yz]['本']['半'] + DZSS[BZ.yz]['中']['半'] + DZSS[BZ.yz]['余']['半'] + "</span>";
-        document.getElementById("BZRZ").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.rz] + "'>" + BZ.rz + "</span><span class='small'>" + DZSS[BZ.rz]['本']['半'] + DZSS[BZ.rz]['中']['半'] + DZSS[BZ.rz]['余']['半'] + "</span>";
-        document.getElementById("BZSZ").innerHTML = "<span class='big' style='color:" + tgdzColor[BZ.sz] + "'>" + BZ.sz + "</span><span class='small'>" + DZSS[BZ.sz]['本']['半'] + DZSS[BZ.sz]['中']['半'] + DZSS[BZ.sz]['余']['半'] + "</span>";
+        document.getElementById("BZNG").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.ng] + "'>" + BZ.ng + "</span><span class='small'>" + DZSS[BZ.ng]['半'] + "</span>";
+        document.getElementById("BZYG").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.yg] + "'>" + BZ.yg + "</span><span class='small'>" + DZSS[BZ.yg]['半'] + "</span>";
+        document.getElementById("BZRG").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.rg] + "' id='rigan'>" + BZ.rg + "</span><span class='small'>" + system.sexx + "</span>";
+        document.getElementById("BZSG").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.sg] + "'>" + BZ.sg + "</span><span class='small'>" + DZSS[BZ.sg]['半'] + "</span>";
+        document.getElementById("BZNZ").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.nz] + "'>" + BZ.nz + "</span><span class='small'>" + DZSS[BZ.nz]['本']['半'] + DZSS[BZ.nz]['中']['半'] + DZSS[BZ.nz]['余']['半'] + "</span>";
+        document.getElementById("BZYZ").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.yz] + "'>" + BZ.yz + "</span><span class='small'>" + DZSS[BZ.yz]['本']['半'] + DZSS[BZ.yz]['中']['半'] + DZSS[BZ.yz]['余']['半'] + "</span>";
+        document.getElementById("BZRZ").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.rz] + "'>" + BZ.rz + "</span><span class='small'>" + DZSS[BZ.rz]['本']['半'] + DZSS[BZ.rz]['中']['半'] + DZSS[BZ.rz]['余']['半'] + "</span>";
+        document.getElementById("BZSZ").innerHTML = "<span class='big' style='align-self: center;color:" + tgdzColor[BZ.sz] + "'>" + BZ.sz + "</span><span class='small'>" + DZSS[BZ.sz]['本']['半'] + DZSS[BZ.sz]['中']['半'] + DZSS[BZ.sz]['余']['半'] + "</span>";
         document.getElementById("DaYunKWa").innerHTML = DYKW[[BZ.ng] + [BZ.nz]];
         document.getElementById("DaYunKWb").innerHTML = DYKW[[BZ.yg] + [BZ.yz]];
         document.getElementById("DaYunKWc").innerHTML = DYKW[[BZ.rg] + [BZ.rz]];
@@ -652,7 +652,7 @@ function writeSource(cs, ms) {
                 // 地支十神
                 dizhishishen += '<td class="item vl" style="vertical-align:text-top">'
                 for (j = 0; j < dizhiTiangan.length; j++) {
-                    dizhishishen += "<span>" + dizhiTiangan[j] + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
+                    dizhishishen += "<span><front style='color:red'>" + dizhiTiangan[j] + "</front>" + getShishen($tiangan1.indexOf(dizhiTiangan[j]), $tiangan1.indexOf($("#rigan").html()))  + "</span>"
                 }
                 dizhishishen += '</td>'
                 
@@ -670,9 +670,9 @@ function writeSource(cs, ms) {
                 liunian1 += "<td style=\"vertical-align:text-top\"><p>"
                 for (var j = 0; j < 10; j++) {
                     if (j < 5) {
-                        liunian1 += "<front style='color:blue'>" + liuNianData1[(year1 + j)][0] + "</front>" + liuNianData1[(year1 + j)][1] + "\n";
+                        liunian1 += "<front style='color:blue'>" + liuNianData1[(year1 + j)][0] + "</front>" + liuNianData1[(year1 + j)][1] + "<br>";
                     } else {
-                        liunian1 +=  liuNianData1[(year1 + j)][0] + "<front style='color:blue'>" + liuNianData1[(year1 + j)][1] + "</front>" + "\n";
+                        liunian1 +=  liuNianData1[(year1 + j)][0] + "<front style='color:blue'>" + liuNianData1[(year1 + j)][1] + "</front>" + "<br>";
                     }
                 }
                 liunian1 += "</p></td>"

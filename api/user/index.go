@@ -543,6 +543,7 @@ func PaiPan(c *gin.Context) {
 			userId = v.Value
 		}
 	}
+
 	name := c.Query("name")
 	dateType := c.Query("DateType")
 	year := c.Query("year")

@@ -338,7 +338,7 @@ function writeSource(cs, ms) {
       system.sexx +
       ' ' +
       system.XingZuo +
-      '-墨家国学'
+      '-北斋先生'
     tgSS = ''
     mgSS = ''
     SgSS = ''
