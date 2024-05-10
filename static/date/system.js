@@ -695,7 +695,7 @@ function writeSource(cs, ms) {
         // 小运模块
         xiaoYunNianStart = LNDY[0]
         xiaoYunNianEnd = LNDY[3]
-        xiaoyunageStart = LNDY[1]
+        xiaoyunageStart = LNDY[1] - 1
         for (var j = xiaoYunNianStart; j <= xiaoYunNianEnd; j++) {
             xiaoyunage1 += '<td>' + xiaoyunageStart + '岁<br>'
             var bazi = LNXY[j]

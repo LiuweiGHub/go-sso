@@ -35,9 +35,11 @@
     }
 </style>
 <div class='smnr'>
+    <iframe name="contentFrame" id="clander" style="display: none;"></iframe>
+
     <form name='theform' method='get' action='/paiPan'>
         <input type='hidden' name='act' value='ok' />
-        <table class='form-table' border='0' align='center' cellpadding='1' cellspacing='1'>
+        <table class='form-table' border='0' align='center' cellpadding='1' cellspacing='1' id="form-table">
             <tr>
                 <td class='tdleft tdbg'>命主信息：</td>
                 <td class='bghuang'>姓名：<input required='true' name='name' autocomplete='off' type='text' id='name'
@@ -181,6 +183,12 @@
             onClick="JavaScript:zty.style.display='none';Sects.style.display='none';Silings.style.display='none';"
             checked />
             <tr>
+                <td colspan="2" style="padding:8px;text-align: center;"><br>
+                <a onclick="openNewPath()" href="http://wnl.zydx.top/index.php" target="contentFrame">易朴周易大学堂出门不下雨万年历</a><br>
+                <br>
+                </td>
+            </tr>
+            <tr>
                 <!-- <td class='tdleft tdbg'>
                 </td> -->
                 <!-- <td class='bghuang'>
@@ -206,6 +214,18 @@
             }
             return true;
         }
+
+function openNewPath() {
+  var clander = document.getElementById("clander")
+  clander.style.display = "block"
+  clander.style.width = "100%"
+  clander.style.height = "85%"
+  clander.style.overflow = "hidden"
+  clander.style.border = 0
+
+  var table = document.getElementById("form-table")
+  table.style.display = "none"
+}
     </script>
     </table>
 
