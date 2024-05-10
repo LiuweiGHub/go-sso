@@ -58,11 +58,11 @@ func (u *Record) GetRecordByPage(name string, uid string, page int, pageSize int
 	if page == 0 {
 		page = 1
 	}
-	sql := "select * from sso.record "
-	// sql := "select * from sso.record where uid = " + uid
+	// sql := "select * from sso.record "
+	sql := "select * from sso.record where uid = " + uid
 
 	if len(name) > 0 {
-		sql += fmt.Sprintf(" where name like '%s' ", name+"%")
+		sql += fmt.Sprintf(" and name like '%s' ", name+"%")
 	}
 	sql += " order by id desc"
 	sql += " limit ?,?"

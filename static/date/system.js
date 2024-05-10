@@ -381,20 +381,6 @@ function writeSource(cs, ms) {
             '戌': ['戊', '辛', '丁'],
             '亥': ['壬', '甲']
         };
-        let $xingYun = {
-            "子": "长生",
-            "丑": "养",
-            "寅": "胎",
-            "卯": "绝",
-            "辰": "墓",
-            "巳": "死",
-            "午": "病",
-            "未": "衰",
-            "申": "帝旺",
-            "酉": "临官",
-            "戌": "冠带",
-            "亥": "沐浴"
-        }
         let liuNianData1 = {
             "1924": "甲子",
             "1925": "乙丑",
@@ -674,10 +660,11 @@ function writeSource(cs, ms) {
                 let t = LNDY[i] + 9
                 dayunzhiyu += '<td>' + t + '</td>';
                 // var sesx = zdyddtd.slice(1);
+                // console.log(zdyddtd)
                 // $("#dayun_xingyun").html(xingyun[sesx]);
                 year1 = LNDY[i]
                 // 十二长生
-                shiErChangSheng += "<td>" + $xingYun[w1] + "</td>"
+                shiErChangSheng += "<td>" + DYWS[w1] + "</td>"
 
                 // 流年
                 liunian1 += "<td style=\"vertical-align:text-top\"><p>"
@@ -1115,6 +1102,7 @@ $("#dayunliunian tr:eq(1) td").click(function (e) {
     $("#liuniandz .big").html(e.target.innerHTML[1]).css('color', tgdzColor[e.target.innerHTML[1]]);
     $("#liunian_kongwang").html(kongwang[e.target.innerHTML]);
     var sesx = e.target.innerHTML.slice(1);
+
     $("#liunian_xingyun").html(xingyun[sesx]);
     $("#liunian_zizuo").html(zizuo[e.target.innerHTML]);
     $("#liunian_nayin").html(nayin[e.target.innerHTML]);

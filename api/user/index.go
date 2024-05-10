@@ -99,7 +99,6 @@ func Record(c *gin.Context) {
 	s, _ := strconv.Atoi(pageSize)
 	list, _ := r.GetRecordByPage(name, userId, p, s)
 	for k, v := range list {
-		fmt.Println(k, v)
 		splits := strings.Split(v["birthday"], " ")
 		date := splits[0]
 		nums := strings.Split(date, "-")
