@@ -652,19 +652,23 @@ func PaiPanDetail(c *gin.Context) {
 	sex, _ := c.GetPostForm("sex")
 	ifrun, _ := c.GetPostForm("ifrun")
 	inputDate := ""
+	dataT := "5"
 	if dateType == "0" {
 		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
-	} else {
+	} else if dateType == "1" {
 		if ifrun == "1" {
 			inputDate = "农历" + nyear + "年" + RunMonths[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		} else {
 			inputDate = "农历" + nyear + "年" + Months[nmonth] + Dates[ndate] + " " + nhour + "时" + minute + "分"
 		}
+	} else {
+		inputDate = ""
+		dataT = "4"
 	}
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
-	v.Add("DateType", "5")
+	v.Add("DateType", dataT)
 	v.Add("inputdate", inputDate)
 	v.Add("ng", "癸巳")
 	v.Add("yg", "丙寅")
