@@ -2,7 +2,7 @@
 <meta name='keywords' content='八字排盘,四柱排盘,八字排盘系统,在线八字排盘,排八字,在线排八字,八字,命理,国学,算卦,排盘,易经,六十四卦,奇门,命运,运势,测算,姻缘,婚姻' />
 <meta charset='UTF-8'>
 <meta name='Description'
-      content='北斋先生可提供八字排盘免费详批，八字排盘算命是一种根据八字用天干地支表示人出生的年、月、日、时，依照查四柱间之五行生克制化、刑冲会合为推命重点，生辰八字排盘免费查询，小到性格、大到发展都能够从这上面看出端倪一二，八字在线排盘，让你提前知晓一生命格。' />
+    content='北斋先生可提供八字排盘免费详批，八字排盘算命是一种根据八字用天干地支表示人出生的年、月、日、时，依照查四柱间之五行生克制化、刑冲会合为推命重点，生辰八字排盘免费查询，小到性格、大到发展都能够从这上面看出端倪一二，八字在线排盘，让你提前知晓一生命格。' />
 <title>八字排盘</title>
 <meta name='viewport' content='width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' />
 <h2 style='text-align:center; color:#CC0000;'>{{ .Title }}</h2>
@@ -43,15 +43,23 @@
             <tr>
                 <td class='tdleft tdbg'>命主信息：</td>
                 <td class='bghuang'>姓名：<input required='true' name='name' autocomplete='off' type='text' id='name'
-                                                size='18' value="{{ .Name }}"></td>
+                        size='18' value="{{ .Name }}"></td>
             </tr>
             <tr>
                 <td class="tdleft tdbg">起盘方式：</td>
                 <td class="bghuang">
-                    <input id="DateType" type="radio" name="DateType" value="0" onclick="javacript:gongli.style.display='block';nongli.style.display='none';" {{ if .IsGongLi }} checked="" {{ end }}>
+                    <input id="DateType" type="radio" name="DateType" value="0"
+                        onclick="javacript:gongli.style.display='block';nongli.style.display='none';bazi.style.display='none';"
+                        checked="" {{ if .IsGongLi }} checked="" {{ end }}>
                     <label for="DateType" style="cursor:hand;">公历排盘</label>
-                    <input id="DateType1" type="radio" name="DateType" value="1" onclick="javacript:gongli.style.display='none';nongli.style.display='block';" {{ if .IsNongLi }} checked="" {{ end }}>
+                    <input id="DateType1" type="radio" name="DateType" value="1"
+                        onclick="javacript:gongli.style.display='none';nongli.style.display='block';bazi.style.display='none';"
+                        {{ if .IsNongLi }} checked="" {{ end }}>
                     <label for="DateType1" style="cursor:hand;">农历排盘</label>
+                    <input id=DateType2 type='radio' name='DateType' value='2'
+                        onclick="javacript:gongli.style.display='none';nongli.style.display='none';bazi.style.display='block';"
+                        {{ if .IsBazi }} checked="" {{ end }}>
+                    <label for='DateType2' style='cursor:hand;'>八字反推</label>
                 </td>
             </tr>
             <!-- <tr>
@@ -76,36 +84,42 @@
                     <div id="gongli" {{ if .IsGongLi }} style="display:block" {{ else }} style="display:none" {{ end }}>
                         <select name="year" style="font-size: 9pt">
                             {{ range $key, $value := .Years }}
-                            <option value="{{ $value }}" {{ if eq $value $year }} selected="" {{ end }}>{{$value}}年</option>
+                            <option value="{{ $value }}" {{ if eq $value $year }} selected="" {{ end }}>{{$value}}年
+                            </option>
                             {{ end }}
                         </select>
                         <select name="month" size="1" style="font-size: 9pt">
                             {{ range $key, $value := .Months }}
-                            <option value="{{ $value }}" {{ if eq $value $month }} selected="" {{ end }}>{{$value}}月</option>
+                            <option value="{{ $value }}" {{ if eq $value $month }} selected="" {{ end }}>{{$value}}月
+                            </option>
                             {{ end }}
                         </select>
                         <select name="date" size="1" id="date" style="font-size: 9pt">
                             {{ range $key, $value := .Days }}
-                            <option value="{{ $value }}" {{ if eq $value $day }} selected="" {{ end }}>{{$value}}日</option>
+                            <option value="{{ $value }}" {{ if eq $value $day }} selected="" {{ end }}>{{$value}}日
+                            </option>
                             {{ end }}
                         </select>
                         <br>
                         <select name="hour" size="1" id="hour" style="font-size: 9pt">
                             {{ range $key, $value := .Hours }}
-                            <option value="{{ $value }}" {{ if eq $value $hour }} selected="" {{ end }}>{{$value}}时</option>
+                            <option value="{{ $value }}" {{ if eq $value $hour }} selected="" {{ end }}>{{$value}}时
+                            </option>
                             {{ end }}
                         </select>
                         <select name="minute" size="1" id="minute" style="font-size: 9pt">
                             <option value="0">未知</option>
                             {{ range $key, $value := .Minutes }}
-                            <option value="{{ $value }}" {{ if eq $value $minute }} selected="" {{ end }}>{{$value}}分</option>
+                            <option value="{{ $value }}" {{ if eq $value $minute }} selected="" {{ end }}>{{$value}}分
+                            </option>
                             {{ end }}
                         </select>
                     </div>
                     <div id="nongli" {{ if .IsNongLi }} style="display:block" {{ else }} style="display:none" {{ end }}>
                         <select name="nyear" size="1" style="font-size: 9pt">
                             {{ range $key, $value := .BaziNian }}
-                            <option value="{{ $key }}" {{ if eq $key $year }} selected="" {{ end }}>{{$key}}年({{ $value }})</option>
+                            <option value="{{ $key }}" {{ if eq $key $year }} selected="" {{ end }}>{{$key}}年({{ $value
+                                }})</option>
                             {{ end }}
                         </select>
                         <label style="display: inline-flex;align-items: center;">
@@ -113,7 +127,8 @@
                         </label>
                         <select name="nmonth" size="1" style="font-size: 9pt">
                             {{ range $key, $value := .NongLiYue }}
-                            <option value="{{ $key }}" {{ if eq $key $month }} selected="" {{ end }}>{{ $value }}</option>
+                            <option value="{{ $key }}" {{ if eq $key $month }} selected="" {{ end }}>{{ $value }}
+                            </option>
                             {{ end }}
                         </select>
                         <select name="ndate" size="1" style="font-size: 9pt">
@@ -124,9 +139,17 @@
                         <br>
                         <select name="nhour" size="1" style="font-size: 9pt">
                             {{ range $key, $value := .NongLiHour }}
-                            <option value="{{ $key }}" {{ if eq $key $hour }} selected="" {{ end }}>&nbsp;{{$key}}-&gt;{{$value}}</option>
+                            <option value="{{ $key }}" {{ if eq $key $hour }} selected="" {{ end }}>
+                                &nbsp;{{$key}}-&gt;{{$value}}</option>
                             {{ end }}
                         </select>
+                    </div>
+                    <!-- <div id='bazi' {{ if .IsBazi }} style='display:block' {{ else }} style='display:none' {{ end }}> -->
+                    <div id='bazi' style='display: none'>
+                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select><select
+                            name='yg' style='font-size: 9pt' id='yg'></select><select name='rg' style='font-size: 9pt'
+                            id='rg' onchange="city('sg')"></select><select name='sg' style='font-size: 9pt'
+                            id='sg'></select>
                     </div>
                 </td>
             </tr>
@@ -159,10 +182,10 @@
                 <td class='bghuang'>
                     <div class='div1'>
                         <input id=ztys type='radio' name='ztys' value='1'
-                               onClick="JavaScript:ztyss.style.display='block';" />
+                            onClick="JavaScript:ztyss.style.display='block';" />
                         <label for='ztys' style='cursor:hand;'>是</label>
                         <input id=ztys1 type='radio' name='ztys' value='0'
-                               onClick="JavaScript:ztyss.style.display='none';" checked>
+                            onClick="JavaScript:ztyss.style.display='none';" checked>
                         <label for='ztys1' style='cursor:hand;'>否</label>
                     </div>
                     <div id='ztyss' class='div2' style='display:none'>
@@ -191,7 +214,7 @@
                     <input type='radio' name='Siling' value='5'>万育吾之法诀
                 </td>
             </tr>
-        
+
             <!-- <tr>
                 <td class='tdleft tdbg'>排盘模式：</td>
                 <td class='bghuang'>
@@ -206,8 +229,8 @@
             </tr> -->
 
             <input name='leixinggg' type='hidden'
-                   onClick="JavaScript:zty.style.display='none';Sects.style.display='none';Silings.style.display='none';"
-                   checked />
+                onClick="JavaScript:zty.style.display='none';Sects.style.display='none';Silings.style.display='none';"
+                checked />
             <tr>
                 <!-- <td class='tdleft tdbg'>
                 </td> -->
@@ -250,7 +273,6 @@
 </div>
 
 <style>
-
     h2 {
         display: block;
         font-size: 1.5em;
@@ -274,8 +296,10 @@
         bottom: 0;
         transform: translateX(-50%);
         width: 100%;
-        max-width: 1200px; /* 适当的最大宽度 */
-        text-align: center; /* 文本居中 */
+        max-width: 1200px;
+        /* 适当的最大宽度 */
+        text-align: center;
+        /* 文本居中 */
     }
 
     #bar a {

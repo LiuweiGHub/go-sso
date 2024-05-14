@@ -120,7 +120,7 @@ function writeSource(cs, ms) {
         document.getElementById("bzgj").innerHTML = '八字' + deling[5];
         document.getElementById("keywords").content = BZ.ng + BZ.nz + ',' + BZ.yg + BZ.yz + ',' + BZ.rg + BZ.rz + ',' + BZ.sg + BZ.sz + ',' + system.sexx + ',' + system.XingZuo + ',' + '八字排盘,四柱排盘,八字排盘系统,在线八字排盘,排八字,在线排八字,八字,命理,国学,算卦,排盘,易经,六十四卦,命运,运势,测算,婚姻';
         document.getElementById("Description").content = FX.sanmingtonghui3 + FX.sanmingtonghui4;
-        document.getElementById("Descriptiona").innerHTML = BZ.ng + BZ.nz + ' ' + BZ.yg + BZ.yz + ' ' + BZ.rg + BZ.rz + ' ' + BZ.sg + BZ.sz + ' ' + system.sexx + ' ' + system.XingZuo + '-墨家国学';
+        document.getElementById("Descriptiona").innerHTML = BZ.ng + BZ.nz + ' ' + BZ.yg + BZ.yz + ' ' + BZ.rg + BZ.rz + ' ' + BZ.sg + BZ.sz + ' ' + system.sexx + ' ' + system.XingZuo + '-北斋先生';
         tgSS = "";
         mgSS = "";
         SgSS = "";
