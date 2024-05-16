@@ -144,12 +144,12 @@
                             {{ end }}
                         </select>
                     </div>
-                    <!-- <div id='bazi' {{ if .IsBazi }} style='display:block' {{ else }} style='display:none' {{ end }}> -->
-                    <div id='bazi' style='display: none'>
-                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select><select
-                            name='yg' style='font-size: 9pt' id='yg'></select><select name='rg' style='font-size: 9pt'
-                            id='rg' onchange="city('sg')"></select><select name='sg' style='font-size: 9pt'
-                            id='sg'></select>
+                    <div id='bazi' {{ if .IsBazi }} style='display:block' {{ else }} style='display:none' {{ end }}>
+                    <!-- <div id='bazi' style='display: none'> -->
+                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select>
+                        <select name='yg' style='font-size: 9pt' id='yg'></select>
+                        <select name='rg' style='font-size: 9pt'id='rg' onchange="city('sg')"></select>
+                        <select name='sg' style='font-size: 9pt' id='sg'></select>
                     </div>
                 </td>
             </tr>
@@ -257,6 +257,9 @@
             }
             return true;
         }
+        
+
+        
     </script>
     </table>
 
@@ -334,6 +337,7 @@
         $("#city1").select2();
         $("#city2").select2();
         $("#city3").select2();
+        $('.select2-container--default').css('width', 'auto');
     });
 </script>
 

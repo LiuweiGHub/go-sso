@@ -665,6 +665,7 @@ func PaiPanDetail(c *gin.Context) {
 		inputDate = ""
 		dataT = "4"
 	}
+
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
