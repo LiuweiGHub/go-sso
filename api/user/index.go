@@ -820,7 +820,7 @@ func SendSms(c *gin.Context) {
 		response.ShowError(c, "fail")
 		return
 	}
-	// 保存短信内容
+	// 保存短信内容1
 	saveSms(p.Mobile, code)
 	response.ShowError(c, "success")
 	return
@@ -856,7 +856,6 @@ func Save(name string, sex string, dateType string, birthday string, isRun strin
 		Rg:       rg,
 		Sg:       sg,
 	}
-	fmt.Println(model)
 	_, err := model.Add()
 	if err != nil {
 		fmt.Println(err)

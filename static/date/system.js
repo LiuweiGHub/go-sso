@@ -28,7 +28,7 @@ var tgdzColor = {
     '子': 'blue',
     '丑': '#995001',
 }
-url = 'https://103.39.109.127:89/@2.0/';
+url = 'http://103.39.109.127:89/@2.0/';
 
 function createXmlHttp() {
     if (window.XMLHttpRequest) {
