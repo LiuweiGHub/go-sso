@@ -40,6 +40,7 @@ func main() {
 	r.Use(Auth)
 
 	r.GET("/show", user.Show)
+	r.GET("/api/getDetail", user.GetDetail)
 	r.GET("/remark", user.Remark)
 	r.POST("/saveRemark", user.SaveRemark)
 	r.GET("/paiPan", user.PaiPan)

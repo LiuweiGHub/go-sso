@@ -1,17 +1,19 @@
 package models
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/xorm"
 	"go-sso/conf"
 	"log"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-xorm/xorm"
 )
+
 var mEngine *xorm.Engine
 
 func init() {
 	if mEngine == nil {
 		var err error
-		mEngine, err = xorm.NewEngine(conf.Db["db1"].DriverName ,conf.Db["db1"].Dsn)
+		mEngine, err = xorm.NewEngine(conf.Db["db1"].DriverName, conf.Db["db1"].Dsn)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -22,4 +24,3 @@ func init() {
 	}
 
 }
-

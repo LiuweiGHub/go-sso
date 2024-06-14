@@ -94,6 +94,6 @@ func (u *Users) Update(user Users) int64 {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Affected rows: %d\n", affected)
+	fmt.Printf("Affected rows1: %d\n", affected)
 	return affected
 }

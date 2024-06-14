@@ -43,8 +43,21 @@ let para = urlbb.search;
 var urls = url + "api.php" + para + "&api=1&bcxx=1";
 createXmlHttp();
 xmlHttp.onreadystatechange = writeSource;
-xmlHttp.open("GET", urls, false);
+// xmlHttp.open("GET", urls, false);
+
+xmlHttp.open("GET", "/api/getDetail/"+para, false);
 xmlHttp.send(null);
+
+// $.ajax({
+//     url: '/api/getDetail/' + para,
+//     type: 'GET',
+//     success: function(data) {
+//         console.log(data); // 处理从服务器返回的数据
+//     },
+//     error: function(error) {
+//         console.error(error); // 处理错误情况
+//     }
+// });
 
 function writeSource(cs, ms) {
     obg = JSON.parse(ms == null ? xmlHttp.responseText : ms);

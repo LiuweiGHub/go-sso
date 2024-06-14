@@ -10,6 +10,7 @@ import (
 	"go-sso/utils/response"
 	"go-sso/utils/sms"
 	"go-sso/utils/verify"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -691,6 +692,60 @@ func PaiPanDetail(c *gin.Context) {
 
 func Show(c *gin.Context) {
 	c.HTML(http.StatusOK, "show.html", gin.H{"title": "排盘页"})
+}
+
+func GetDetail(c *gin.Context) {
+	inputDate, _, _, dateType := getDate(c)
+	name := c.Query("name")
+	sex := c.Query("sex")
+	ng := c.Query("ng")
+	yg := c.Query("yg")
+	rg := c.Query("rg")
+	sg := c.Query("sg")
+
+	v := url.Values{}
+	v.Add("act", "ok")
+	v.Add("name", name)
+	v.Add("DateType", dateType)
+	v.Add("inputdate", inputDate)
+	v.Add("ng", ng)
+	v.Add("yg", yg)
+	v.Add("rg", rg)
+	v.Add("sg", sg)
+	v.Add("sex", sex)
+	v.Add("leixing", "0")
+	v.Add("ztys", "0")
+	v.Add("city1", "北京")
+	v.Add("city2", "北京")
+	v.Add("city3", "东城区")
+	v.Add("Sect", "1")
+	v.Add("Siling", "0")
+	v.Add("leixinggg", "on")
+	params := v.Encode()
+	url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
+	fmt.Println(url)
+	// 发起对第三方API的HTTP GET请求
+	// 发送GET请求到第三方API
+	resp, err := http.Get(url)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer resp.Body.Close()
+
+	// 将第三方API的响应原样返回给客户端
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// 设置响应头，将第三方API响应的content-type等头部信息复制到客户端响应
+	for k, v := range resp.Header {
+		c.Header(k, v[0])
+	}
+	// 直接将响应体返回给客户端
+	c.Data(http.StatusOK, resp.Header.Get("Content-Type"), data)
 }
 
 // 注销登录
