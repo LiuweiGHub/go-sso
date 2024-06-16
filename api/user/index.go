@@ -695,7 +695,7 @@ func Show(c *gin.Context) {
 }
 
 func GetDetail(c *gin.Context) {
-	inputDate, _, _, dateType := getDate(c)
+	inputDate := c.Query("inputdate")
 	name := c.Query("name")
 	sex := c.Query("sex")
 	ng := c.Query("ng")
@@ -706,7 +706,7 @@ func GetDetail(c *gin.Context) {
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
-	v.Add("DateType", dateType)
+	v.Add("DateType", c.Query("DateType"))
 	v.Add("inputdate", inputDate)
 	v.Add("ng", ng)
 	v.Add("yg", yg)
