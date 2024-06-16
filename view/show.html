@@ -465,18 +465,18 @@
                         <td id='DaYunKWd'></td>
                     </tr>
                     <!--星运-->
-<!--                    <tr style='background-color:#ccc;'>-->
-<!--                        <td>星运</td>-->
-<!--                        <td id='liushi_xingyun'></td>-->
-<!--                        <td id='liuri_xingyun'></td>-->
-<!--                        <td id='liuyue_xingyun'></td>-->
-<!--                        <td id='liunian_xingyun'></td>-->
-<!--                        <td id='dayun_xingyun'></td>-->
-<!--                        <td><a id='DYWSnz'></a></td>-->
-<!--                        <td><a id='DYWSyz'></a></td>-->
-<!--                        <td><a id='DYWSrz'></a></td>-->
-<!--                        <td><a id='DYWSsz'></a></td>-->
-<!--                    </tr>-->
+                   <tr style='background-color:#ccc;'>
+                       <td>星运</td>
+                       <td id='liushi_xingyun'></td>
+                       <td id='liuri_xingyun'></td>
+                       <td id='liuyue_xingyun'></td>
+                       <td id='liunian_xingyun'></td>
+                       <td id='dayun_xingyun'></td>
+                       <td><a id='DYWSnz'></a></td>
+                       <td><a id='DYWSyz'></a></td>
+                       <td><a id='DYWSrz'></a></td>
+                       <td><a id='DYWSsz'></a></td>
+                   </tr>
                     <!--自座-->
 <!--                    <tr style='background-color:#DDD;'>-->
 <!--                        <td>自座</td>-->
@@ -508,11 +508,11 @@
                 <!--大运-->
                 <table class='table'>
                     <tbody>
-                    <tr style='background-color:#999'>
+                    <tr style='background-color:#999' hidden="hidden">
                         <td></td>
                         <td><input id='liuyinian' type='checkbox' onclick=tiangandizhiliuyi() checked hidden="hidden"/></td>
-                        <td><input id='liuyiyue' type='checkbox' onclick=tiangandizhiliuyi() checked hidden="hidden"/></td>
-                        <td><input id='liuyiri' type='checkbox' onclick=tiangandizhiliuyi() checked hidden="hidden"/></td>
+                        <td><input id='liuyiyue' type='checkbox' class="showFlag" onclick=tiangandizhiliuyi()  hidden="hidden"/></td>
+                        <td><input id='liuyiri' type='checkbox' class="showFlag" onclick=tiangandizhiliuyi()  hidden="hidden"/></td>
                         <td><input id='liuyishi' type='checkbox' onclick=tiangandizhiliuyi() hidden="hidden"/></td>
                         <td><input id='liuyike' type='checkbox' onclick=tiangandizhiliuyi() hidden="hidden"/></td>
                         <td><b id='nbtsc'></b></td>
@@ -521,7 +521,7 @@
                 </table>
                 <table class='table' id='xipanliuyun'>
                     <tbody>
-                    <tr id='LNDYQY'></tr>
+                    <tr id='LNDYQY' style='background-color:#DDD;'></tr>
                     <tr id='xipandayungz'></tr>
                     </tbody>
                 </table>
@@ -529,7 +529,7 @@
                 <table class='table' id='dayunliunian'>
                     <tbody>
                     <tr>
-                        <td>岁年</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -558,7 +558,7 @@
                 </table>
                 <table class='table' id='dayunliunianc'>
                     <tbody>
-                    <tr>
+                    <tr hidden>
                         <td>小运</td>
                         <td></td>
                         <td></td>
@@ -577,7 +577,7 @@
                 <table class='table' id='xipanliuyue'>
                     <tbody>
                     <tr>
-                        <td>节气</td>
+                        <td></td>
                         <td>立春</td>
                         <td>惊蛰</td>
                         <td>清明</td>
@@ -592,19 +592,19 @@
                         <td>小寒</td>
                     </tr>
                     <tr>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
-                        <td>流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
+                        <td class="liuyueFlag">流月</td>
                     </tr>
                     </tbody>
                 </table>
@@ -612,22 +612,24 @@
                 <div class='table line bg-tr' id='xipanliuri'>
                     <div class='nowrap'>流日</div>
                     <div class='swiper-container'>
-                        <div class='nowrap liuri-box swiper-wrapper'><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span><span
-                                class='swiper-slide kong'>流日</span><span class='swiper-slide kong'>流日</span></div>
+                        <div class='nowrap liuri-box swiper-wrapper'>
+                            <span class='swiper-slide kong liuriFlag'>流日</span>
+                            <span class='swiper-slide kong liuriFlag'>流日</span>
+                            <span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kon liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span><span
+                                class='swiper-slide kong liuriFlag'>流日</span><span class='swiper-slide kong liuriFlag'>流日</span></div>
                     </div>
                 </div>
                 <!--流时-->
@@ -861,3 +863,22 @@
                     text-align: -webkit-center;
                 }
             </style>
+            <script>
+                $(document).ready(function() {
+                    $(".liuriFlag").click(function (e) {
+                        // $("#liuyiri").attr("checked", "checked")
+                        $("#liuyiyue").get(0).checked = true
+                        $("#liuyiri").get(0).checked = true
+                        // $("#liuyiyue").attr("checked", "checked")
+
+                    })
+                })
+                $(document).ready(function() {
+                    $(".liuyueFlag").click(function (e) {
+                        console.log("bbbbbbbbb")
+                        // $("#liuyiyue").attr("checked", "checked")
+                        $("#liuyiyue").get(0).checked = true
+
+                    })
+                })
+            </script>

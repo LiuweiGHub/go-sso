@@ -272,10 +272,10 @@ function writeSource(cs, ms) {
         document.getElementById("DaYunKWb").innerHTML = DYKW[[BZ.yg] + [BZ.yz]];
         document.getElementById("DaYunKWc").innerHTML = DYKW[[BZ.rg] + [BZ.rz]];
         document.getElementById("DaYunKWd").innerHTML = DYKW[[BZ.sg] + [BZ.sz]];
-        // document.getElementById("DYWSnz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.nz] + "')>" + DYWS[BZ.nz] + "</a>";
-        // document.getElementById("DYWSyz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.yz] + "')>" + DYWS[BZ.yz] + "</a>";
-        // document.getElementById("DYWSrz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.rz] + "')>" + DYWS[BZ.rz] + "</a>";
-        // document.getElementById("DYWSsz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.sz] + "')>" + DYWS[BZ.sz] + "</a>";
+        document.getElementById("DYWSnz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.nz] + "')>" + DYWS[BZ.nz] + "</a>";
+        document.getElementById("DYWSyz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.yz] + "')>" + DYWS[BZ.yz] + "</a>";
+        document.getElementById("DYWSrz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.rz] + "')>" + DYWS[BZ.rz] + "</a>";
+        document.getElementById("DYWSsz").innerHTML = "<a onclick=sc('wd','" + DYWS[BZ.sz] + "')>" + DYWS[BZ.sz] + "</a>";
         // document.getElementById("DYZZnz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.ng] + [BZ.nz]] + "')>" + DYZZ[[BZ.ng] + [BZ.nz]] + "</a>";
         // document.getElementById("DYZZyz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.yg] + [BZ.yz]] + "')>" + DYZZ[[BZ.yg] + [BZ.yz]] + "</a>";
         // document.getElementById("DYZZrz").innerHTML = "<a onclick=sc('wd','" + DYZZ[[BZ.rg] + [BZ.rz]] + "')>" + DYZZ[[BZ.rg] + [BZ.rz]] + "</a>";
@@ -636,7 +636,7 @@ function writeSource(cs, ms) {
             "2161": "壬戌",
             "2162": "癸亥"
         }
-        LNDYQY = "<td>运年</td>";
+        LNDYQY = "<td></td>";
         xipandayungz = "<td>大运</td>";
         liunian = "<td  style='white-space:nowrap'>岁<span class=\"kong\">空空</span>年:</td>";
         dayun = "<td  style='white-space:nowrap'>大<span class=\"kong\">空空</span>运:</td>";
@@ -940,11 +940,12 @@ function tiangandizhiliuyi() {
         document.getElementById("liuyike").checked = false;
         document.getElementById("liuyike").disabled = true;
     }
+    $("#xipanliuyue").show();
+
     if ($("#liuyiyue").get(0).checked) {
         acc[2] = $vvttss[2];
         accc[2] = $vvttsss[2];
         $("#liuyueshenshaa").show();
-        $("#xipanliuyue").show();
         $("#liuyueage").show();
         $("#liuyuetgs").show();
         $("#liuyuedzs").show();
@@ -952,7 +953,11 @@ function tiangandizhiliuyi() {
         $("#liuyue_xingyun").show();
         $("#liuyue_zizuo").show();
         $("#liuyue_nayin").show();
+        console.log("11111111111")
         $("#liuyuebt").show();
+        // if (!$("#liuyiri").get(0).checked) {
+        //     $("#liuribt").show();
+        // }
         $("#col3").show();
         document.getElementById("liuyiri").disabled = false;
     } else {
@@ -964,11 +969,11 @@ function tiangandizhiliuyi() {
         document.getElementById("liuyike").checked = false;
         document.getElementById("liuyike").disabled = true;
     }
+    $("#xipanliuri").show();
     if ($("#liuyiri").get(0).checked) {
         acc[1] = $vvttss[1];
         accc[1] = $vvttsss[1];
         $("#liurishenshaa").show();
-        $("#xipanliuri").show();
         $("#liuriage").show();
         $("#liuritgs").show();
         $("#liuridzs").show();
@@ -976,6 +981,8 @@ function tiangandizhiliuyi() {
         $("#liuri_xingyun").show();
         $("#liuri_zizuo").show();
         $("#liuri_nayin").show();
+        console.log("222222222")
+
         $("#liuribt").show();
         $("#col4").show();
         document.getElementById("liuyishi").disabled = false;

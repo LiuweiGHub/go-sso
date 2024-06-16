@@ -723,7 +723,6 @@ func GetDetail(c *gin.Context) {
 	v.Add("leixinggg", "on")
 	params := v.Encode()
 	url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
-	fmt.Println(url)
 	// 发起对第三方API的HTTP GET请求
 	// 发送GET请求到第三方API
 	resp, err := http.Get(url)
