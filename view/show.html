@@ -529,30 +529,30 @@
                 <table class='table' id='dayunliunian'>
                     <tbody>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>流年</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class='liunianFlag'>流年</td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
+                        <td class='liunianFlag'></td>
                     </tr>
                     </tbody>
                 </table>
@@ -866,19 +866,30 @@
             <script>
                 $(document).ready(function() {
                     $(".liuriFlag").click(function (e) {
-                        // $("#liuyiri").attr("checked", "checked")
                         $("#liuyiyue").get(0).checked = true
                         $("#liuyiri").get(0).checked = true
-                        // $("#liuyiyue").attr("checked", "checked")
-
+                        tiangandizhiliuyi();
                     })
                 })
                 $(document).ready(function() {
                     $(".liuyueFlag").click(function (e) {
-                        console.log("bbbbbbbbb")
-                        // $("#liuyiyue").attr("checked", "checked")
                         $("#liuyiyue").get(0).checked = true
-
+                        tiangandizhiliuyi1();
                     })
                 })
+                $(document).ready(function() {
+                    $(".liunianFlag").click(function (e) {
+                        $("#liuyiyue").get(0).checked = false
+                        $("#liuyiri").get(0).checked = false
+                        tiangandizhiliuyi();
+                    })
+                })
+                $(document).ready(function() {
+                    $("#xipandayungz").click(function (e) {
+                        $("#liuyiyue").get(0).checked = false
+                        $("#liuyiri").get(0).checked = false
+                        tiangandizhiliuyi();
+                    })
+                })
+                
             </script>

@@ -953,11 +953,7 @@ function tiangandizhiliuyi() {
         $("#liuyue_xingyun").show();
         $("#liuyue_zizuo").show();
         $("#liuyue_nayin").show();
-        console.log("11111111111")
         $("#liuyuebt").show();
-        // if (!$("#liuyiri").get(0).checked) {
-        //     $("#liuribt").show();
-        // }
         $("#col3").show();
         document.getElementById("liuyiri").disabled = false;
     } else {
@@ -981,8 +977,6 @@ function tiangandizhiliuyi() {
         $("#liuri_xingyun").show();
         $("#liuri_zizuo").show();
         $("#liuri_nayin").show();
-        console.log("222222222")
-
         $("#liuribt").show();
         $("#col4").show();
         document.getElementById("liuyishi").disabled = false;
@@ -1013,6 +1007,101 @@ function tiangandizhiliuyi() {
         document.getElementById("liuyike").checked = false;
         document.getElementById("liuyike").disabled = true;
     }
+    if ($("#liuyike").get(0).checked) {
+        $("#liukeshenshaa").show();
+        $("#xipanliuke").show();
+    } else {
+        document.getElementById('lk').value = '';
+    }
+    acc[5] = $vvttss[5];
+    acc[6] = $vvttss[6];
+    acc[7] = $vvttss[7];
+    acc[8] = $vvttss[8];
+    accc[5] = $vvttsss[5];
+    accc[6] = $vvttsss[6];
+    accc[7] = $vvttsss[7];
+    accc[8] = $vvttsss[8];
+    tgdzly(acc, "#tgliuyi");
+    tgdzly(accc, "#dzliuyi");
+}
+
+function tiangandizhiliuyi1() {
+    $("#tgliuyi").html('');
+    $("#dzliuyi").html('');
+    $vvttss = $("#tgline .big").map((i, v) => v.innerText).get();
+    $vvttsss = $("#dzline .big").map((i, v) => v.innerText).get();
+    acc = [];
+    accc = [];
+    let arr = ['liunianshenshaa', 'dayunshenshaa', 'liuyueshenshaa', 'liurishenshaa', 'liushishenshaa', 'liukeshenshaa', 'dayunliunian', 'xipanliuyue', 'xipanliuri', 'xipanliushi', 'xipanliuyun', 'xipanliuke', 'dayunliunianc', 'dayunage', 'liunianage', 'liuyueage', 'liuriage', 'liushiage', 'dayundzs', 'liuniandzs', 'liuyuedzs', 'liuridzs', 'liushidzs', 'dayun_kongwang', 'liunian_kongwang', 'liuyue_kongwang', 'liuri_kongwang', 'liushi_kongwang', 'dayun_xingyun', 'liunian_xingyun', 'liuyue_xingyun', 'liuri_xingyun', 'liushi_xingyun', 'dayun_zizuo', 'liunian_zizuo', 'liuyue_zizuo', 'liuri_zizuo', 'liushi_zizuo', 'dayun_nayin', 'liunian_nayin', 'liuyue_nayin', 'liuri_nayin', 'liushi_nayin', 'dayuntgs', 'liuniantgs', 'liuyuetgs', 'liuritgs', 'liushitgs', 'liuyunbt', 'liunianbt', 'liuyuebt', 'liuribt', 'liushibt', 'col1', 'col2', 'col3', 'col4', 'col5'];
+    for (let b of arr) {
+        $("#" + b).hide();
+    }
+    acc[4] = $vvttss[4];
+    accc[4] = $vvttsss[4];
+    $("#dayunshenshaa").show();
+    $("#xipanliuyun").show();
+    $("#dayunage").show();
+    $("#dayuntgs").show();
+    $("#dayundzs").show();
+    $("#dayun_kongwang").show();
+    $("#dayun_xingyun").show();
+    $("#dayun_zizuo").show();
+    $("#dayun_nayin").show();
+    $("#liuyunbt").show();
+    $("#col1").show();
+    if ($("#liuyinian").get(0).checked) {
+        acc[3] = $vvttss[3];
+        accc[3] = $vvttsss[3];
+        $("#liunianshenshaa").show();
+        $("#dayunliunian").show();
+        $("#liunianage").show();
+        $("#liuniantgs").show();
+        $("#liuniandzs").show();
+        $("#liunian_kongwang").show();
+        $("#liunian_xingyun").show();
+        $("#liunian_zizuo").show();
+        $("#liunian_nayin").show();
+        $("#liunianbt").show();
+        $("#col2").show();
+        $("#dayunliunianc").show();
+        document.getElementById("liuyiyue").disabled = false;
+    } else {
+        document.getElementById('ln').value = '';
+        document.getElementById("liuyiyue").checked = false;
+        document.getElementById("liuyiyue").disabled = true;
+        document.getElementById("liuyiri").checked = false;
+        document.getElementById("liuyiri").disabled = true;
+        document.getElementById("liuyishi").checked = false;
+        document.getElementById("liuyishi").disabled = true;
+        document.getElementById("liuyike").checked = false;
+        document.getElementById("liuyike").disabled = true;
+    }
+    $("#xipanliuyue").show();
+
+    if ($("#liuyiyue").get(0).checked) {
+        acc[2] = $vvttss[2];
+        accc[2] = $vvttsss[2];
+        $("#liuyueshenshaa").show();
+        $("#liuyueage").show();
+        $("#liuyuetgs").show();
+        $("#liuyuedzs").show();
+        $("#liuyue_kongwang").show();
+        $("#liuyue_xingyun").show();
+        $("#liuyue_zizuo").show();
+        $("#liuyue_nayin").show();
+        $("#liuyuebt").show();
+        $("#col3").show();
+        document.getElementById("liuyiri").disabled = false;
+    } else {
+        document.getElementById('ly').value = '';
+        document.getElementById("liuyiri").checked = false;
+        document.getElementById("liuyiri").disabled = true;
+        document.getElementById("liuyishi").checked = false;
+        document.getElementById("liuyishi").disabled = true;
+        document.getElementById("liuyike").checked = false;
+        document.getElementById("liuyike").disabled = true;
+    }
+    $("#xipanliuri").show();
     if ($("#liuyike").get(0).checked) {
         $("#liukeshenshaa").show();
         $("#xipanliuke").show();
