@@ -380,6 +380,9 @@ function writeSource(cs, ms) {
         for (var i in LLSS) {
             DYshensha += "'" + i + "':\"";
             for (var ii in LLSS[i]) {
+                if (isFilterShenSha(LLSS[i][ii])) {
+                    continue;
+                }
                 DYshensha += "<a onclick=sc('wd','" + LLSS[i][ii] + "')>" + LLSS[i][ii] + "</a> "
             }
             DYshensha += "\","
@@ -1302,6 +1305,7 @@ $("#xipandayungz td").click(function (e) {
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
     $("#dayunage").html(e.target.dataset["age"] - 1 + "岁<br>" + e.target.dataset["year"]);
+    console.log(shensha[zdyddtd]);
     $("#dayunshensha").html(shensha[zdyddtd]);
     document.getElementById('ld').value = zdyddtd;
     $year = $("#dayunliunian").find('[year=' + currentYear + ']');
