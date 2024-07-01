@@ -814,7 +814,6 @@ func LoginByMobileCode(c *gin.Context) {
 	var userMobile UserMobileCode
 	if err := c.BindJSON(&userMobile); err != nil {
 		msg := handle.TransTagName(&UserMobileTrans, err)
-		fmt.Println(msg)
 		response.ShowValidatorError(c, msg)
 		return
 	}

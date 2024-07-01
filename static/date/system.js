@@ -1444,7 +1444,7 @@ function getDzSS($dz, $rg) {
 
 function chineseToNumber(chineseYear) {
     const numMap = {
-        零: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4,
+        〇: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4,
         五: 5, 六: 6, 七: 7, 八: 8, 九: 9
     };
     let result = 0;
