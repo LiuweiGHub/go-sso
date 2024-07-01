@@ -133,7 +133,7 @@ function writeSource(cs, ms) {
             document.getElementById("ZTYS").innerHTML = "<b>真太阳时地区：</b><font color='#993300'>" + system.city + "</font><br><b>真太阳时前日期：</b><font color='#993300'>" + system.Z_QRQ + "</font><br>"
         }
         document.getElementById("chusheng.gongli").innerHTML = chusheng.gongli;
-        document.getElementById("chusheng.nongli").innerHTML = system.GNF + '年' + '(生肖' + system.shengxiao + ')' + chusheng.nongli.slice(5);
+        document.getElementById("chusheng.nongli").innerHTML = chineseToNumber(chusheng.nongli.substring(0, 4)) + '年' + '(生肖' + system.shengxiao + ')' + chusheng.nongli.slice(5);
         document.getElementById("bazixinxi.liujiakongwangluokong").innerHTML = "";
         document.getElementById("bzgj").innerHTML = '八字' + deling[5];
         document.getElementById("keywords").content = BZ.ng + BZ.nz + ',' + BZ.yg + BZ.yz + ',' + BZ.rg + BZ.rz + ',' + BZ.sg + BZ.sz + ',' + system.sexx + ',' + system.XingZuo + ',' + '八字排盘,四柱排盘,八字排盘系统,在线八字排盘,排八字,在线排八字,八字,命理,国学,算卦,排盘,易经,六十四卦,命运,运势,测算,婚姻';
@@ -1440,4 +1440,43 @@ function getDzSS($dz, $rg) {
         $ss += $ssShorter[getShishen($tiangan.indexOf($cg), $tiangan.indexOf($rg))];
     }
     return $ss;
+}
+
+function chineseToNumber(chineseYear) {
+    const numMap = {
+        零: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4,
+        五: 5, 六: 6, 七: 7, 八: 8, 九: 9
+    };
+    let result = 0;
+    let temp = 0;
+    let isEndInZero = false;
+ 
+    for (let i = 0; i < chineseYear.length; i++) {
+        const char = chineseYear[i];
+        const num = numMap[char];
+ 
+        if (num === undefined) {
+            // 非数字字符处理
+            if (char === '十') {
+                temp *= 10;
+                result += temp;
+                temp = 0;
+            } else if (char === '百' || char === '千') {
+                temp *= 1000;
+                result += temp;
+                temp = 0;
+            } else if (char === '万') {
+                result += temp;
+                temp = 0;
+                result *= 10000;
+            }
+        } else {
+            // 数字字符处理
+            temp = temp * 10 + num;
+            if (i === chineseYear.length - 1) {
+                result += temp;
+            }
+        }
+    }
+    return result;
 }
