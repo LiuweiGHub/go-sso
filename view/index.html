@@ -699,17 +699,7 @@
         }
     </script>
     </table>
-
-    <div id="bar">
-        <a href="/index">
-            <img src="images/home.svg">
-            <span>排盘</span>
-        </a>
-        <a href="/record" class="left-border" blank="main">
-            <img src="images/menu.svg">
-            <span>记录</span>
-        </a>
-    </div>
+    {{ template "menu" . }}
 </div>
 
 <style>
@@ -721,46 +711,6 @@
         margin-inline-start: 0px;
         margin-inline-end: 0px;
         font-weight: bold;
-    }
-
-    #bar {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        border-width: 1px 0 0 0;
-        border-style: solid;
-        border-color: #CCC;
-        background-color: #EEE;
-        position: fixed;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 1200px;
-        /* 适当的最大宽度 */
-        text-align: center;
-        /* 文本居中 */
-    }
-
-    #bar a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1;
-        text-decoration: none;
-        font-size: 12px;
-        color: #666;
-        padding: 3px 0;
-
-        .sub_m {
-            border: 1px #FFCC00 solid;
-            background: #CC0000;
-            padding: 8px;
-            color: #FFFFFF;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: hand;
-        }
     }
 </style>
 

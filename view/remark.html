@@ -33,49 +33,9 @@
      id="mpa-rootsc-text-gatherer"></div>
 <div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
      id="mpa-rootsc-video-gatherer"></div>
-<div id="bar">
-    <a href="/index">
-        <img src="static/images/home.svg">
-        <span>排盘</span>
-    </a>
-    <a href="/record" class="left-border">
-        <img src="static/images/menu.svg">
-        <span>记录</span>
-    </a>
-</div>
-</body>
-</html>
 
+{{ template "menu" . }}
 
-<style>
-    #bar {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        border-width: 1px 0 0 0;
-        border-style: solid;
-        border-color: #CCC;
-        background-color: #EEE;
-        position: fixed;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 1200px; /* 适当的最大宽度 */
-        text-align: center; /* 文本居中 */
-    }
-
-    #bar a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1;
-        text-decoration: none;
-        font-size: 12px;
-        color: #666;
-        padding: 3px 0;
-    }
-</style>
 <script src="static/date/jquery.min.js"></script>
 <script type="text/javascript">
     $("#saveRemark").click(function () {

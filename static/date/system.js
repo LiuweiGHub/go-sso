@@ -28,7 +28,7 @@ var tgdzColor = {
     '子': 'blue',
     '丑': '#995001',
 }
-url = 'https://zydx.win/@2.0/';
+url = 'https://zydx.win/';
 
 function createXmlHttp() {
     if (window.XMLHttpRequest) {
