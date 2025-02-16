@@ -41,6 +41,7 @@
         <table id="userTable">
             <thead>
                 <tr>
+                    <th>用户ID</th>
                     <th>手机号</th>
                     <th>注册时间</th>
                     <th>最近活跃时间</th>
@@ -48,6 +49,7 @@
                 </tr>
                 {{ range $key,$value := .userList }}
                 <tr>
+                    <th>{{ $value.id }}</th>
                     <th>{{ $value.mobile }}</th>
                     <th>{{ $value.ctime }}</th>
                     <th>{{ $value.mtime }}</th>
