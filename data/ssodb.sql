@@ -158,3 +158,9 @@ CREATE TABLE `sms` (
                           KEY `mobile` (`mobile`)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+# 更新users ctime
+ALTER TABLE `sso`.`users` 
+CHANGE COLUMN `ctime` `ctime` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间' ;

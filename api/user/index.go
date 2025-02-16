@@ -942,15 +942,15 @@ func SignupByMobile(c *gin.Context) {
 	}
 	model.Salt = common.GetRandomBoth(4)
 	model.Passwd = common.Sha1En(userMobile.Passwd + model.Salt)
-	model.Ctime = int(time.Now().Unix())
+	model.Ctime = time.Now()
 	model.Status = models.UsersStatusOk
 	model.Mtime = time.Now()
 
-	traceModel := models.Trace{Ctime: model.Ctime}
+	traceModel := models.Trace{Ctime: int(time.Now().Unix())}
 	traceModel.Ip = common.IpStringToInt(request.GetClientIp(c))
 	traceModel.Type = models.TraceTypeReg
 
-	deviceModel := models.Device{Ctime: model.Ctime, Ip: traceModel.Ip, Client: c.GetHeader("User-Agent")}
+	deviceModel := models.Device{Ctime: int(time.Now().Unix()), Ip: traceModel.Ip, Client: c.GetHeader("User-Agent")}
 	_, err := model.Add(&traceModel, &deviceModel)
 	if err != nil {
 		fmt.Println(err)

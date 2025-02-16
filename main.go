@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-sso/api/admin"
 	"go-sso/api/user"
 	"go-sso/conf"
 	"go-sso/modules/app"
@@ -61,6 +62,9 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	// 管理后台
+	r.GET("/admin", admin.Index)
 	r.Run(":8282") // listen and serve on 0.0.0.0:8080
 }
 func Load() {

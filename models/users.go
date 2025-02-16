@@ -6,7 +6,7 @@ import (
 )
 
 type Users struct {
-	Ctime  int       `json:"ctime" xorm:"not null default 0 comment('创建时间') index INT(10)"`
+	Ctime  time.Time `json:"ctime" xorm:"not null default 0 comment('创建时间') index TIMESTAMP"`
 	Email  string    `json:"email" xorm:"not null default '' comment('邮箱') VARCHAR(100)"`
 	Ext    string    `json:"ext" xorm:"not null comment('扩展字段') TEXT"`
 	Id     int64     `json:"id" xorm:"pk autoincr comment('主键') BIGINT(20)"`
@@ -83,10 +83,43 @@ func IsExistsMobile(mobile string) bool {
 	model := Users{Mobile: mobile}
 	return model.GetRow()
 }
+
 func (u *Users) GetRowById() (UserRow, error) {
 	var userRow UserRow
 	_, err := mEngine.Table(usersTable).Where("id=?", u.Id).Get(&userRow)
 	return userRow, err
+}
+
+func (u *Users) GetUserByPage(page int, pageSize int) ([]map[string]string, error) {
+	if page == 0 {
+		page = 1
+	}
+	sql := "select * from sso.Users where 1 = 1"
+	sql += " order by id desc"
+	sql += " limit ?,?"
+	offset := (page - 1) * pageSize
+	return mEngine.SQL(sql, offset, pageSize).QueryString()
+}
+
+func (u *Users) GetTodayNewUsers() ([]map[string]string, error) {
+	sql := "select count(*) as cnt from sso.Users where ctime >= ? and ctime <= ?"
+	now := time.Now()
+	today := now.Format("2006-01-02")
+	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
+	return mEngine.SQL(sql, today, tomorry).QueryString()
+}
+
+func (u *Users) GetTodayActiveUsers() ([]map[string]string, error) {
+	sql := "select count(*) as cnt from sso.Users where mtime >= ? and ctime <= ?"
+	now := time.Now()
+	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
+	today := now.Format("2006-01-02")
+	return mEngine.SQL(sql, today, tomorry).QueryString()
+}
+
+func (u *Users) GetTotalUsers() ([]map[string]string, error) {
+	sql := "select count(*) as cnt from sso.Users"
+	return mEngine.SQL(sql).QueryString()
 }
 
 func (u *Users) Update(user Users) int64 {

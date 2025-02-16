@@ -1,0 +1,81 @@
+{{ define "admin.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>管理后台</h1>
+    <div>
+        <h2>统计数据</h2>
+        <p>今日新增用户数: <span id="todayNewUsers">{{ .todayNewUsers }}人</span></p>
+        <p>今日活跃用户数: <span id="todayActiveUsers">{{ .todayActiveUsers }}人</span></p>
+        <p>累计用户数: <span id="totalUsers">{{ .totalUsers }}人</span></p>
+    </div>
+    <div>
+        <h2>用户明细</h2>
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>手机号</th>
+                    <th>注册时间</th>
+                    <th>最近活跃时间</th>
+                    <th>操作</th>
+                </tr>
+                {{ range $key,$value := .userList }}
+                <tr>
+                    <th>{{ $value.mobile }}</th>
+                    <th>{{ $value.ctime }}</th>
+                    <th>{{ $value.mtime }}</th>
+                    <th>删除</th>
+                </tr>
+                {{ end }}
+            </thead>
+        </table>
+    </div>
+
+    <script>
+        async function deleteUser(userId) {
+            try {
+                const response = await fetch(`/api/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    fetchData(); // 重新加载数据
+                } else {
+                    alert('删除用户失败');
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>
+{{ end }}
