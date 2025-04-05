@@ -66,6 +66,8 @@ function isFilterShenSha(shenSha) {
 
 function writeSource(cs, ms) {
     obg = JSON.parse(ms == null ? xmlHttp.responseText : ms);
+
+    console.log(obg)
     with (obg) {
 
         document.cookie = 'nz=' + BZ.nz + ';';
@@ -124,7 +126,7 @@ function writeSource(cs, ms) {
         document.getElementById("chusheng.QH").innerHTML = "<a onclick=alert('" + ESJQB + "')>" + chusheng.DL2 + ' ' + chusheng.DL1 + ' ' + chusheng.CL2 + ' ' + chusheng.CL1 + "</a>";
         document.getElementById("system.SiLing").innerHTML = "";
         document.getElementById("system.SiLingFangshi").innerHTML = "";
-        document.getElementById("system.SCWG").innerHTML = "";
+        document.getElementById("system.SCWG").innerHTML = system.SCWG;
         document.getElementById("chusheng.QY").innerHTML = chusheng.QY;
         document.getElementById("system.PPFS").innerHTML = system.PPFS;
         document.getElementById("system.JYRQ").innerHTML = system.JYRQ;
@@ -134,7 +136,7 @@ function writeSource(cs, ms) {
         }
         document.getElementById("chusheng.gongli").innerHTML = chusheng.gongli;
         document.getElementById("chusheng.nongli").innerHTML = chineseToNumber(chusheng.nongli.substring(0, 4)) + '年' + '(生肖' + system.shengxiao + ')' + chusheng.nongli.slice(5);
-        document.getElementById("bazixinxi.liujiakongwangluokong").innerHTML = "";
+        document.getElementById("bazixinxi.liujiakongwangluokong").innerHTML = deling[5];
         document.getElementById("bzgj").innerHTML = '八字' + deling[5];
         document.getElementById("keywords").content = BZ.ng + BZ.nz + ',' + BZ.yg + BZ.yz + ',' + BZ.rg + BZ.rz + ',' + BZ.sg + BZ.sz + ',' + system.sexx + ',' + system.XingZuo + ',' + '八字排盘,四柱排盘,八字排盘系统,在线八字排盘,排八字,在线排八字,八字,命理,国学,算卦,排盘,易经,六十四卦,命运,运势,测算,婚姻';
         document.getElementById("Description").content = FX.sanmingtonghui3 + FX.sanmingtonghui4;
