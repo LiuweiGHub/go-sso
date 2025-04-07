@@ -26,7 +26,9 @@ import (
 var Months = map[string]string{"1": "正月", "2": "二月", "3": "三月", "4": "四月", "5": "五月", "6": "六月", "7": "七月", "8": "八月", "9": "九月", "10": "十月", "11": "冬月", "12": "腊月"}
 var RunMonths = map[string]string{"1": "闰正月", "2": "闰二月", "3": "闰三月", "4": "闰四月", "5": "闰五月", "6": "闰六月", "7": "闰七月", "8": "闰八月", "9": "闰九月", "10": "闰十月", "11": "闰冬月", "12": "闰腊月"}
 var Dates = map[string]string{"1": "初一", "2": "初二", "3": "初三", "4": "初四", "5": "初五", "6": "初六", "7": "初七", "8": "初八", "9": "初九", "10": "初十", "11": "十一", "12": "十二", "13": "十三", "14": "十四", "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九", "20": "二十", "21": "廿一", "22": "廿二", "23": "廿三", "24": "廿四", "25": "廿五", "26": "廿六", "27": "廿七", "28": "廿八", "29": "廿九", "30": "三十", "31": "三一"}
-var Sex = map[string]string{"0": "男", "1": "女"}
+var Sex = map[string]string{"1": "男", "2": "女"}
+var SexForUrlMap = map[string]string{"1": "0", "2": "1"}
+
 var DateType = map[string]string{"农历": "1", "公历": "0", "八字": "2"}
 
 type UserMobile struct {
@@ -148,7 +150,7 @@ func Edit(c *gin.Context) {
 	} else {
 		isBazi = true
 	}
-	if row.Sex == 0 {
+	if row.Sex == 1 {
 		isNan = true
 	} else {
 		isNv = true
@@ -405,6 +407,11 @@ func Edit(c *gin.Context) {
 		Yg         string
 		Rg         string
 		Sg         string
+		City1      string
+		City2      string
+		City3      string
+		Xls        int
+		Bjhs       int
 	}
 	if isGongLi || isNongLi {
 		birthday := row.Birthday
@@ -434,6 +441,11 @@ func Edit(c *gin.Context) {
 			Day:        ds[2],
 			Hour:       hs[0],
 			Minute:     hs[1],
+			City1:      row.City1,
+			City2:      row.City2,
+			City3:      row.City3,
+			Xls:        row.Xls,
+			Bjhs:       row.Bjhs,
 		})
 	} else {
 		c.HTML(http.StatusOK, "edit.tmpl", Record{
@@ -458,6 +470,9 @@ func Edit(c *gin.Context) {
 			Yg:         row.Yg,
 			Rg:         row.Rg,
 			Sg:         row.Sg,
+			City1:      row.City1,
+			City2:      row.City2,
+			City3:      row.City3,
 		})
 	}
 }
@@ -514,6 +529,11 @@ func Modify(c *gin.Context) {
 	yg := c.Query("yg")
 	rg := c.Query("rg")
 	sg := c.Query("sg")
+	xls, _ := strconv.Atoi(c.Query("xls"))
+	fmt.Println(xls)
+	bjhs, _ := strconv.Atoi(c.Query("bjhs"))
+	fmt.Println(bjhs)
+
 	inputDate, t, birthday, dateT := getDate(c)
 	// 保存
 	isSave := c.Query("save")
@@ -530,6 +550,11 @@ func Modify(c *gin.Context) {
 			Yg:       yg,
 			Sg:       sg,
 			Rg:       rg,
+			City1:    c.Query("city1"),
+			City2:    c.Query("city2"),
+			City3:    c.Query("city3"),
+			Xls:      xls,
+			Bjhs:     bjhs,
 		}
 		r.Update(r)
 	}
@@ -545,9 +570,11 @@ func Modify(c *gin.Context) {
 	v.Add("sex", sex)
 	v.Add("leixing", "0")
 	v.Add("ztys", "1")
-	v.Add("city1", "北京")
-	v.Add("city2", "北京")
-	v.Add("city3", "东城区")
+	v.Add("city1", c.Query("city1"))
+	v.Add("city2", c.Query("city2"))
+	v.Add("city3", c.Query("city3"))
+	v.Add("xls", c.Query("xls"))
+	v.Add("bjhs", c.Query("bjhs"))
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
@@ -601,7 +628,8 @@ func PaiPan(c *gin.Context) {
 	}
 	inputDate, t, birthday, dateType := getDate(c)
 	name := c.Query("name")
-	sex := c.Query("sex")
+	sex := SexForUrlMap[c.Query("sex")]
+
 	ng := c.Query("ng")
 	yg := c.Query("yg")
 	rg := c.Query("rg")
@@ -610,7 +638,31 @@ func PaiPan(c *gin.Context) {
 	// 保存
 	isSave := c.Query("save")
 	if isSave == "1" {
-		res := Save(name, sex, t, birthday, ifrun, userId, ng, yg, rg, sg)
+		s, _ := strconv.Atoi(sex)
+		r, _ := strconv.Atoi(ifrun)
+		uid, _ := strconv.Atoi(userId)
+		xls, _ := strconv.Atoi(c.Query("xls"))
+		bjhs, _ := strconv.Atoi(c.Query("bjhs"))
+
+		model := models.Record{
+			Name:     name,
+			Uid:      int64(uid),
+			Sex:      s,
+			Type:     t,
+			Birthday: birthday,
+			IsRun:    r,
+			Ctime:    int(time.Now().Unix()),
+			Ng:       ng,
+			Yg:       yg,
+			Rg:       rg,
+			Sg:       sg,
+			City1:    c.Query("city1"),
+			City2:    c.Query("city2"),
+			City3:    c.Query("city3"),
+			Xls:      xls,
+			Bjhs:     bjhs,
+		}
+		res := Save(model)
 		if !res {
 			response.ShowError(c, "save fail")
 		}
@@ -633,6 +685,8 @@ func PaiPan(c *gin.Context) {
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
+	v.Add("xls", c.Query("xls"))
+	v.Add("bjhs", c.Query("bjhs"))
 	params := v.Encode()
 	path := "show?" + params
 	c.Redirect(http.StatusFound, path)
@@ -651,9 +705,16 @@ func PaiPanDetail(c *gin.Context) {
 	ndate, _ := c.GetPostForm("ndate")
 	nhour, _ := c.GetPostForm("nhour")
 	sex, _ := c.GetPostForm("sex")
+	sex = SexForUrlMap[sex]
 	ifrun, _ := c.GetPostForm("ifrun")
 	inputDate := ""
 	dataT := "5"
+	xls, _ := c.GetPostForm("xls")
+	bjhs, _ := c.GetPostForm("bjhs")
+	city1, _ := c.GetPostForm("city1")
+	city2, _ := c.GetPostForm("city2")
+	city3, _ := c.GetPostForm("city3")
+
 	if dateType == "0" {
 		inputDate = "公历" + year + "年" + month + "月" + date + "日" + " " + hour + "时" + minute + "分"
 	} else if dateType == "1" {
@@ -682,8 +743,14 @@ func PaiPanDetail(c *gin.Context) {
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
+	v.Add("city1", city1)
+	v.Add("city2", city2)
+	v.Add("city3", city3)
+	v.Add("xls", xls)
+	v.Add("bjhs", bjhs)
 	params := v.Encode()
 	path := "show?" + params
+	fmt.Println(path)
 	c.Redirect(http.StatusFound, path)
 }
 
@@ -694,7 +761,7 @@ func Show(c *gin.Context) {
 func GetDetail(c *gin.Context) {
 	inputDate := c.Query("inputdate")
 	name := c.Query("name")
-	sex := c.Query("sex")
+	sex := SexForUrlMap[c.Query("sex")]
 	ng := c.Query("ng")
 	yg := c.Query("yg")
 	rg := c.Query("rg")
@@ -888,24 +955,7 @@ func saveSms(mobile string, code string) {
 	model.Add()
 }
 
-func Save(name string, sex string, dateType string, birthday string, isRun string, userId string, ng string, yg string, rg string, sg string) bool {
-	s, _ := strconv.Atoi(sex)
-	r, _ := strconv.Atoi(isRun)
-	uid, _ := strconv.Atoi(userId)
-
-	model := models.Record{
-		Name:     name,
-		Uid:      int64(uid),
-		Sex:      s,
-		Type:     dateType,
-		Birthday: birthday,
-		IsRun:    r,
-		Ctime:    int(time.Now().Unix()),
-		Ng:       ng,
-		Yg:       yg,
-		Rg:       rg,
-		Sg:       sg,
-	}
+func Save(model models.Record) bool {
 	_, err := model.Add()
 	if err != nil {
 		fmt.Println(err)

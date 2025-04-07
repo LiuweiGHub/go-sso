@@ -13,6 +13,11 @@ type Record struct {
 	Birthday string `json:"birthday" xorm:"not null default '' comment('生日') VARCHAR(50)"`
 	IsRun    int    `json:"IsRun" xorm:"not null default 0 comment('是否润月') INT(10)"`
 	Remark   string `json:"remark" xorm:"not null default '' comment('备注') VARCHAR(50)"`
+	City1    string `json:"city1" xorm:"not null default '' comment('省') VARCHAR(100)"`
+	City2    string `json:"city2" xorm:"not null default '' comment('市') VARCHAR(100)"`
+	City3    string `json:"city3" xorm:"not null default '' comment('区') VARCHAR(100)"`
+	Xls      int    `json:"xls" xorm:"not null comment('夏令时') INT(4)"`
+	Bjhs     int    `json:"bjhs" xorm:"not null comment('京时换算') INT(4)"`
 	Ng       string `json:"ng" xorm:"not null default '' comment('八字年') VARCHAR(10)"`
 	Yg       string `json:"yg" xorm:"not null default '' comment('八字月') VARCHAR(10)"`
 	Rg       string `json:"rg" xorm:"not null default '' comment('八字日') VARCHAR(10)"`

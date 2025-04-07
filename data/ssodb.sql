@@ -164,3 +164,11 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 # 更新users ctime
 ALTER TABLE `sso`.`users` 
 CHANGE COLUMN `ctime` `ctime` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间' ;
+
+# record 新增city1 city2 city3 夏令时 京时换算
+ALTER TABLE `sso`.`record` 
+ADD COLUMN `city1` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '省',
+ADD COLUMN `city2` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '市',
+ADD COLUMN `city3` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '区',
+ADD COLUMN  `xls` tinyint(4)  NOT NULL DEFAULT 0 COMMENT '夏令时',
+ADD COLUMN  `bjhs` tinyint(4)  NOT NULL DEFAULT 0 COMMENT '京时换算';

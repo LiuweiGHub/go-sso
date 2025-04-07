@@ -1,5 +1,6 @@
 <html>
 {{ template "header" . }}
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,25 +15,33 @@
             color: #999;
         }
     </style>
-    <style class="mpa-style-fix ImageGatherer">.FotorFrame {
-        position: fixed !important
-    }</style>
+    <style class="mpa-style-fix ImageGatherer">
+        .FotorFrame {
+            position: fixed !important
+        }
+    </style>
 </head>
+
 <body mpa-version="9.1.8" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
-<div class="container" style="padding-top: 15px;">
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" href="loginIndex">登录</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="register">注册</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="resetPassword">重置密码</a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="login" role="tabpanel">
+    <div class="container" style="padding-top: 15px;">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="loginIndex">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="register">注册</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="resetPassword">重置密码</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="wechat-login" class="hidden text-center mb-4">
+                <p class="text-gray-600">检测到您正在使用微信浏览器，点击下方按钮使用微信登录。</p>
+                <button onclick="wechatLogin()"
+                    class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mt-2">微信登录</button>
+            </div>
+            <div class="tab-pane active" id="login" role="tabpanel">
                 <div class="form-group">
                     <input type="text" name="mob" class="form-control" placeholder="手机号码">
                 </div>
@@ -46,67 +55,87 @@
                     </div>
                 </div>
                 <button id="userLogin" type="submit" class="btn btn-dark btn-block">登录</button>
+            </div>
         </div>
     </div>
-</div>
-{{ template "menu" . }}
-<script src="static/date/jquery.min.js"></script>
-<script src="static/date/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $("#captchaBtn").click(function (e) {
-        $.get('mob_code.php?type=' + $(this).attr("code-type") + '&mob=' + $("#registerMob").val(), function (data) {
-            if (data.code != 0) {
-                alert(data.msg);
-            } else {
-                $(this).attr("disabled", true);
-                let s = 60;
-                $("#captchaBtn").html((s--) + "s");
-                let timer = setInterval(function () {
-                    if (s == 0) {
-                        clearInterval(timer);
-                        $("#captchaBtn").attr("disabled", false).html('获取验证码');
-                        return;
-                    }
+    {{ template "menu" . }}
+    <script src="static/date/jquery.min.js"></script>
+    <script src="static/date/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $("#captchaBtn").click(function (e) {
+            $.get('mob_code.php?type=' + $(this).attr("code-type") + '&mob=' + $("#registerMob").val(), function (data) {
+                if (data.code != 0) {
+                    alert(data.msg);
+                } else {
+                    $(this).attr("disabled", true);
+                    let s = 60;
                     $("#captchaBtn").html((s--) + "s");
-                }, 1000)
-            }
-        });
-    })
-
-    var account = localStorage.getItem('account');
-    if (account) {
-        account = JSON.parse(account);
-        $("#login input[name=mob]").val(account.mob);
-        $("#login input[name=pwd]").val(account.pwd);
-    }
-
-    // 清空accessToken 并跳转到首页
-    $("#userLogin").click(function () {
-        var username = $("#login input[name=mob]").val();
-        var password = $("#login input[name=pwd]").val();
-        $.post("userLogin", {
-            pwd: password,
-            mob: username
-        }, function (data) {
-            if (data.msg == 'success') {
-                window.location.href = 'record';
-            } else if (data.msg == '用户名或密码错误') {
-                alert('登录失败，请检查用户名和密码。');
-            } else if (data.msg == '手机号不存在') {
-                alert('手机号不存在！');
-            } else {
-                alert('服务器无响应，请稍后再试。');
-            }
+                    let timer = setInterval(function () {
+                        if (s == 0) {
+                            clearInterval(timer);
+                            $("#captchaBtn").attr("disabled", false).html('获取验证码');
+                            return;
+                        }
+                        $("#captchaBtn").html((s--) + "s");
+                    }, 1000)
+                }
+            });
         })
-    })
-</script>
+
+        var account = localStorage.getItem('account');
+        if (account) {
+            account = JSON.parse(account);
+            $("#login input[name=mob]").val(account.mob);
+            $("#login input[name=pwd]").val(account.pwd);
+        }
+
+        // 清空accessToken 并跳转到首页
+        $("#userLogin").click(function () {
+            var username = $("#login input[name=mob]").val();
+            var password = $("#login input[name=pwd]").val();
+            $.post("userLogin", {
+                pwd: password,
+                mob: username
+            }, function (data) {
+                if (data.msg == 'success') {
+                    window.location.href = 'record';
+                } else if (data.msg == '用户名或密码错误') {
+                    alert('登录失败，请检查用户名和密码。');
+                } else if (data.msg == '手机号不存在') {
+                    alert('手机号不存在！');
+                } else {
+                    alert('服务器无响应，请稍后再试。');
+                }
+            })
+        })
+
+        // 微信登录
+        // 检测是否在微信浏览器中
+        function isWechatBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            return ua.match(/MicroMessenger/i) == "micromessenger";
+        }
+
+        // 页面加载时检测微信浏览器
+        window.onload = function () {
+            if (isWechatBrowser()) {
+                document.getElementById('wechat-login').classList.remove('hidden');
+            }
+        };
+
+        // 微信登录函数
+        function wechatLogin() {
+            alert('您已选择微信登录，此处应跳转到微信授权页面。');
+        }
+    </script>
 
 
-<div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-image-gatherer"></div>
-<div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-text-gatherer"></div>
-<div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
-     id="mpa-rootsc-video-gatherer"></div>
+    <div class="mpa-sc mpa-plugin-image-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+        id="mpa-rootsc-image-gatherer"></div>
+    <div class="mpa-sc mpa-plugin-text-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+        id="mpa-rootsc-text-gatherer"></div>
+    <div class="mpa-sc mpa-plugin-video-gatherer mpa-new mpa-rootsc" data-z="100" style="display: block;"
+        id="mpa-rootsc-video-gatherer"></div>
 </body>
+
 </html>

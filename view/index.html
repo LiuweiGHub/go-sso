@@ -299,8 +299,8 @@
             <tr>
                 <td class='tdleft tdbg'>命主性别:</td>
                 <td class='bghuang'>
-                    <input name='sex' type='radio' value='0' checked>男
-                    <input type='radio' name='sex' value='1'>女 （
+                    <input name='sex' type='radio' value='1' checked>男
+                    <input type='radio' name='sex' value='2'>女 （
                     <font color='red'>排盘结果男女有别，请正确选择</font>）
                 </td>
             </tr>
@@ -362,7 +362,7 @@
                 <td class="tdleft tdbg">夏令时:</td>
                 <td class="bghuang">
                     <input type="radio" name="xls" id="xlsy" value="1">是
-                    <input name="xls" type="radio" id="xlsn" value="0" checked="">否 <a
+                    <input name="xls" type="radio" id="xlsn" value="2" checked="">否 <a
                         onclick="alert('夏令时，又称日光节约时制，是国家为了节约能源人为规定的时间制度，在制度的实行期间所采用的时间称之为“夏令时”。也就是在夏季到来前时间多加1小时，冬季到来之前恢复原来时间。目前全球有110多个国家使用夏令时制，大多集中在欧美地区，我国只实行了6年夏令时，于1986年—1991年结束。')">
                         <font color="red">？</font>
                     </a>
@@ -372,7 +372,7 @@
                 <td class="tdleft tdbg">京时换算:</td>
                 <td class="bghuang">
                     <input type="radio" name="bjhs" id="bjhsy" value="1">是
-                    <input name="bjhs" type="radio" id="bjhsn" value="0" checked="">否 <a
+                    <input name="bjhs" type="radio" id="bjhsn" value="2" checked="">否 <a
                         onclick="alert('国外出生的人，八字用北京时间还是当地时间来排？目前持有有两种观点：\n第一种观点，是以邵先生为首的一派：\n认同国外出生的时间需要换算成北京时间。因为四柱干支是中国人发明的，所以不管是国内还是国外，一律以北京时间为准。\n第二种观点，是以徐乐吾、韦千里等前辈为首的一派：\n认为古人利用太阳的投影来测定并划分时刻，并没有时区和统一时区的概念，而在运用四柱八字等术数时，都是以太阳定时。所以即便在国外出生，也应当要沿用地方真太阳时才合理，这符合自然界的真实时间。\n若结合现代来说，第二种观点更合乎天文地理学科的理论和逻辑，因此，当下无论出生于哪个国家（北半球），大家都主流使用当地真太阳时。这里为了配合爱好者的使用，默认“关闭”换算北京时间按钮。')">（
                         <font color="red">仅在海外地区生效</font>）
                     </a>
@@ -397,7 +397,7 @@
 
 
 
-            <tr id='zty'>
+            <tr id='zty' style='display:none'>
                 <td class='tdleft tdbg'>真太阳时：</td>
                 <td class='bghuang'>
                     <div class='div1'>
