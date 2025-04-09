@@ -31,8 +31,29 @@ func Index(c *gin.Context) {
 	todayNewUsersRes, _ := model.GetTodayNewUsers()
 	todayActiveUsersRes, _ := model.GetTodayActiveUsers()
 	totalUsersRes, _ := model.GetTotalUsers()
+	c.HTML(http.StatusOK, "admin.html", map[string]interface{}{
+		"todayNewUsers":    todayNewUsersRes[0]["cnt"],
+		"todayActiveUsers": todayActiveUsersRes[0]["cnt"],
+		"totalUsers":       totalUsersRes[0]["cnt"],
+	})
+}
+
+func Stats(c *gin.Context) {
+	model := models.Users{}
+	todayNewUsersRes, _ := model.GetTodayNewUsers()
+	todayActiveUsersRes, _ := model.GetTodayActiveUsers()
+	totalUsersRes, _ := model.GetTotalUsers()
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"todayNewUsers":    todayNewUsersRes[0]["cnt"],
+		"todayActiveUsers": todayActiveUsersRes[0]["cnt"],
+		"totalUsers":       totalUsersRes[0]["cnt"],
+	})
+}
+
+func Users(c *gin.Context) {
+	model := models.Users{}
 	page := c.DefaultQuery("page", "1")
-	pageSize := c.DefaultQuery("pageSize", "20")
+	pageSize := c.DefaultQuery("pageSize", "10")
 	p, _ := strconv.Atoi(page)
 	s, _ := strconv.Atoi(pageSize)
 	userList, _ := model.GetUserByPage(p, s)
@@ -40,10 +61,15 @@ func Index(c *gin.Context) {
 		v["ctime"] = parseTime(v["ctime"])
 		v["mtime"] = parseTime(v["mtime"])
 	}
-	c.HTML(http.StatusOK, "admin.html", map[string]interface{}{
-		"userList":         userList,
-		"todayNewUsers":    todayNewUsersRes[0]["cnt"],
-		"todayActiveUsers": todayActiveUsersRes[0]["cnt"],
-		"totalUsers":       totalUsersRes[0]["cnt"],
-	})
+	c.JSON(http.StatusOK, userList)
+}
+
+func Delete(c *gin.Context) {
+	model := models.Users{}
+	id := c.Query("userId")
+	userId, _ := strconv.Atoi(id)
+	model.Id = int64(userId)
+	model.Status = 10
+	model.Update(model)
+	c.JSON(http.StatusOK, id)
 }

@@ -1,83 +1,198 @@
-{{ define "admin.html" }}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理后台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 8px;
+        /* 自定义样式 */
+        body {
+            background-color: #f4f7fa;
         }
-        th {
-            background-color: #f2f2f2;
+
+        .card {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+
+        .table th {
+            background-color: #edf2f7;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+
+        .table tr:hover {
+            background-color: #f7fafc;
         }
-        th {
-            background-color: #f2f2f2;
+
+        .pagination-link {
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination-link.active {
+            background-color: #3182ce;
+            color: #fff;
         }
     </style>
 </head>
-<body>
-    <h1>管理后台</h1>
-    <div>
-        <h2>统计数据</h2>
-        <p>今日新增用户数: <span id="todayNewUsers">{{ .todayNewUsers }}人</span></p>
-        <p>今日活跃用户数: <span id="todayActiveUsers">{{ .todayActiveUsers }}人</span></p>
-        <p>累计用户数: <span id="totalUsers">{{ .totalUsers }}人</span></p>
+
+<body class="font-sans m-5">
+    <h1 class="text-4xl font-bold text-gray-800 mb-5">管理后台</h1>
+    <div class="card">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">统计数据</h2>
+        <p class="text-lg text-gray-600">今日新增用户数: <span id="todayNewUsers">{{ .todayNewUsers }}人</span></p>
+        <p class="text-lg text-gray-600">今日活跃用户数: <span id="todayActiveUsers">{{ .todayActiveUsers }}人</span></p>
+        <p class="text-lg text-gray-600">累计用户数: <span id="totalUsers">{{ .totalUsers }}人</span></p>
     </div>
-    <div>
-        <h2>用户明细</h2>
-        <table id="userTable">
+    <div class="card">
+        <form id="searchForm" class="flex space-x-2 mb-5" style="display: none;">
+            <input type="text" id="searchKeyword" name="keyword" placeholder="输入搜索关键词"
+                class="border border-gray-300 p-2 rounded w-full focus:ring-blue-500 focus:border-blue-500">
+            <button type="submit"
+                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">搜索</button>
+        </form>
+        <h2 class="text-2xl font-semibold text-gray-700 mb-3">用户明细</h2>
+        <table id="userTable" class="w-full border-collapse">
             <thead>
                 <tr>
-                    <th>用户ID</th>
-                    <th>手机号</th>
-                    <th>注册时间</th>
-                    <th>最近活跃时间</th>
-                    <th>操作</th>
+                    <th class="border border-gray-300 p-3 text-left text-gray-600">用户ID</th>
+                    <th class="border border-gray-300 p-3 text-left text-gray-600">手机号</th>
+                    <th class="border border-gray-300 p-3 text-left text-gray-600">注册时间</th>
+                    <th class="border border-gray-300 p-3 text-left text-gray-600">最近活跃时间</th>
+                    <th class="border border-gray-300 p-3 text-left text-gray-600">操作</th>
                 </tr>
-                {{ range $key,$value := .userList }}
-                <tr>
-                    <th>{{ $value.id }}</th>
-                    <th>{{ $value.mobile }}</th>
-                    <th>{{ $value.ctime }}</th>
-                    <th>{{ $value.mtime }}</th>
-                    <th>删除</th>
-                </tr>
-                {{ end }}
             </thead>
+            <tbody id="userTableBody">
+                <!-- 用户数据将通过 JavaScript 动态填充 -->
+            </tbody>
         </table>
+        <div id="pagination" class="mt-5 flex justify-center space-x-2">
+            <!-- 分页导航将通过 JavaScript 动态生成 -->
+        </div>
     </div>
 
     <script>
-        async function deleteUser(userId) {
+        const pageSize = 10;
+        let currentPage = {{ .currentPage }};
+        let searchKeyword = '';
+        let totalUsers = {{ .totalUsers }};
+        let totalPages = Math.ceil(totalUsers / pageSize);
+
+        async function fetchUsers(page, keyword = '') {
             try {
-                const response = await fetch(`/api/users/${userId}`, {
-                    method: 'DELETE'
-                });
-                if (response.ok) {
-                    fetchData(); // 重新加载数据
-                } else {
-                    alert('删除用户失败');
+                let url = `/api/users?page=${page}&pageSize=${pageSize}`;
+                if (keyword) {
+                    url += `&keyword=${encodeURIComponent(keyword)}`;
                 }
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
             } catch (error) {
-                console.error('Error deleting user:', error);
+                console.error('Error fetching users:', error);
+                return [];
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchData);
+        async function fetchStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                document.getElementById('todayNewUsers').textContent = data.todayNewUsers + '人';
+                document.getElementById('todayActiveUsers').textContent = data.todayActiveUsers + '人';
+                totalUsers = data.totalUsers;
+                totalPages = Math.ceil(totalUsers / pageSize);
+                document.getElementById('totalUsers').textContent = totalUsers + '人';
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        async function deleteUser(userId) {
+            if (confirm('确定要删除该用户吗？')) {
+                try {
+                    const response = await fetch(`/api/delete?userId=${userId}`, {
+                        method: 'GET'
+                    });
+                    if (response.ok) {
+                        await fetchStats();
+                        await loadUsers(currentPage, searchKeyword);
+                    } else {
+                        alert('删除用户失败');
+                    }
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                }
+            }
+        }
+
+        function renderUsers(users) {
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+            if (users.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="border border-gray-300 p-3 text-center text-gray-600">暂无用户数据</td></tr>`;
+            } else {
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.classList.add('hover:bg-gray-50');
+                    row.innerHTML = `
+                        <td class="border border-gray-300 p-3 text-gray-600">${user.id}</td>
+                        <td class="border border-gray-300 p-3 text-gray-600">${user.mobile}</td>
+                        <td class="border border-gray-300 p-3 text-gray-600">${user.ctime}</td>
+                        <td class="border border-gray-300 p-3 text-gray-600">${user.mtime}</td>
+                        <td class="border border-gray-300 p-3">
+                            <button class="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 focus:ring-2 focus:ring-red-300" onclick="deleteUser(${user.id})">删除</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            if (totalPages > 1) {
+                for (let i = 1; i <= totalPages; i++) {
+                    const link = document.createElement('a');
+                    link.href = `?page=${i}&keyword=${encodeURIComponent(searchKeyword)}`;
+                    link.classList.add('border', 'border-gray-300', 'py-2', 'px-3', 'rounded', 'pagination-link', 'hover:bg-gray-200');
+                    if (i === currentPage) {
+                        link.classList.add('active');
+                    }
+                    link.textContent = i;
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = i;
+                        loadUsers(i, searchKeyword);
+                    });
+                    pagination.appendChild(link);
+                }
+            }
+        }
+
+        async function loadUsers(page, keyword) {
+            const users = await fetchUsers(page, keyword);
+            renderUsers(users);
+            renderPagination();
+        }
+
+        const searchForm = document.getElementById('searchForm');
+        searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            searchKeyword = document.getElementById('searchKeyword').value;
+            currentPage = 1;
+            await loadUsers(currentPage, searchKeyword);
+        });
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            await loadUsers(currentPage, searchKeyword);
+        });
     </script>
 </body>
+
 </html>
-{{ end }}
+    

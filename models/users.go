@@ -42,7 +42,7 @@ func (u *Users) GetRow() bool {
 
 func (u *Users) GetRowByMobile(mobile string) (UserRow, error) {
 	var user UserRow
-	has, err := mEngine.Table(usersTable).Where("mobile=?", mobile).OrderBy("id desc").Limit(1).Get(&user)
+	has, err := mEngine.Table(usersTable).Where("mobile=?", mobile).And("and status != 10").OrderBy("id desc").Limit(1).Get(&user)
 	if has {
 		return user, nil
 	}
@@ -94,7 +94,7 @@ func (u *Users) GetUserByPage(page int, pageSize int) ([]map[string]string, erro
 	if page == 0 {
 		page = 1
 	}
-	sql := "select * from sso.Users where 1 = 1"
+	sql := "select * from sso.Users where 1 = 1 and status != 10"
 	sql += " order by id desc"
 	sql += " limit ?,?"
 	offset := (page - 1) * pageSize
@@ -102,7 +102,7 @@ func (u *Users) GetUserByPage(page int, pageSize int) ([]map[string]string, erro
 }
 
 func (u *Users) GetTodayNewUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users where ctime >= ? and ctime <= ?"
+	sql := "select count(*) as cnt from sso.Users where ctime >= ? and ctime <= ? and status != 10"
 	now := time.Now()
 	today := now.Format("2006-01-02")
 	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
@@ -110,7 +110,7 @@ func (u *Users) GetTodayNewUsers() ([]map[string]string, error) {
 }
 
 func (u *Users) GetTodayActiveUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users where mtime >= ? and ctime <= ?"
+	sql := "select count(*) as cnt from sso.Users where mtime >= ? and ctime <= ? and status != 10"
 	now := time.Now()
 	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
 	today := now.Format("2006-01-02")
@@ -118,7 +118,7 @@ func (u *Users) GetTodayActiveUsers() ([]map[string]string, error) {
 }
 
 func (u *Users) GetTotalUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users"
+	sql := "select count(*) as cnt from sso.Users where status != 10"
 	return mEngine.SQL(sql).QueryString()
 }
 

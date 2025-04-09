@@ -65,6 +65,9 @@ func main() {
 
 	// 管理后台
 	r.GET("/admin", admin.Index)
+	r.GET("/api/users", admin.Users)
+	r.GET("/api/delete", admin.Delete)
+	r.GET("/api/stats", admin.Stats)
 	r.Run(":8282") // listen and serve on 0.0.0.0:8080
 }
 func Load() {
