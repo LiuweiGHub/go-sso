@@ -28,6 +28,8 @@ var RunMonths = map[string]string{"1": "闰正月", "2": "闰二月", "3": "闰�
 var Dates = map[string]string{"1": "初一", "2": "初二", "3": "初三", "4": "初四", "5": "初五", "6": "初六", "7": "初七", "8": "初八", "9": "初九", "10": "初十", "11": "十一", "12": "十二", "13": "十三", "14": "十四", "15": "十五", "16": "十六", "17": "十七", "18": "十八", "19": "十九", "20": "二十", "21": "廿一", "22": "廿二", "23": "廿三", "24": "廿四", "25": "廿五", "26": "廿六", "27": "廿七", "28": "廿八", "29": "廿九", "30": "三十", "31": "三一"}
 var Sex = map[string]string{"1": "男", "2": "女"}
 var SexForUrlMap = map[string]string{"1": "0", "2": "1"}
+var XLSForUrlMap = map[string]string{"1": "0", "2": "1"}
+var BJHSForUrlMap = map[string]string{"1": "0", "2": "1"}
 
 var DateType = map[string]string{"农历": "1", "公历": "0", "八字": "2"}
 
@@ -128,6 +130,9 @@ func Record(c *gin.Context) {
 		list[k]["sexNum"] = v["sex"]
 		list[k]["sex"] = Sex[v["sex"]]
 		list[k]["dateType"] = DateType[v["type"]]
+		list[k]["xls"] = v["xls"]
+		list[k]["bjhs"] = v["bjhs"]
+
 	}
 	c.HTML(http.StatusOK, "content.tmpl", map[string]interface{}{
 		"list": list,
@@ -628,7 +633,9 @@ func PaiPan(c *gin.Context) {
 	}
 	inputDate, t, birthday, dateType := getDate(c)
 	name := c.Query("name")
-	sex := SexForUrlMap[c.Query("sex")]
+	sex := c.Query("sex")
+	fmt.Println("======================")
+	fmt.Println(sex)
 
 	ng := c.Query("ng")
 	yg := c.Query("yg")
@@ -685,10 +692,12 @@ func PaiPan(c *gin.Context) {
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
-	v.Add("xls", c.Query("xls"))
-	v.Add("bjhs", c.Query("bjhs"))
+	v.Add("xls", XLSForUrlMap[c.Query("xls")])
+	v.Add("bjhs", BJHSForUrlMap[c.Query("bjhs")])
 	params := v.Encode()
 	path := "show?" + params
+	fmt.Println(v)
+
 	c.Redirect(http.StatusFound, path)
 }
 
@@ -705,12 +714,13 @@ func PaiPanDetail(c *gin.Context) {
 	ndate, _ := c.GetPostForm("ndate")
 	nhour, _ := c.GetPostForm("nhour")
 	sex, _ := c.GetPostForm("sex")
-	sex = SexForUrlMap[sex]
 	ifrun, _ := c.GetPostForm("ifrun")
 	inputDate := ""
 	dataT := "5"
 	xls, _ := c.GetPostForm("xls")
+	xls = XLSForUrlMap[xls]
 	bjhs, _ := c.GetPostForm("bjhs")
+	bjhs = BJHSForUrlMap[bjhs]
 	city1, _ := c.GetPostForm("city1")
 	city2, _ := c.GetPostForm("city2")
 	city3, _ := c.GetPostForm("city3")
@@ -750,7 +760,6 @@ func PaiPanDetail(c *gin.Context) {
 	v.Add("bjhs", bjhs)
 	params := v.Encode()
 	path := "show?" + params
-	fmt.Println(path)
 	c.Redirect(http.StatusFound, path)
 }
 
@@ -766,7 +775,8 @@ func GetDetail(c *gin.Context) {
 	yg := c.Query("yg")
 	rg := c.Query("rg")
 	sg := c.Query("sg")
-
+	xls := XLSForUrlMap[c.Query("xls")]
+	bjhs := XLSForUrlMap[c.Query("bjhs")]
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
@@ -785,6 +795,8 @@ func GetDetail(c *gin.Context) {
 	v.Add("Sect", "1")
 	v.Add("Siling", "0")
 	v.Add("leixinggg", "on")
+	v.Add("xls", xls)
+	v.Add("bjhs", bjhs)
 	params := v.Encode()
 	url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
 	// 发起对第三方API的HTTP GET请求
