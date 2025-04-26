@@ -289,10 +289,10 @@
                     </div>
 
                     <div id='bazi' style='display:none'>
-                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select><select
-                            name='yg' style='font-size: 9pt' id='yg'></select><select name='rg' style='font-size: 9pt'
-                            id='rg' onchange="city('sg')"></select><select name='sg' style='font-size: 9pt'
-                            id='sg'></select>
+                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select>
+                        <select name='yg' style='font-size: 9pt' id='yg'></select>
+                        <select name='rg' style='font-size: 9pt'id='rg' onchange="city('sg')"></select>
+                        <select name='sg' style='font-size: 9pt'id='sg'></select>
                     </div>
                 </td>
             </tr>
@@ -307,7 +307,7 @@
             <tr data-select2-id="17">
                 <td class="tdleft tdbg">出生地：</td>
                 <td class="bghuang" data-select2-id="16">
-                    <select name="city1" class="js-example-basic-single province-select" id="province">
+                    <select name="city1" class="js-example-basic-single province-select" id="province" required>
                         <option value="" data-select2-id="12">请选择省</option>
                         <option value="未知地">未知地</option>
                         <option value="北京市">北京市</option>
@@ -347,11 +347,11 @@
                         <option value="海外">海外</option>
                     </select>
 
-                    <select id="city" class="js-example-basic-single city-select" name="city2">
+                    <select id="city" class="js-example-basic-single city-select" name="city2" required>
                         <option value="">请选择市</option>
                     </select>
 
-                    <select id="district" class="js-example-basic-single area-select" name="city3">
+                    <select id="district" class="js-example-basic-single area-select" name="city3" required>
                         <option value="">请选择区</option>
                     </select>
                 </td>

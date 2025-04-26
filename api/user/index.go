@@ -185,135 +185,7 @@ func Edit(c *gin.Context) {
 		m := strconv.Itoa(i)
 		minutes = append(minutes, m)
 	}
-	baziNian := orderedmap.New()
-	baziNian.Set("1902", "壬寅")
-	baziNian.Set("1903", "癸卯")
-	baziNian.Set("1904", "甲辰")
-	baziNian.Set("1905", "乙巳")
-	baziNian.Set("1906", "丙午")
-	baziNian.Set("1907", "丁未")
-	baziNian.Set("1908", "戊申")
-	baziNian.Set("1909", "己酉")
-	baziNian.Set("1910", "庚戌")
-	baziNian.Set("1911", "辛亥")
-	baziNian.Set("1912", "壬子")
-	baziNian.Set("1913", "癸丑")
-	baziNian.Set("1914", "甲寅")
-	baziNian.Set("1915", "乙卯")
-	baziNian.Set("1916", "丙辰")
-	baziNian.Set("1917", "丁巳")
-	baziNian.Set("1918", "戊午")
-	baziNian.Set("1919", "己未")
-	baziNian.Set("1920", "庚申")
-	baziNian.Set("1921", "辛酉")
-	baziNian.Set("1922", "壬戌")
-	baziNian.Set("1923", "癸亥")
-	baziNian.Set("1924", "甲子")
-	baziNian.Set("1925", "乙丑")
-	baziNian.Set("1926", "丙寅")
-	baziNian.Set("1927", "丁卯")
-	baziNian.Set("1928", "戊辰")
-	baziNian.Set("1929", "己巳")
-	baziNian.Set("1930", "庚午")
-	baziNian.Set("1931", "辛未")
-	baziNian.Set("1932", "壬申")
-	baziNian.Set("1933", "癸酉")
-	baziNian.Set("1934", "甲戌")
-	baziNian.Set("1935", "乙亥")
-	baziNian.Set("1936", "丙子")
-	baziNian.Set("1937", "丁丑")
-	baziNian.Set("1938", "戊寅")
-	baziNian.Set("1939", "己卯")
-	baziNian.Set("1940", "庚辰")
-	baziNian.Set("1941", "辛巳")
-	baziNian.Set("1942", "壬午")
-	baziNian.Set("1943", "癸未")
-	baziNian.Set("1944", "甲申")
-	baziNian.Set("1945", "乙酉")
-	baziNian.Set("1946", "丙戌")
-	baziNian.Set("1947", "丁亥")
-	baziNian.Set("1948", "戊子")
-	baziNian.Set("1949", "己丑")
-	baziNian.Set("1950", "庚寅")
-	baziNian.Set("1951", "辛卯")
-	baziNian.Set("1952", "壬辰")
-	baziNian.Set("1953", "癸巳")
-	baziNian.Set("1954", "甲午")
-	baziNian.Set("1955", "乙未")
-	baziNian.Set("1956", "丙申")
-	baziNian.Set("1957", "丁酉")
-	baziNian.Set("1958", "戊戌")
-	baziNian.Set("1959", "己亥")
-	baziNian.Set("1960", "庚子")
-	baziNian.Set("1961", "辛丑")
-	baziNian.Set("1962", "壬寅")
-	baziNian.Set("1963", "癸卯")
-	baziNian.Set("1964", "甲辰")
-	baziNian.Set("1965", "乙巳")
-	baziNian.Set("1966", "丙午")
-	baziNian.Set("1967", "丁未")
-	baziNian.Set("1968", "戊申")
-	baziNian.Set("1969", "己酉")
-	baziNian.Set("1970", "庚戌")
-	baziNian.Set("1971", "辛亥")
-	baziNian.Set("1972", "壬子")
-	baziNian.Set("1973", "癸丑")
-	baziNian.Set("1974", "甲寅")
-	baziNian.Set("1975", "乙卯")
-	baziNian.Set("1976", "丙辰")
-	baziNian.Set("1977", "丁巳")
-	baziNian.Set("1978", "戊午")
-	baziNian.Set("1979", "己未")
-	baziNian.Set("1980", "庚申")
-	baziNian.Set("1981", "辛酉")
-	baziNian.Set("1982", "壬戌")
-	baziNian.Set("1983", "癸亥")
-	baziNian.Set("1984", "甲子")
-	baziNian.Set("1985", "乙丑")
-	baziNian.Set("1986", "丙寅")
-	baziNian.Set("1987", "丁卯")
-	baziNian.Set("1988", "戊辰")
-	baziNian.Set("1989", "己巳")
-	baziNian.Set("1990", "庚午")
-	baziNian.Set("1991", "辛未")
-	baziNian.Set("1992", "壬申")
-	baziNian.Set("1993", "癸酉")
-	baziNian.Set("1994", "甲戌")
-	baziNian.Set("1995", "乙亥")
-	baziNian.Set("1996", "丙子")
-	baziNian.Set("1997", "丁丑")
-	baziNian.Set("1998", "戊寅")
-	baziNian.Set("1999", "己卯")
-	baziNian.Set("2000", "庚辰")
-	baziNian.Set("2001", "辛巳")
-	baziNian.Set("2002", "壬午")
-	baziNian.Set("2003", "癸未")
-	baziNian.Set("2004", "甲申")
-	baziNian.Set("2005", "乙酉")
-	baziNian.Set("2006", "丙戌")
-	baziNian.Set("2007", "丁亥")
-	baziNian.Set("2008", "戊子")
-	baziNian.Set("2009", "己丑")
-	baziNian.Set("2010", "庚寅")
-	baziNian.Set("2011", "辛卯")
-	baziNian.Set("2012", "壬辰")
-	baziNian.Set("2013", "癸巳")
-	baziNian.Set("2014", "甲午")
-	baziNian.Set("2015", "乙未")
-	baziNian.Set("2016", "丙申")
-	baziNian.Set("2017", "丁酉")
-	baziNian.Set("2018", "戊戌")
-	baziNian.Set("2019", "己亥")
-	baziNian.Set("2020", "庚子")
-	baziNian.Set("2021", "辛丑")
-	baziNian.Set("2022", "壬寅")
-	baziNian.Set("2023", "癸卯")
-	baziNian.Set("2024", "甲辰")
-	baziNian.Set("2025", "乙巳")
-	baziNian.Set("2026", "丙午")
-	baziNian.Set("2027", "丁未")
-	baziNian.Set("2028", "戊申")
-	baziNian.Set("2029", "己酉")
+	baziNian := generateBaziNian(1900, 2099)
 	nongLiYue := orderedmap.New()
 	nongLiYue.Set("1", "正月")
 	nongLiYue.Set("2", "二月")
@@ -360,7 +232,6 @@ func Edit(c *gin.Context) {
 	nongLiDay.Set("30", "三十")
 
 	nongLiHour := orderedmap.New()
-	nongLiHour.Set("0", "姿势")
 	nongLiHour.Set("0", "子时")
 	nongLiHour.Set("1", "丑时")
 	nongLiHour.Set("2", "丑时")
@@ -480,6 +351,35 @@ func Edit(c *gin.Context) {
 			City3:      row.City3,
 		})
 	}
+}
+
+// 天干数组
+var heavenlyStems = []string{"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"}
+
+// 地支数组
+var earthlyBranches = []string{"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"}
+
+// 生成干支纪年的有序映射
+func generateBaziNian(startYear, endYear int) *orderedmap.OrderedMap {
+	baziNian := orderedmap.New()
+	// 1900 年是庚子年，作为计算基准
+	baseYear := 1900
+	baseStemIndex := 6
+	baseBranchIndex := 0
+
+	for year := startYear; year <= endYear; year++ {
+		// 计算与基准年的差值
+		offset := year - baseYear
+		// 计算天干索引
+		stemIndex := (baseStemIndex + offset) % 10
+		// 计算地支索引
+		branchIndex := (baseBranchIndex + offset) % 12
+		// 组合天干地支
+		bazi := heavenlyStems[stemIndex] + earthlyBranches[branchIndex]
+		// 将年份和对应的干支纪年存入有序映射
+		baziNian.Set(strconv.Itoa(year), bazi)
+	}
+	return baziNian
 }
 
 func deleteRecord(id string) {
@@ -696,8 +596,6 @@ func PaiPan(c *gin.Context) {
 	v.Add("bjhs", BJHSForUrlMap[c.Query("bjhs")])
 	params := v.Encode()
 	path := "show?" + params
-	fmt.Println(v)
-
 	c.Redirect(http.StatusFound, path)
 }
 

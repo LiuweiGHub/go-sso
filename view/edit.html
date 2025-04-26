@@ -14,7 +14,6 @@
 <script src="static/date/select2.js"></script>
 <script type="text/javascript" src='static/date/chooseDate.js'></script>
 <script type="text/javascript" src='static/date/rui_date.js'></script>
-<script type="text/javascript" language='javascript' src='static/date/diqu.js'></script>
 <style>
     demoInput {
         width: 100%;
@@ -146,12 +145,146 @@
                         </select>
                     </div>
                     <div id='bazi' {{ if .IsBazi }} style='display:block' {{ else }} style='display:none' {{ end }}>
-                    <!-- <div id='bazi' style='display: none'> -->
-                        <select name='ng' style='font-size: 9pt' id='ng' onchange="city('yg')"></select>
-                        <select name='yg' style='font-size: 9pt' id='yg'></select>
-                        <select name='rg' style='font-size: 9pt'id='rg' onchange="city('sg')"></select>
+                        <select name='ng' style='font-size: 9pt' id='ng'>
+                            <option value="甲子">甲子</option>
+                            <option value="乙丑">乙丑</option>
+                            <option value="丙寅">丙寅</option>
+                            <option value="丁卯">丁卯</option>
+                            <option value="戊辰">戊辰</option>
+                            <option value="己巳">己巳</option>
+                            <option value="庚午">庚午</option>
+                            <option value="辛未">辛未</option>
+                            <option value="壬申">壬申</option>
+                            <option value="癸酉">癸酉</option>
+                            <option value="甲戌">甲戌</option>
+                            <option value="乙亥">乙亥</option>
+                            <option value="丙子">丙子</option>
+                            <option value="丁丑">丁丑</option>
+                            <option value="戊寅">戊寅</option>
+                            <option value="己卯">己卯</option>
+                            <option value="庚辰">庚辰</option>
+                            <option value="辛巳">辛巳</option>
+                            <option value="壬午">壬午</option>
+                            <option value="癸未">癸未</option>
+                            <option value="甲申">甲申</option>
+                            <option value="乙酉">乙酉</option>
+                            <option value="丙戌">丙戌</option>
+                            <option value="丁亥">丁亥</option>
+                            <option value="戊子">戊子</option>
+                            <option value="己丑">己丑</option>
+                            <option value="庚寅">庚寅</option>
+                            <option value="辛卯">辛卯</option>
+                            <option value="壬辰">壬辰</option>
+                            <option value="癸巳">癸巳</option>
+                            <option value="甲午">甲午</option>
+                            <option value="乙未">乙未</option>
+                            <option value="丙申">丙申</option>
+                            <option value="丁酉">丁酉</option>
+                            <option value="戊戌">戊戌</option>
+                            <option value="己亥">己亥</option>
+                            <option value="庚子">庚子</option>
+                            <option value="辛丑">辛丑</option>
+                            <option value="壬寅">壬寅</option>
+                            <option value="癸卯">癸卯</option>
+                            <option value="甲辰">甲辰</option>
+                            <option value="乙巳">乙巳</option>
+                            <option value="丙午">丙午</option>
+                            <option value="丁未">丁未</option>
+                            <option value="戊申">戊申</option>
+                            <option value="己酉">己酉</option>
+                            <option value="庚戌">庚戌</option>
+                            <option value="辛亥">辛亥</option>
+                            <option value="壬子">壬子</option>
+                            <option value="癸丑">癸丑</option>
+                            <option value="甲寅">甲寅</option>
+                            <option value="乙卯">乙卯</option>
+                            <option value="丙辰">丙辰</option>
+                            <option value="丁巳">丁巳</option>
+                            <option value="戊午">戊午</option>
+                            <option value="己未">己未</option>
+                            <option value="庚申">庚申</option>
+                            <option value="辛酉">辛酉</option>
+                            <option value="壬戌">壬戌</option>
+                            <option value="癸亥">癸亥</option>
+                        </select>
+                        <select name='yg' style='font-size: 9pt' id='yg'>
+                            <option value="丙寅">丙寅</option>
+                            <option value="丁卯">丁卯</option>
+                            <option value="戊辰">戊辰</option>
+                            <option value="己巳">己巳</option>
+                            <option value="庚午">庚午</option>
+                            <option value="辛未">辛未</option>
+                            <option value="壬申">壬申</option>
+                            <option value="癸酉">癸酉</option>
+                            <option value="甲戌">甲戌</option>
+                            <option value="乙亥">乙亥</option>
+                            <option value="丙子">丙子</option>
+                            <option value="丁丑">丁丑</option>
+                        </select>
+                        <select name='rg' style='font-size: 9pt'id='rg' onchange="updateHourOptions()">
+                            <option value="甲子">甲子</option>
+                            <option value="乙丑">乙丑</option>
+                            <option value="丙寅">丙寅</option>
+                            <option value="丁卯">丁卯</option>
+                            <option value="戊辰">戊辰</option>
+                            <option value="己巳">己巳</option>
+                            <option value="庚午">庚午</option>
+                            <option value="辛未">辛未</option>
+                            <option value="壬申">壬申</option>
+                            <option value="癸酉">癸酉</option>
+                            <option value="甲戌">甲戌</option>
+                            <option value="乙亥">乙亥</option>
+                            <option value="丙子">丙子</option>
+                            <option value="丁丑">丁丑</option>
+                            <option value="戊寅">戊寅</option>
+                            <option value="己卯">己卯</option>
+                            <option value="庚辰">庚辰</option>
+                            <option value="辛巳">辛巳</option>
+                            <option value="壬午">壬午</option>
+                            <option value="癸未">癸未</option>
+                            <option value="甲申">甲申</option>
+                            <option value="乙酉">乙酉</option>
+                            <option value="丙戌">丙戌</option>
+                            <option value="丁亥">丁亥</option>
+                            <option value="戊子">戊子</option>
+                            <option value="己丑">己丑</option>
+                            <option value="庚寅">庚寅</option>
+                            <option value="辛卯">辛卯</option>
+                            <option value="壬辰">壬辰</option>
+                            <option value="癸巳">癸巳</option>
+                            <option value="甲午">甲午</option>
+                            <option value="乙未">乙未</option>
+                            <option value="丙申">丙申</option>
+                            <option value="丁酉">丁酉</option>
+                            <option value="戊戌">戊戌</option>
+                            <option value="己亥">己亥</option>
+                            <option value="庚子">庚子</option>
+                            <option value="辛丑">辛丑</option>
+                            <option value="壬寅">壬寅</option>
+                            <option value="癸卯">癸卯</option>
+                            <option value="甲辰">甲辰</option>
+                            <option value="乙巳">乙巳</option>
+                            <option value="丙午">丙午</option>
+                            <option value="丁未">丁未</option>
+                            <option value="戊申">戊申</option>
+                            <option value="己酉">己酉</option>
+                            <option value="庚戌">庚戌</option>
+                            <option value="辛亥">辛亥</option>
+                            <option value="壬子">壬子</option>
+                            <option value="癸丑">癸丑</option>
+                            <option value="甲寅">甲寅</option>
+                            <option value="乙卯">乙卯</option>
+                            <option value="丙辰">丙辰</option>
+                            <option value="丁巳">丁巳</option>
+                            <option value="戊午">戊午</option>
+                            <option value="己未">己未</option>
+                            <option value="庚申">庚申</option>
+                            <option value="辛酉">辛酉</option>
+                            <option value="壬戌">壬戌</option>
+                            <option value="癸亥">癸亥</option>
+                        </select>
                         <select name='sg' style='font-size: 9pt' id='sg'></select>
-                    </div>
+                    </div> 
                 </td>
             </tr>
             <tr>
@@ -1045,19 +1178,146 @@ $(document).ready(function () {
         }
     });
 });
-    
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#ng").select2();
-        $("#yg").select2();
-        $("#rg").select2();
-        $("#sg").select2();
-        $("#city1").select2();
-        $("#city2").select2();
-        $("#city3").select2();
-        $('.select2-container--default').css('width', 'auto');
-    });
+
+function updateHourOptions() {
+            const daySelect = document.getElementById('rg');
+            const hourSelect = document.getElementById('sg');
+            const dayValue = daySelect.value;
+            const firstChar = dayValue[0];
+            let startHour;
+
+            switch (firstChar) {
+                case '甲':
+                case '己':
+                    startHour = '甲子';
+                    break;
+                case '乙':
+                case '庚':
+                    startHour = '丙子';
+                    break;
+                case '丙':
+                case '辛':
+                    startHour = '戊子';
+                    break;
+                case '丁':
+                case '壬':
+                    startHour = '庚子';
+                    break;
+                case '戊':
+                case '癸':
+                    startHour = '壬子';
+                    break;
+            }
+
+            const heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+            const earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            let currentStemIndex = heavenlyStems.indexOf(startHour[0]);
+            let currentBranchIndex = earthlyBranches.indexOf(startHour[1]);
+
+            hourSelect.innerHTML = '';
+            // 假设后端返回的小时值，实际需要从后端获取
+            for (let i = 0; i < 12; i++) {
+                const option = document.createElement('option');
+                const optionValue = heavenlyStems[currentStemIndex] + earthlyBranches[currentBranchIndex];
+                option.value = optionValue;
+                option.textContent = optionValue;
+                hourSelect.appendChild(option);
+
+                currentStemIndex = (currentStemIndex + 1) % 10;
+                currentBranchIndex = (currentBranchIndex + 1) % 12;
+            }
+            setSelectedOptions(backendData);
+        }
+
+
+        // 初始化时柱选项
+        initHourOptions();
+
+        function initHourOptions() {
+            const daySelect = document.getElementById('rg');
+            const hourSelect = document.getElementById('sg');
+            const dayValue = daySelect.value;
+            const firstChar = dayValue[0];
+            let startHour;
+
+            switch (firstChar) {
+                case '甲':
+                case '己':
+                    startHour = '甲子';
+                    break;
+                case '乙':
+                case '庚':
+                    startHour = '丙子';
+                    break;
+                case '丙':
+                case '辛':
+                    startHour = '戊子';
+                    break;
+                case '丁':
+                case '壬':
+                    startHour = '庚子';
+                    break;
+                case '戊':
+                case '癸':
+                    startHour = '壬子';
+                    break;
+            }
+
+            const heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+            const earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            let currentStemIndex = heavenlyStems.indexOf(startHour[0]);
+            let currentBranchIndex = earthlyBranches.indexOf(startHour[1]);
+
+            hourSelect.innerHTML = '';
+            // 假设后端返回的小时值，实际需要从后端获取
+            const backendData = {
+                year: "{{ .Ng }}",
+                month: "{{ .Yg }}",
+                day: "{{ .Rg }}",
+                hour: "{{ .Sg }}"
+            };
+            for (let i = 0; i < 12; i++) {
+                const option = document.createElement('option');
+                const optionValue = heavenlyStems[currentStemIndex] + earthlyBranches[currentBranchIndex];
+                option.value = optionValue;
+                option.textContent = optionValue;
+                if (optionValue === backendData.hour) {
+                    option.selected = true;
+                }
+                hourSelect.appendChild(option);
+
+                currentStemIndex = (currentStemIndex + 1) % 10;
+                currentBranchIndex = (currentBranchIndex + 1) % 12;
+            }
+            setSelectedOptions(backendData);
+        }
+
+        function setSelectedOptions(backendData) {
+            const yearSelect = document.getElementById('ng');
+            const monthSelect = document.getElementById('yg');
+            const daySelect = document.getElementById('rg');
+
+            for (let i = 0; i < yearSelect.options.length; i++) {
+                if (yearSelect.options[i].value === backendData.year) {
+                    yearSelect.options[i].selected = true;
+                    break;
+                }
+            }
+
+            for (let i = 0; i < monthSelect.options.length; i++) {
+                if (monthSelect.options[i].value === backendData.month) {
+                    monthSelect.options[i].selected = true;
+                    break;
+                }
+            }
+
+            for (let i = 0; i < daySelect.options.length; i++) {
+                if (daySelect.options[i].value === backendData.day) {
+                    daySelect.options[i].selected = true;
+                    break;
+                }
+            }
+        }
 </script>
 
 {{ end }}
