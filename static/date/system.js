@@ -97,8 +97,8 @@ function writeSource(cs, ms) {
             alert('不存在此八字');
         }
         if (vip != 'vip') {
-            document.getElementById('wxianyin').disabled = true;
-            document.getElementById('xxianyin').disabled = true;
+            // document.getElementById('wxianyin').disabled = true;
+            // document.getElementById('xxianyin').disabled = true;
         }
         let G8 = ['Sg', 'mg', 'tg', 'ng', 'yg', 'rg', 'sg', 'Tg', 'Kg'];
         let BQ8 = ['Sbq', 'mbq', 'tbq', 'nbq', 'ybq', 'rbq', 'sbq', 'Tbq', 'Kbq'];
@@ -131,12 +131,15 @@ function writeSource(cs, ms) {
         document.getElementById("system.PPFS").innerHTML = system.PPFS;
         document.getElementById("system.JYRQ").innerHTML = system.JYRQ;
         document.getElementById("chusheng.HYWS").innerHTML = chusheng.HYWS;
-        if (system.ztys == '1') {
-            document.getElementById("ZTYS").innerHTML = "<b>真太阳时地区：</b><font color='#993300'>" + system.city + "</font><br><b>真太阳时前日期：</b><font color='#993300'>" + system.Z_QRQ + "</font><br>"
-        }
+        document.getElementById("ZTYS").innerHTML = "<b>真太阳时地区：</b><font color='#993300'>" + system.city + "</font><br><b>真太阳时时间：</b><font color='#993300'>" + system.Z_QRQ + "</font><br><b>真太阳时经纬度：</b><font color='#993300'> 东经" + system.ZTYdj + " 北纬" + system.ZTYbw + " " + system.ZTYSC + "</font><br>"
         document.getElementById("chusheng.gongli").innerHTML = chusheng.gongli;
         document.getElementById("chusheng.nongli").innerHTML = chineseToNumber(chusheng.nongli.substring(0, 4)) + '年' + '(生肖' + system.shengxiao + ')' + chusheng.nongli.slice(5);
         document.getElementById("bazixinxi.liujiakongwangluokong").innerHTML = deling[5];
+        document.getElementById("bazixinxi.THYongShenStr").innerHTML = "气含：" + bazixinxi.THYongShen[0] + " " + bazixinxi.THYongShen[1];
+        document.getElementById("bazixinxi.PHYongShenStr").innerHTML = bazixinxi.PHYongShen[10];
+        document.getElementById("gejuStr").innerHTML = geju[0];
+        document.getElementById("PDXiYongShenStr").innerHTML = bazixinxi.PDXiYongShen[1].join(",") + "  (内测中)";
+
         document.getElementById("bzgj").innerHTML = '八字' + deling[5];
         document.getElementById("keywords").content = BZ.ng + BZ.nz + ',' + BZ.yg + BZ.yz + ',' + BZ.rg + BZ.rz + ',' + BZ.sg + BZ.sz + ',' + system.sexx + ',' + system.XingZuo + ',' + '八字排盘,四柱排盘,八字排盘系统,在线八字排盘,排八字,在线排八字,八字,命理,国学,算卦,排盘,易经,六十四卦,命运,运势,测算,婚姻';
         document.getElementById("Description").content = FX.sanmingtonghui3 + FX.sanmingtonghui4;
@@ -199,7 +202,7 @@ function writeSource(cs, ms) {
         document.getElementById("aRZSS").innerHTML = RZSS;
         document.getElementById("aSZSS").innerHTML = SZSS;
         document.getElementById("chusheng.WXWS").innerHTML = chusheng.WXWS;
-        document.getElementById("FX.gz").innerHTML = FX.gz + '&nbsp;&nbsp;格局:' + FX.cggj;
+        document.getElementById("FX.gz").innerHTML = FX.cgg[0] + '&nbsp;&nbsp;格局:' + FX.cgg[2];
         document.getElementById("FX.cgg").innerHTML = "<a onclick=alert('" + FX.cgjs + "')>" + FX.cgg + "</a>";
         document.getElementById("YSCK").innerHTML = deling[0] + '，得' + deling[1] + '强气根，得' + deling[2] + '中气根，得' + deling[3] + '余气根，得' + deling[4] + '势';
         ZNCS = "";
@@ -305,8 +308,14 @@ function writeSource(cs, ms) {
         // document.getElementById("DYNYsz").innerHTML = "<a onclick=sc('wd','" + DYNY[[BZ.sg] + [BZ.sz]] + "')>" + DYNY[[BZ.sg] + [BZ.sz]] + "</a>";
 
         ddssxx = '';
-
         for (let i = 0; i < 27; i++) {
+            // console.log(Q21[i])
+            // console.log(G8[i])
+
+            // console.log(Z8[i])
+            // console.log(DZSS[BZ[Z8[i]]])
+            // console.log(ZGss[Q21[i]])
+
             ddssxx += "document.getElementById('aBZcolor." + Q21[i] + "ys').style='color:" + tgdzColor[ZGss[Q21[i]]] + "';";
             if (ZGss[Q21[i]] != null) {
                 ddssxx += "document.getElementById(\"aZGss." + Q21[i] + "\").innerHTML=\"<front style='color:#333333'>" + ZGss[Q21[i]] + "</front>\";";
@@ -325,10 +334,22 @@ function writeSource(cs, ms) {
                     "<front color='#333333'>" +  DZSS[BZ[Z8[i]]]['本']['全'] + "</front>" + ")" + "</a>\";";
                 if (DZSS[BZ[Z8[i]]]['中']['全'] != null) {
                     ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['中']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['中']['全'] + "')>" + "(" + DZSS[BZ[Z8[i]]]['中']['全'] + ")" + "</a>\";";
+                    console.log(DZSS)
+                    console.log(G8[i])
+                    console.log(Z8[i])
+
+                    console.log(BZ[G8[i]])
+                    console.log(BZ[Z8[i]])
+                    console.log(DZSS[BZ[Z8[i]]]['中']['全'])
                 }
                 if (DZSS[BZ[Z8[i]]]['余']['全'] != null) {
                     ddssxx += "document.getElementById(\"aDZSS[BZ." + Z8[i] + "]['余']['全']\").innerHTML=\"<a onclick=sc('wd','" + DZSS[BZ[Z8[i]]]['余']['全'] + "')>" + "(" + DZSS[BZ[Z8[i]]]['余']['全'] + ")" + "</a>\";";
+                    // console.log(DZSS)
+                    // console.log(BZ[G8[i]])
+                    // console.log(BZ[Z8[i]])
+                    // console.log(DZSS[BZ[Z8[i]]]['中']['全'])
                 }
+
                 ddssxx += "document.getElementById(\"aDYNY[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYNY[BZ[G8[i]] + BZ[Z8[i]]] + "')>" + DYNY[BZ[G8[i]] + BZ[Z8[i]]] + "</a>\";";
                 // ddssxx += "document.getElementById(\"aDYWS[BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYWS[BZ[Z8[i]]] + "')>" + "</a>\";";
                 // ddssxx += "document.getElementById(\"aDYZZ[BZ." + G8[i] + "+BZ." + Z8[i] + "]\").innerHTML=\"<a onclick=sc('wd','" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "')>" + DYZZ[BZ[G8[i]] + BZ[Z8[i]]] + "</a>\";";
@@ -673,7 +694,7 @@ function writeSource(cs, ms) {
         xiaoyunage1 = "<td style='white-space:nowrap'></td>"
         xiaoYunLiuNian1 = "<td>流<span class=\"kong\">空空</span>年:</td>"
         for (i = 0; i <= 27;) {
-            let age = LNDY[i + 1] - 1
+            let age = LNDY[i + 1]
             if (age != 0) {
                 LNDYQY += '<td>' + age + '岁<br>' + LNDY[i] + '</td>';
                 liunian += '<td>' + age + '岁' + '</td>';
@@ -717,7 +738,7 @@ function writeSource(cs, ms) {
         // 小运模块
         xiaoYunNianStart = LNDY[0]
         xiaoYunNianEnd = LNDY[3]
-        xiaoyunageStart = LNDY[1] - 1
+        xiaoyunageStart = LNDY[1]
         for (var j = xiaoYunNianStart; j <= xiaoYunNianEnd; j++) {
             xiaoyunage1 += '<td>' + xiaoyunageStart + '岁<br>'
             var bazi = LNXY[j]
@@ -742,7 +763,7 @@ function writeSource(cs, ms) {
         document.getElementById("xiaoyunliunian1").innerHTML = xiaoYunLiuNian1;
 
         // 勿动
-        document.getElementById("xipandayungz").innerHTML = xipandayungz;
+        document.getElementById("xipandayungz").innerHTML = xipandayungz;       
         document.getElementById("dayunliuniancData").innerHTML = "var liuyi=[['甲己','合土'],['乙庚','合金'],['丙辛','合水'],['丁壬','合木'],['戊癸','合火'],['甲庚','冲'],['乙辛','冲'],['丙壬','冲'],['丁癸','冲'],['巳申','合化水'],['辰酉','合化金'],['卯戌','合化火'],['寅亥','合化木'],['子丑','合化土'],['午未','合化火或土'],['申子辰','合化水'],['寅午戌','合化火'],['亥卯未','合化木'],['巳酉丑','合化金'],['亥子丑','汇聚北方水'],['寅卯辰','汇聚东方木'],['巳午未','汇聚南方火'],['申酉戌','汇聚西方金'],['子卯','为无礼之刑'],['丑未戌','为恃势之刑'],['寅巳申','为无恩之刑'],['辰辰','为自刑'],['午午','为自刑'],['酉酉','为自刑'],['亥亥','为自刑'],['子午','相冲'],['卯酉','相冲'],['寅申','相冲'],['巳亥','相冲'],['辰戌','相冲'],['丑未','相冲'],['子未','相害'],['丑午','相害'],['寅巳','相害'],['卯辰','相害'],['申亥','相害'],['酉戌','相害'],['寅午','暗合土'],['子巳','暗合火'],['巳酉','暗合水'],['卯申','暗合金'],['亥午','暗合木'],['寅丑','暗合'],['子戌','暗合'],['子辰','暗合'],['寅未','暗合'],['子酉','相破'],['寅亥','相破'],['卯午','相破'],['辰丑','相破'],['巳申','相破'],['未戌','相破']];" + ddssxx + dayunliuniancData + DYnayin + "};" + DYzizuo + "};" + DYxingyun + "};" + DYshensha + "};" + DYkongwang + "};function addScriptTag(src){var script=document.createElement('script');script.setAttribute('type','text/javascript');script.src=src;document.body.appendChild(script);}function sc(wd,mm){addScriptTag('" + url + "Homepage.php?yhbh=" + system.yhbh + "&SYLX='+wd+'&id='+mm);}function copyToClipboard(s){if(window.clipboardData){window.clipboardData.setData('text',s);}else{(function(s){document.oncopy=function(e){e.clipboardData.setData('text',s);e.preventDefault();document.oncopy=null;}})(s);document.execCommand('Copy')}alert('已复制到剪贴板！');}DYKSNF=" + LNDY[3] + ";XYKSNF=" + LNDY[0] + ";";
     }
 
@@ -1307,7 +1328,6 @@ $("#xipandayungz td").click(function (e) {
     $("#dayuntg .small").html($ssShorter[getShishen($tiangan.indexOf(zdyddtd[0]), $tiangan.indexOf($("#rigan").html()))]);
     $("#dayundz .small").html(getDzSS(zdyddtd[1], $("#rigan").html()));
     $("#dayunage").html(e.target.dataset["age"] - 1 + "岁<br>" + e.target.dataset["year"]);
-    console.log(shensha[zdyddtd]);
     $("#dayunshensha").html(shensha[zdyddtd]);
     document.getElementById('ld').value = zdyddtd;
     $year = $("#dayunliunian").find('[year=' + currentYear + ']');

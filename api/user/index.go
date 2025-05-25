@@ -534,9 +534,6 @@ func PaiPan(c *gin.Context) {
 	inputDate, t, birthday, dateType := getDate(c)
 	name := c.Query("name")
 	sex := c.Query("sex")
-	fmt.Println("======================")
-	fmt.Println(sex)
-
 	ng := c.Query("ng")
 	yg := c.Query("yg")
 	rg := c.Query("rg")
@@ -658,6 +655,7 @@ func PaiPanDetail(c *gin.Context) {
 	v.Add("bjhs", bjhs)
 	params := v.Encode()
 	path := "show?" + params
+	fmt.Println(v)
 	c.Redirect(http.StatusFound, path)
 }
 
@@ -696,10 +694,15 @@ func GetDetail(c *gin.Context) {
 	v.Add("xls", xls)
 	v.Add("bjhs", bjhs)
 	params := v.Encode()
-	url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
+	// url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
+
+	url := "https://zydx.win/api.php?" + params + "&api=1&bcxx=1"
+
 	// 发起对第三方API的HTTP GET请求
 	// 发送GET请求到第三方API
 	resp, err := http.Get(url)
+	fmt.Print(url)
+	fmt.Print(resp)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
