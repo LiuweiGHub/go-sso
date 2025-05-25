@@ -696,7 +696,7 @@ func GetDetail(c *gin.Context) {
 	params := v.Encode()
 	// url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
 
-	url := "https://zydx.win/api.php?" + params + "&api=1&bcxx=1"
+	url := "http://zydx.win/api.php?" + params + "&api=1&bcxx=1"
 
 	// 发起对第三方API的HTTP GET请求
 	// 发送GET请求到第三方API
