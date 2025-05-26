@@ -29,8 +29,13 @@ func parseTime(timeStr string) string {
 func Index(c *gin.Context) {
 	model := models.Users{}
 	todayNewUsersRes, _ := model.GetTodayNewUsers()
+	fmt.Println(todayNewUsersRes)
 	todayActiveUsersRes, _ := model.GetTodayActiveUsers()
+	fmt.Println(todayActiveUsersRes)
+
 	totalUsersRes, _ := model.GetTotalUsers()
+	fmt.Println(totalUsersRes)
+
 	c.HTML(http.StatusOK, "admin.html", map[string]interface{}{
 		"todayNewUsers":    todayNewUsersRes[0]["cnt"],
 		"todayActiveUsers": todayActiveUsersRes[0]["cnt"],

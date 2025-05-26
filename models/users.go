@@ -102,7 +102,7 @@ func (u *Users) GetUserByPage(page int, pageSize int) ([]map[string]string, erro
 }
 
 func (u *Users) GetTodayNewUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users where ctime >= ? and ctime <= ? and status != 10"
+	sql := "select count(*) as cnt from users where ctime >= ? and ctime <= ? and status != 10"
 	now := time.Now()
 	today := now.Format("2006-01-02")
 	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
@@ -110,7 +110,7 @@ func (u *Users) GetTodayNewUsers() ([]map[string]string, error) {
 }
 
 func (u *Users) GetTodayActiveUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users where mtime >= ? and ctime <= ? and status != 10"
+	sql := "select count(*) as cnt from users where mtime >= ? and ctime <= ? and status != 10"
 	now := time.Now()
 	tomorry := now.AddDate(0, 0, 1).Format("2006-01-02")
 	today := now.Format("2006-01-02")
@@ -118,7 +118,7 @@ func (u *Users) GetTodayActiveUsers() ([]map[string]string, error) {
 }
 
 func (u *Users) GetTotalUsers() ([]map[string]string, error) {
-	sql := "select count(*) as cnt from sso.Users where status != 10"
+	sql := "select count(*) as cnt from users where status != 10"
 	return mEngine.SQL(sql).QueryString()
 }
 

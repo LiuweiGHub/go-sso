@@ -673,6 +673,7 @@ func GetDetail(c *gin.Context) {
 	sg := c.Query("sg")
 	xls := XLSForUrlMap[c.Query("xls")]
 	bjhs := XLSForUrlMap[c.Query("bjhs")]
+
 	v := url.Values{}
 	v.Add("act", "ok")
 	v.Add("name", name)
@@ -693,36 +694,123 @@ func GetDetail(c *gin.Context) {
 	v.Add("leixinggg", "on")
 	v.Add("xls", xls)
 	v.Add("bjhs", bjhs)
+
 	params := v.Encode()
-	// url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
+	url := "https://zydx.win/api.php?" + params + "&api=1&bcxx=1"
 
-	url := "http://zydx.win/api.php?" + params + "&api=1&bcxx=1"
+	// 创建可复用的HTTP客户端，设置超时
+	client := &http.Client{
+		Timeout: 30 * time.Second, // 设置总请求超时时间
+	}
 
-	// 发起对第三方API的HTTP GET请求
-	// 发送GET请求到第三方API
-	resp, err := http.Get(url)
-	fmt.Print(url)
-	fmt.Print(resp)
+	// 创建HTTP请求
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// 设置请求头，模拟浏览器行为
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+
+	start := time.Now()
+
+	// 执行请求
+	resp, err := client.Do(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	defer resp.Body.Close()
 
-	// 将第三方API的响应原样返回给客户端
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	fmt.Printf("GetDetail API请求耗时：%v\n", time.Now().Sub(start))
+
+	// 检查HTTP状态码
+	if resp.StatusCode != http.StatusOK {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": fmt.Sprintf("第三方API返回错误状态码: %d", resp.StatusCode)})
 		return
 	}
 
-	// 设置响应头，将第三方API响应的content-type等头部信息复制到客户端响应
+	// 复制响应头
 	for k, v := range resp.Header {
-		c.Header(k, v[0])
+		c.Writer.Header().Set(k, v[0])
 	}
-	// 直接将响应体返回给客户端
-	c.Data(http.StatusOK, resp.Header.Get("Content-Type"), data)
+
+	// 设置状态码
+	c.Status(resp.StatusCode)
+
+	// 使用流式传输直接将响应体发送给客户端，避免全部加载到内存
+	start = time.Now()
+	if _, err := io.Copy(c.Writer, resp.Body); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	fmt.Printf("GetDetail 流式传输耗时：%v\n", time.Now().Sub(start))
 }
+
+// func GetDetail(c *gin.Context) {
+// 	inputDate := c.Query("inputdate")
+// 	name := c.Query("name")
+// 	sex := SexForUrlMap[c.Query("sex")]
+// 	ng := c.Query("ng")
+// 	yg := c.Query("yg")
+// 	rg := c.Query("rg")
+// 	sg := c.Query("sg")
+// 	xls := XLSForUrlMap[c.Query("xls")]
+// 	bjhs := XLSForUrlMap[c.Query("bjhs")]
+// 	v := url.Values{}
+// 	v.Add("act", "ok")
+// 	v.Add("name", name)
+// 	v.Add("DateType", c.Query("DateType"))
+// 	v.Add("inputdate", inputDate)
+// 	v.Add("ng", ng)
+// 	v.Add("yg", yg)
+// 	v.Add("rg", rg)
+// 	v.Add("sg", sg)
+// 	v.Add("sex", sex)
+// 	v.Add("leixing", "0")
+// 	v.Add("ztys", "1")
+// 	v.Add("city1", c.Query("city1"))
+// 	v.Add("city2", c.Query("city2"))
+// 	v.Add("city3", c.Query("city3"))
+// 	v.Add("Sect", "1")
+// 	v.Add("Siling", "0")
+// 	v.Add("leixinggg", "on")
+// 	v.Add("xls", xls)
+// 	v.Add("bjhs", bjhs)
+// 	params := v.Encode()
+// 	// url := "https://zydx.win/@2.0/api.php?" + params + "&api=1&bcxx=1"
+
+// 	url := "https://zydx.win/api.php?" + params + "&api=1&bcxx=1"
+
+// 	// 发起对第三方API的HTTP GET请求
+// 	// 发送GET请求到第三方API
+// 	start := time.Now()
+// 	resp, err := http.Get(url)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	defer resp.Body.Close()
+// 	fmt.Printf("GetDetail api.php函数执行耗时：%v\n", time.Now().Sub(start))
+// 	// 将第三方API的响应原样返回给客户端
+// 	start = time.Now()
+// 	data, err := io.ReadAll(resp.Body)
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	fmt.Printf("GetDetail 函数执行io耗时：%v\n", time.Now().Sub(start))
+
+// 	start = time.Now()
+// 	// 设置响应头，将第三方API响应的content-type等头部信息复制到客户端响应
+// 	for k, v := range resp.Header {
+// 		c.Header(k, v[0])
+// 	}
+// 	// 直接将响应体返回给客户端
+// 	c.Data(http.StatusOK, resp.Header.Get("Content-Type"), data)
+// 	fmt.Printf("GetDetail 函数执行耗时：%v\n", time.Now().Sub(start))
+// }
 
 // 注销登录
 func Logout(c *gin.Context) {
