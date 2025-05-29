@@ -1,0 +1,19 @@
+{{ define "copyright" }}
+
+<div style="text-align: center; padding: 20px; color: #666; font-size: 0.9em;">
+    Copyright © 2025 <span id="copyright-year"></span> 八字排盘 版权所有  
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener" style="color: #666; text-decoration: none;">
+      冀ICP备20003088号
+    </a>
+    <!-- 如需添加公安备案，可补充以下代码 -->
+    <!-- <a href="http://www.gongan.gov.cn/" target="_blank" rel="nofollow noopener" style="margin-left: 10px;">
+      冀公网安备 13010002000001号
+    </a> -->
+  </div>
+  
+  <!-- 自动更新版权年份（可选） -->
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
+
+{{ end }}
