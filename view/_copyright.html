@@ -1,19 +1,85 @@
 {{ define "copyright" }}
-
-<div style="text-align: center; padding: 20px; color: #666; font-size: 0.9em;">
-    Copyright © 2025 <span id="copyright-year"></span> 八字排盘 版权所有  
-    <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener" style="color: #666; text-decoration: none;">
-      冀ICP备20003088号
-    </a>
-    <!-- 如需添加公安备案，可补充以下代码 -->
-    <!-- <a href="http://www.gongan.gov.cn/" target="_blank" rel="nofollow noopener" style="margin-left: 10px;">
-      冀公网安备 13010002000001号
-    </a> -->
+<div class="copyright-container">
+  <div class="copyright-content">
+    <p class="copyright-text">
+      Copyright © 2020-<span id="copyright-year"></span> 八字排盘 版权所有
+    </p>
+    <span class="copyright-links">
+      <a 
+        href="https://beian.miit.gov.cn/" 
+        target="_blank" 
+        rel="nofollow noopener" 
+        class="copyright-link"
+      >
+        冀ICP备20003088号
+      </a>
+      <!-- 公安备案（可选） -->
+      <!-- <a 
+        href="http://www.gongan.gov.cn/" 
+        target="_blank" 
+        rel="nofollow noopener" 
+        class="copyright-link"
+        style="margin-left: 10px;"
+      >
+        冀公网安备 13010002000001号
+      </a> -->
+    </span>
   </div>
-  
-  <!-- 自动更新版权年份（可选） -->
-  <script>
-    document.getElementById('copyright-year').textContent = new Date().getFullYear();
-  </script>
+</div>
 
+<!-- 自动更新版权年份（可选） -->
+<script>
+  // 优化日期获取逻辑，处理可能的跨年份加载问题
+  window.addEventListener('DOMContentLoaded', function() {
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+      const currentYear = new Date().getFullYear();
+      yearSpan.textContent = currentYear;
+      
+      // 处理历史年份显示（如初始年份非2020时自动调整）
+      const startYear = 2020;
+      if (currentYear !== startYear) {
+        yearSpan.closest('.copyright-text').textContent = 
+          `Copyright © ${startYear}-${currentYear} 八字排盘 版权所有`;
+      }
+    }
+  });
+</script>
+
+<style>
+  .copyright-container {
+    text-align: center;
+    padding: 25px 15px; /* 优化内边距比例 */
+    background-color: #f8f9fa; /* 添加浅灰色背景 */
+    border-top: 1px solid #e9ecef; /* 顶部分割线 */
+  }
+
+  .copyright-content {
+    max-width: 800px; /* 限制最大宽度提升阅读体验 */
+    margin: 0 auto; /* 水平居中 */
+    font-family: 'Segoe UI', sans-serif; /* 更现代的字体 */
+    font-size: 0.92em; /* 微调字体大小 */
+    color: #555; /* 深灰色提升可读性 */
+  }
+
+  .copyright-text {
+    margin-bottom: 8px; /* 段落间距优化 */
+  }
+
+  .copyright-links {
+    display: flex; /* 使用flex布局 */
+    justify-content: center; /* 内容居中 */
+    gap: 15px; /* 优化链接间距 */
+  }
+
+  .copyright-link {
+    color: #6c757d; /* 深灰蓝色链接 */
+    text-decoration: none;
+    transition: color 0.3s ease; /* 添加颜色过渡效果 */
+  }
+
+  .copyright-link:hover {
+    color: #495057; /* 鼠标悬停颜色 */
+  }
+</style>
 {{ end }}
